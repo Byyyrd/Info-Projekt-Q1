@@ -40,5 +40,4 @@ public abstract class InteractiveGraphicalObject extends GraphicalObject impleme
     public void mousePressed(MouseEvent e){
 
     }
-
 }

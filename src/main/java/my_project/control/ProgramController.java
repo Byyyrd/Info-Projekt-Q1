@@ -1,6 +1,8 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import my_project.model.Background;
+import my_project.model.Bow;
 import my_project.model.Player;
 
 /**
@@ -31,7 +33,13 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        Background background = new Background();
+        viewController.draw(background);
         Player player = new Player();
+        viewController.draw(player);
+        Bow bow = new Bow(player);
+        viewController.draw(bow);
+        viewController.register(bow);
         CollisionController collisionController = new CollisionController(player);
     }
 
