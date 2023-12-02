@@ -17,4 +17,10 @@ public abstract class Enemy extends GraphicalObject {
         }
         collisionController.addProjectile(projectile);
     }
+
+    protected void move(double dt, int speed){
+        this.x += (player.getX() - this.x) * speed * dt;
+        this.y += (player.getY() - this.y) * speed * dt;
+    }
+
 }
