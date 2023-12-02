@@ -7,8 +7,8 @@ import my_project.model.Projectile;
 import my_project.model.enemies.Enemy;
 
 public class CollisionController {
-    private List<Enemy> enemyList = new List();
-    private List<Projectile> projectileList = new List();
+    private List<Enemy> enemyList = new List<>();
+    private List<Projectile> projectileList = new List<>();
     private Player player;
     private ViewController viewController;
 
