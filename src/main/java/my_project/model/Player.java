@@ -7,6 +7,7 @@ import my_project.Config;
 
 public class Player extends InteractiveGraphicalObject {
     private double currentSpeed = 200;
+    private int hp = 2;
     public Player(){
         x = 488-8; //Mitte des Bildschirms
         y = 488; //Eine sinnvolle Zahl unter dem Zentrum
@@ -34,9 +35,17 @@ public class Player extends InteractiveGraphicalObject {
         } else if (ViewController.isKeyDown(83)) {
             y += currentSpeed * dt;
         }
-        if (x < 35) x = 35;
-        if (x > 925) x = 925;
-        if (y < 35) y = 35;
-        if (y > 505) y = 505;
+        checkBounds();
+    }
+
+    private void checkBounds(){
+        if(x < Config.leftBound) x = Config.leftBound;
+        if(x > Config.rightBound) x = Config.rightBound;
+        if(y < Config.upBound) y = Config.upBound;
+        if(y > Config.downBound) y = Config.downBound;
+    }
+
+    public void takeDamage(){
+
     }
 }
