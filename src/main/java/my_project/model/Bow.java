@@ -6,6 +6,7 @@ import KAGO_framework.view.DrawTool;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.sql.SQLOutput;
 
 public class Bow extends InteractiveGraphicalObject {
     private double power = 0;
@@ -37,7 +38,18 @@ public class Bow extends InteractiveGraphicalObject {
 
     @Override
     public void update(double dt) {
-
+        if(mouseDown){
+            power += dt;
+            if (power > maxPower){
+                power = maxPower;
+            }
+            System.out.println(power);
+        } else {
+            if (power > 0){
+                System.out.println("POW!!!");
+            }
+            power = 0;
+        }
     }
 
     @Override
