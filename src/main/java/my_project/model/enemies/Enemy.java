@@ -9,18 +9,19 @@ public abstract class Enemy extends GraphicalObject {
     protected CollisionController collisionController;
     protected Player player;
 
-    protected void spawnBullet(double x, double y, double dirX, double dirY, double speed, BulletType bulletType){
+    protected void spawnBullet(double x, double y, double degrees, double speed, BulletType bulletType){
         Projectile projectile = null;
         switch (bulletType){
-            case Bullet -> projectile = new Bullet(x,y,dirX,dirY,speed);
-            case Arrow -> projectile = new Arrow(x,y,dirX,dirY,speed);
+            case Bullet -> projectile = new Bullet(x,y,degrees,speed);
+            case Arrow -> projectile = new Arrow(x,y,degrees,speed);
         }
         collisionController.addProjectile(projectile);
     }
 
     protected void move(double dt, int speed){
-        this.x += (player.getX() - this.x) * speed * dt;
-        this.y += (player.getY() - this.y) * speed * dt;
+        double degrees = Math.atan2(player.getY()-y,player.getX()-x);
+        this.x += Math.cos(degrees) * speed * dt;
+        this.y += Math.sin(degrees) * speed * dt;
     }
 
 }

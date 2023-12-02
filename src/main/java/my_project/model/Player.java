@@ -39,14 +39,17 @@ public class Player extends InteractiveGraphicalObject {
     }
 
     private void checkBounds(){
-        if(x < Config.leftBound) x = Config.leftBound;
-        if(x > Config.rightBound) x = Config.rightBound;
-        if(y < Config.upBound) y = Config.upBound;
-        if(y > Config.downBound) y = Config.downBound;
+        if((x+8) < Config.leftBound) x = Config.leftBound - 8;
+        if((x+8) > Config.rightBound) x = Config.rightBound - 8;
+        if((y+8) < Config.upBound) y = Config.upBound - 8;
+        if((y+8) > Config.downBound) y = Config.downBound - 8;
     }
 
     public void takeDamage(){
-
+        //TODO Player go wäh
     }
 
+    public void setCurrentSpeed(double newSpeed){
+        currentSpeed = newSpeed;
+    }
 }

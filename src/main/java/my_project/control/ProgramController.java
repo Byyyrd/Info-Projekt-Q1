@@ -16,7 +16,7 @@ public class ProgramController {
 
     // Referenzen
     private CollisionController collisionController;
-    private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
+    private ViewController viewController;
 
     /**
      * Konstruktor

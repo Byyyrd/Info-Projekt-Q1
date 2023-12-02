@@ -2,6 +2,7 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.List;
+import my_project.model.Effects;
 import my_project.model.Player;
 import my_project.model.Projectile;
 import my_project.model.enemies.Enemy;
@@ -9,6 +10,7 @@ import my_project.model.enemies.Enemy;
 public class CollisionController {
     private List<Enemy> enemyList = new List<>();
     private List<Projectile> projectileList = new List<>();
+    private List<Effects> effectsList = new List<>();
     private Player player;
     private ViewController viewController;
 
@@ -21,6 +23,7 @@ public class CollisionController {
         checkEnemyCollision();
         checkPlayerCollision();
         checkBullets();
+        checkEffects();
     }
 
     public void addEnemy(Enemy enemy){
@@ -39,11 +42,9 @@ public class CollisionController {
 
     private void checkPlayerCollision(){
         List<Projectile> list = getWantedProjectiles(true);
-
         list.toFirst();
         while(list.hasAccess()){
             if(player.collidesWith(list.getContent())) {
-                //player go wääh wääh
                 player.takeDamage();
                 list.getContent().setDestroy(true);
             }
@@ -58,17 +59,30 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
+                viewController.draw(projectileList.getContent().onDestroy());
                 viewController.removeDrawable(projectileList.getContent());
                 projectileList.remove();
-                System.out.println("removed");
             } else {
                 projectileList.next();
             }
         }
     }
 
+    private void checkEffects(){
+        effectsList.toFirst();
+        while(effectsList.hasAccess()) {
+            if (effectsList.getContent().isDestroyed()) {
+                viewController.removeDrawable(effectsList.getContent());
+                effectsList.remove();
+                System.out.println("Removed!");
+            } else {
+                effectsList.next();
+            }
+        }
+    }
+
     /**
-     * returns list of projectiles which have the property of harmfulCheck
+     * Returns list of projectiles which have the property of harmfulCheck
      * @param harmfulCheck which Projectiles are wanted, harmful or !harmful
      * @return list
      */

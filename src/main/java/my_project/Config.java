@@ -16,9 +16,9 @@ public class Config {
 
     // Weitere Optionen für das Projekt
     public final static boolean useSound = true;
-    public final static int leftBound = 35;
-    public final static int rightBound = 925;
-    public final static int upBound = 35;
-    public final static int downBound = 505;
+    public final static int leftBound = 43;
+    public final static int rightBound = 933;
+    public final static int upBound = 43;
+    public final static int downBound = 513;
 
 }
