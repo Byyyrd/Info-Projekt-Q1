@@ -15,6 +15,7 @@ public class ProgramController {
 
 
     // Referenzen
+    private CollisionController collisionController;
     private ViewController viewController;  // diese Referenz soll auf ein Objekt der Klasse viewController zeigen. Über dieses Objekt wird das Fenster gesteuert.
 
     /**
@@ -37,10 +38,10 @@ public class ProgramController {
         viewController.draw(background);
         Player player = new Player();
         viewController.draw(player);
-        Bow bow = new Bow(player);
+        collisionController = new CollisionController(player, viewController);
+        Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        CollisionController collisionController = new CollisionController(player);
     }
 
     /**
@@ -48,6 +49,6 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-
+        collisionController.update();
     }
 }

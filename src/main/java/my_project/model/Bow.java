@@ -2,11 +2,11 @@ package my_project.model;
 
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
+import my_project.control.CollisionController;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.sql.SQLOutput;
 
 public class Bow extends InteractiveGraphicalObject {
     private double power = 0;
@@ -16,9 +16,11 @@ public class Bow extends InteractiveGraphicalObject {
     private double mouseY;
     private boolean mouseDown;
     private Player player;
+    private CollisionController collisionController;
 
-    public Bow(Player player){
+    public Bow(Player player, CollisionController collisionController){
         this.player = player;
+        this.collisionController = collisionController;
         setNewImage("src/main/resources/graphic/bow.png");
     }
 
@@ -38,18 +40,27 @@ public class Bow extends InteractiveGraphicalObject {
 
     @Override
     public void update(double dt) {
+        charge(dt);
+    }
+
+    private void charge(double dt){
         if(mouseDown){
             power += dt;
             if (power > maxPower){
                 power = maxPower;
             }
-            System.out.println(power);
         } else {
             if (power > 0){
-                System.out.println("POW!!!");
+                shoot(power);
             }
             power = 0;
         }
+    }
+
+    private void shoot(double shootingPower){
+        //TODO AAAAAAAAAAAAAAA
+        Arrow arrow = new Arrow(player.getX()-4,player.getY()-4,mouseX-player.getX(),mouseY-player.getY(),shootingPower*8);
+        collisionController.addProjectile(arrow);
     }
 
     @Override

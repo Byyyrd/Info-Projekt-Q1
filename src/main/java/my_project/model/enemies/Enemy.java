@@ -7,6 +7,7 @@ import my_project.model.BulletType;
 
 public abstract class Enemy extends GraphicalObject {
     protected CollisionController collisionController;
+    protected Player player;
 
     protected void spawnBullet(double x, double y, double dirX, double dirY, double speed, BulletType bulletType){
         Projectile projectile = null;
@@ -15,6 +16,5 @@ public abstract class Enemy extends GraphicalObject {
             case Arrow -> projectile = new Arrow(x,y,dirX,dirY,speed);
         }
         collisionController.addProjectile(projectile);
-
     }
 }
