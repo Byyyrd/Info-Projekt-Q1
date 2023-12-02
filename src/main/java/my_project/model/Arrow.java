@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class Arrow extends Projectile{
+    double speedDecay = speed/2;
     public Arrow(double x, double y, double dirX, double dirY, double speed){
         super(x,y,dirX,dirY,speed);
         setNewImage("src/main/resources/graphic/arrow.png");
@@ -19,7 +20,7 @@ public class Arrow extends Projectile{
     public void update(double dt) {
         super.update(dt);
         speed = Util.lerp(speed,0,dt);
-        if(speed < 10){
+        if(speed < speedDecay){
             destroy = true;
         }
     }

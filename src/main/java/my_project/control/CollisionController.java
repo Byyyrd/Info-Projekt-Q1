@@ -49,7 +49,6 @@ public class CollisionController {
             }
             list.next();
         }
-        checkBullets();
     }
 
     /**
@@ -59,7 +58,9 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
+                viewController.removeDrawable(projectileList.getContent());
                 projectileList.remove();
+                System.out.println("removed");
             } else {
                 projectileList.next();
             }

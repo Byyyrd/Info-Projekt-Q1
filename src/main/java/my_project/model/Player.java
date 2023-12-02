@@ -48,4 +48,5 @@ public class Player extends InteractiveGraphicalObject {
     public void takeDamage(){
 
     }
+
 }
