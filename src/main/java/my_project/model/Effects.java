@@ -3,7 +3,7 @@ package my_project.model;
 import KAGO_framework.model.GraphicalObject;
 
 public abstract class Effects extends GraphicalObject {
-    protected boolean isDestroyed;
+    protected boolean destroyed;
 
     public Effects(double x, double y){
         this.x = x;
@@ -11,6 +11,6 @@ public abstract class Effects extends GraphicalObject {
     }
 
     public boolean isDestroyed() {
-        return isDestroyed;
+        return destroyed;
     }
 }

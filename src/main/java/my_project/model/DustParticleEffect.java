@@ -38,7 +38,7 @@ public class DustParticleEffect extends Effects {
     public void update(double dt) {
         alpha = Util.lerp(alpha,0,dt*2);
         if(alpha < 0.05){
-            isDestroyed = true;
+            destroyed = true;
             alpha = 0;
         }
         for (int i = 0; i < circles.length; i++) {

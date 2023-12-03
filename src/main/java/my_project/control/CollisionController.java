@@ -46,7 +46,7 @@ public class CollisionController {
         while(list.hasAccess()){
             if(player.collidesWith(list.getContent())) {
                 player.takeDamage();
-                list.getContent().setDestroy(true);
+                list.getContent().setDestroyed(true);
             }
             list.next();
         }
@@ -59,7 +59,7 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
-                Effects effect = projectileList.getContent().onDestroy();
+                Effects effect = projectileList.getContent().onDestroyed();
                 if (effect != null) {
                     effectsList.append(effect);
                     viewController.draw(effect);

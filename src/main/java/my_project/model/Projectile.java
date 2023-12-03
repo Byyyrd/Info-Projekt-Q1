@@ -9,7 +9,7 @@ public abstract class Projectile extends GraphicalObject {
     protected double offsetX;
     protected double offsetY;
     protected boolean isHarmful = true;
-    protected boolean destroy = false;
+    protected boolean destroyed = false;
 
     public Projectile(double x, double y, double degrees, double speed) {
         this.x = x;
@@ -29,16 +29,16 @@ public abstract class Projectile extends GraphicalObject {
         y += dirY * speed * dt;
     }
 
-    public Effects onDestroy(){
+    public Effects onDestroyed(){
         return null;
     }
 
     public boolean isDestroyed() {
-        return destroy;
+        return destroyed;
     }
 
-    public void setDestroy(boolean destroy) {
-        this.destroy = destroy;
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
     }
 
     public boolean isHarmful() {

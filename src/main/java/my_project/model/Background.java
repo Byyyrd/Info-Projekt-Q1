@@ -8,7 +8,7 @@ import my_project.Util;
 import java.awt.image.BufferedImage;
 
 public class Background extends GraphicalObject {
-    private BufferedImage[] backgroundEffects = new BufferedImage[4];
+    private BufferedImage[] backgroundEffects;
     private int index = 0;
     private double timer = 0.1;
     private final double maxTimer = 0.1;

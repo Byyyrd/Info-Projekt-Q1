@@ -3,15 +3,15 @@ package my_project.model.enemies;
 import KAGO_framework.model.GraphicalObject;
 import my_project.control.CollisionController;
 import my_project.model.*;
-import my_project.model.BulletType;
+import my_project.model.ProjectileType;
 
 public abstract class Enemy extends GraphicalObject {
     protected CollisionController collisionController;
     protected Player player;
 
-    protected void spawnBullet(double x, double y, double degrees, double speed, BulletType bulletType){
+    protected void spawnBullet(double x, double y, double degrees, double speed, ProjectileType projectileType){
         Projectile projectile = null;
-        switch (bulletType){
+        switch (projectileType){
             case Bullet -> projectile = new Bullet(x,y,degrees,speed);
             case Arrow -> projectile = new Arrow(x,y,degrees,speed);
         }

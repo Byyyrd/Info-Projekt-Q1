@@ -22,7 +22,7 @@ public class Arrow extends Projectile{
         if(checkBounds()) speed = 0;
         speed = Util.lerp(speed,0,dt*4);
         if(speed < speedDecay){
-            destroy = true;
+            destroyed = true;
         }
     }
 
@@ -38,7 +38,7 @@ public class Arrow extends Projectile{
     }
 
     @Override
-    public Effects onDestroy() {
+    public Effects onDestroyed() {
         return new DustParticleEffect(x+offsetX,y+offsetX);
     }
 }
