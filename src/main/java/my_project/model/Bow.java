@@ -85,7 +85,12 @@ public class Bow extends InteractiveGraphicalObject {
     public void mousePressed(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
-        mouseDown = true;
+        if(e.getButton() == 1) {
+            mouseDown = true;
+        }
+        if(e.getButton() == 3) {
+            //TODO Add dash
+        }
     }
 
     @Override
@@ -102,6 +107,11 @@ public class Bow extends InteractiveGraphicalObject {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseDown = false;
+        if(e.getButton() == 1) {
+            mouseDown = false;
+        }
+        if(e.getButton() == 3) {
+            //Same thing here
+        }
     }
 }
