@@ -45,7 +45,7 @@ public abstract class Projectile extends GraphicalObject {
         return isHarmful;
     }
 
-    public boolean wasInWall(){
+    public boolean checkBounds(){
         boolean inWall = false;
         if((x+offsetX) < Config.leftBound){
             x = Config.leftBound - offsetX * 2;
@@ -64,10 +64,5 @@ public abstract class Projectile extends GraphicalObject {
             inWall = true;
         }
         return inWall;
-    }
-
-
-    public boolean checkBounds() {
-        return true;
     }
 }

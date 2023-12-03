@@ -21,20 +21,15 @@ public class Bow extends InteractiveGraphicalObject {
     private boolean mouseDown;
     private Player player;
     private CollisionController collisionController;
-    private BufferedImage visor;
 
     public Bow(Player player, CollisionController collisionController){
         this.player = player;
         this.collisionController = collisionController;
-        setNewImage("src/main/resources/graphic/visor.png");
-        visor = getMyImage();
         setNewImage("src/main/resources/graphic/bow.png");
     }
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(visor,mouseX-8,mouseY-8);
-
         double localOffset = 0;
         for (int i = 0; i < 5; i++) {
             if(power == maxPower) {

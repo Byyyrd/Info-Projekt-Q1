@@ -20,7 +20,7 @@ public class Arrow extends Projectile{
     @Override
     public void update(double dt) {
         super.update(dt);
-        if(wasInWall()) speed = 0;
+        if(checkBounds()) speed = 0;
         speed = Util.lerp(speed,0,dt*4);
         if(speed < speedDecay){
             destroy = true;
