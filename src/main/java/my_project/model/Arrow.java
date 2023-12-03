@@ -1,6 +1,5 @@
 package my_project.model;
 
-import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 
@@ -14,7 +13,7 @@ public class Arrow extends Projectile{
         setNewImage("src/main/resources/graphic/arrow.png");
         isHarmful = false;
         offsetX = 8;
-        offsetY = 4;
+        offsetY = 8;
     }
 
     @Override
@@ -32,14 +31,14 @@ public class Arrow extends Projectile{
         Graphics2D g2d = drawTool.getGraphics2D();
         AffineTransform old = g2d.getTransform();
 
-        g2d.rotate(degrees, x+offsetX, y+offsetY);
+        g2d.rotate(degrees, x, y);
         drawTool.drawImage(getMyImage(),x-offsetX,y-offsetY);
 
         g2d.setTransform(old);
     }
 
     @Override
-    public GraphicalObject onDestroy() {
+    public Effects onDestroy() {
         return new DustParticleEffect(x+offsetX,y+offsetX);
     }
 }

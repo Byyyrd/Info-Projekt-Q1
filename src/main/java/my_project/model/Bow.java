@@ -75,9 +75,9 @@ public class Bow extends InteractiveGraphicalObject {
         }
     }
 
-    private void shoot(double shootingPower){
-        double degrees = Math.atan2(mouseY-player.getY(),mouseX-player.getX());
-        Arrow arrow = new Arrow(player.getX() - 4 + Math.cos(degrees) * 20,player.getY() - 4 + Math.sin(degrees) * 20, degrees,shootingPower * 5000);
+    private void shoot(double shootingPower) {
+        double degrees = Math.atan2(mouseY - (player.getY() + 4),mouseX - (player.getX() + 4));
+        Arrow arrow = new Arrow(player.getX() + 4 + Math.cos(degrees) * 20,player.getY() + 4 + Math.sin(degrees) * 20, degrees,shootingPower * 5000);
         collisionController.addProjectile(arrow);
     }
 

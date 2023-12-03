@@ -59,7 +59,11 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
-                viewController.draw(projectileList.getContent().onDestroy());
+                Effects effect = projectileList.getContent().onDestroy();
+                if (effect != null) {
+                    effectsList.append(effect);
+                    viewController.draw(effect);
+                }
                 viewController.removeDrawable(projectileList.getContent());
                 projectileList.remove();
             } else {
@@ -74,7 +78,6 @@ public class CollisionController {
             if (effectsList.getContent().isDestroyed()) {
                 viewController.removeDrawable(effectsList.getContent());
                 effectsList.remove();
-                System.out.println("Removed!");
             } else {
                 effectsList.next();
             }

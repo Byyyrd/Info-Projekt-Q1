@@ -2,6 +2,11 @@ package my_project;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Util {
     /**
      * Lerp is short for linear interpolation
@@ -41,6 +46,34 @@ public class Util {
             }
             list.next();
         }
+    }
+
+    /**
+     * Gets and returns all images inside a folder in the graphic resources.
+     * For this to work, the images inside the folder have to be the same name as the folder itself.
+     * For Example this would work:
+     * <pre>
+     *      MyReallyCoolFolder:
+     *      ---MyReallyCoolFolder1.png
+     *      ---MyReallyCoolFolder2.png
+     * </pre>
+     *
+     * Any other kind of structure won't work
+     * @param path the name of the top folder
+     * @return an Array of Buffered Images that can be drawn using drawTool.drawImage()
+     */
+    public static BufferedImage[] getAllImagesFromFolder(String path) {
+        File directory = new File("src/main/resources/graphic/" + path);
+        int count = directory.list().length;
+        BufferedImage[] images = new BufferedImage[count];
+        for (int i = 0; i < images.length; i++) {
+            try {
+                images[i] = ImageIO.read(new File("src/main/resources/graphic/" + path + "/" + path + (i+1) + ".png"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return images;
     }
 
     /**

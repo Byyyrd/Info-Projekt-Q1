@@ -29,7 +29,7 @@ public abstract class Projectile extends GraphicalObject {
         y += dirY * speed * dt;
     }
 
-    public GraphicalObject onDestroy(){
+    public Effects onDestroy(){
         return null;
     }
 
@@ -56,11 +56,11 @@ public abstract class Projectile extends GraphicalObject {
             inWall = true;
         }
         if((y+offsetY) < Config.upBound){
-            y = Config.upBound - offsetY * 4;
+            y = Config.upBound - offsetY * 2;
             inWall = true;
         }
         if((y+offsetY) > Config.downBound){
-            y = Config.downBound - offsetY * 4;
+            y = Config.downBound - offsetY * 2;
             inWall = true;
         }
         return inWall;
