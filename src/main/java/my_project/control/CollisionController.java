@@ -2,7 +2,7 @@ package my_project.control;
 
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.List;
-import my_project.model.Effects;
+import my_project.model.Effect;
 import my_project.model.Player;
 import my_project.model.Projectile;
 import my_project.model.enemies.Enemy;
@@ -10,20 +10,21 @@ import my_project.model.enemies.Enemy;
 public class CollisionController {
     private List<Enemy> enemyList = new List<>();
     private List<Projectile> projectileList = new List<>();
-    private List<Effects> effectsList = new List<>();
     private Player player;
     private ViewController viewController;
+    private EffectController effectController;
 
     public CollisionController(Player player, ViewController viewController){
         this.player = player;
         this.viewController = viewController;
+        effectController = new EffectController(viewController);
     }
 
     public void update(){
         checkEnemyCollision();
         checkPlayerCollision();
         checkBullets();
-        checkEffects();
+        effectController.update();
     }
 
     public void addEnemy(Enemy enemy){
@@ -59,9 +60,9 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
-                Effects effect = projectileList.getContent().onDestroyed();
+                Effect effect = projectileList.getContent().onDestroyed();
                 if (effect != null) {
-                    effectsList.append(effect);
+                    effectController.add(effect);
                     viewController.draw(effect);
                 }
                 viewController.removeDrawable(projectileList.getContent());
@@ -72,21 +73,9 @@ public class CollisionController {
         }
     }
 
-    private void checkEffects(){
-        effectsList.toFirst();
-        while(effectsList.hasAccess()) {
-            if (effectsList.getContent().isDestroyed()) {
-                viewController.removeDrawable(effectsList.getContent());
-                effectsList.remove();
-            } else {
-                effectsList.next();
-            }
-        }
-    }
-
     /**
      * Returns list of projectiles which have the property of harmfulCheck
-     * @param harmfulCheck which Projectiles are wanted, harmful or !harmful
+     * @param harmfulCheck which Projectiles are wanted, harmful or not harmful
      * @return list
      */
     private List<Projectile> getWantedProjectiles(boolean harmfulCheck){

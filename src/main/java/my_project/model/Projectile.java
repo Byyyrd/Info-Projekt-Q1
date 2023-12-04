@@ -29,7 +29,7 @@ public abstract class Projectile extends GraphicalObject {
         y += dirY * speed * dt;
     }
 
-    public Effects onDestroyed(){
+    public Effect onDestroyed(){
         return null;
     }
 

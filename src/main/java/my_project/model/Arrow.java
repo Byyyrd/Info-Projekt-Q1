@@ -38,7 +38,7 @@ public class Arrow extends Projectile{
     }
 
     @Override
-    public Effects onDestroyed() {
+    public Effect onDestroyed() {
         return new DustParticleEffect(x+offsetX,y+offsetX);
     }
 }

@@ -2,10 +2,10 @@ package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
 
-public abstract class Effects extends GraphicalObject {
+public abstract class Effect extends GraphicalObject {
     protected boolean destroyed;
 
-    public Effects(double x, double y){
+    public Effect(double x, double y){
         this.x = x;
         this.y = y;
     }

@@ -1,10 +1,9 @@
 package my_project.model;
 
-import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 
-public class DustParticleEffect extends Effects {
+public class DustParticleEffect extends Effect {
     private Particle[] circles;
     private double alpha = 1;
     public DustParticleEffect(double x, double y){
