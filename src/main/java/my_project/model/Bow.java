@@ -19,6 +19,7 @@ public class Bow extends InteractiveGraphicalObject {
     private double smoothOffsetX;
     private double smoothOffsetY;
     private boolean mouseDown;
+    private boolean canDash = true;
     private Player player;
     private CollisionController collisionController;
 
@@ -71,7 +72,7 @@ public class Bow extends InteractiveGraphicalObject {
             if (power > 0){
                 shoot(power);
                 player.setCurrentSpeed(200);
-                Util.setCamShake(0.1,40);
+                Util.setCamShake(0.2,power*50+20);
             }
             power = 0;
         }
@@ -90,8 +91,9 @@ public class Bow extends InteractiveGraphicalObject {
         if(e.getButton() == 1) {
             mouseDown = true;
         }
-        if(e.getButton() == 3) {
-            //TODO Add dash
+        if(e.getButton() == 3 && canDash) {
+            canDash = false;
+            player.setDash();
         }
     }
 
@@ -113,7 +115,7 @@ public class Bow extends InteractiveGraphicalObject {
             mouseDown = false;
         }
         if(e.getButton() == 3) {
-            //Same thing here
+            canDash = true;
         }
     }
 }

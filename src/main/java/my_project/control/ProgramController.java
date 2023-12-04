@@ -37,15 +37,14 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
-        Background background = new Background();
-        viewController.draw(background);
+        viewController.draw(new Background());
         Player player = new Player();
         viewController.draw(player);
         collisionController = new CollisionController(player, this);
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        viewController.draw(new ListEnemy(300,300,150,player));
+        //viewController.draw(new ListEnemy(300,300,150,player));
     }
 
     /**
