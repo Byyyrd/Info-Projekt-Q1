@@ -66,10 +66,12 @@ public class Bow extends InteractiveGraphicalObject {
                 power = maxPower;
             }
             player.setCurrentSpeed(200-power*150);
+            Util.setCamShake(0.1,power*20);
         } else {
             if (power > 0){
                 shoot(power);
                 player.setCurrentSpeed(200);
+                Util.setCamShake(0.1,40);
             }
             power = 0;
         }

@@ -1,6 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import my_project.Util;
 import my_project.model.Background;
 import my_project.model.Bow;
 import my_project.model.Player;
@@ -50,5 +51,6 @@ public class ProgramController {
      */
     public void updateProgram(double dt){
         collisionController.update();
+        Util.applyCamShake(dt);
     }
 }

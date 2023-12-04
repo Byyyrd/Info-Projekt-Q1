@@ -8,6 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Util {
+    private static double camShakeX;
+    private static double camShakeY;
+    private static double strength;
+    private static double duration;
     /**
      * Lerp is short for linear interpolation
      * It interpolates / smooths a number from one to another
@@ -74,6 +78,24 @@ public class Util {
             }
         }
         return images;
+    }
+
+    public static void applyCamShake(double dt) {
+        camShakeX = (duration * strength * Math.random()) * 2 - (duration * strength);
+        camShakeY = (duration * strength * Math.random()) * 2 - (duration * strength);
+        duration -= dt;
+        if(duration < 0) duration = 0;
+    }
+
+    public static void setCamShake(double duration, double strength) {
+        if(Util.strength * Util.duration < strength * duration){
+            Util.duration = duration;
+            Util.strength = strength;
+        }
+    }
+
+    public static double[] getCamShake() {
+        return new double[]{camShakeX, camShakeY};
     }
 
     /**
