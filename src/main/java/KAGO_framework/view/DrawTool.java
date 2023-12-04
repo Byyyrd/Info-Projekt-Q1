@@ -1,5 +1,7 @@
 package KAGO_framework.view;
 
+import my_project.Util;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.*;
@@ -22,8 +24,8 @@ public class DrawTool {
      * @param x Die x-Koordinate der oberen linken Ecke
      * @param y Die y-Koordinate der oberen linken Ecke
      */
-    public void drawImage(BufferedImage bI, double x, double y){
-        if (graphics2D!= null) graphics2D.drawImage(bI, (int)x, (int)y, null);
+    public void drawImage(BufferedImage bI, double x, double y) {
+        if (graphics2D!= null) graphics2D.drawImage(bI, (int) (x + Util.getCamShake()[0]), (int) (y + Util.getCamShake()[1]), null);
     }
 
     /**
@@ -71,7 +73,7 @@ public class DrawTool {
      * @param height Die Hoehe
      */
     public void drawRectangle(double x, double y, double width, double height){
-        Rectangle2D.Double r = new Rectangle2D.Double(x,y,width,height);
+        Rectangle2D.Double r = new Rectangle2D.Double(x + Util.getCamShake()[0],y + Util.getCamShake()[1],width,height);
         if (graphics2D!= null) graphics2D.draw(r);
     }
 
@@ -95,7 +97,7 @@ public class DrawTool {
      * @param height Die Hoehe
      */
     public void drawFilledRectangle(double x, double y, double width, double height){
-        Rectangle2D.Double r = new Rectangle2D.Double(x,y,width,height);
+        Rectangle2D.Double r = new Rectangle2D.Double(x + Util.getCamShake()[0],y + Util.getCamShake()[1],width,height);
         if (graphics2D!= null) graphics2D.fill(r);
     }
 
@@ -142,7 +144,7 @@ public class DrawTool {
      * @param radius Der Kreisradius
      */
     public void drawCircle(double x, double y, double radius){
-        Ellipse2D.Double e = new Ellipse2D.Double(x-radius,y-radius,radius*2,radius*2);
+        Ellipse2D.Double e = new Ellipse2D.Double(x-radius + Util.getCamShake()[0],y-radius + Util.getCamShake()[1],radius*2,radius*2);
         if (graphics2D!= null) graphics2D.draw(e);
     }
 
@@ -153,7 +155,7 @@ public class DrawTool {
      * @param radius Der Kreisradius
      */
     public void drawFilledCircle(double x, double y, double radius){
-        Ellipse2D.Double e = new Ellipse2D.Double(x-radius,y-radius,radius*2,radius*2);
+        Ellipse2D.Double e = new Ellipse2D.Double(x-radius + Util.getCamShake()[0],y-radius + Util.getCamShake()[1],radius*2,radius*2);
         if (graphics2D!= null) graphics2D.fill(e);
     }
 

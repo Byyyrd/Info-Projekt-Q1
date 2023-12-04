@@ -8,11 +8,12 @@ import my_project.Util;
 import java.awt.image.BufferedImage;
 
 public class Background extends GraphicalObject {
-    private BufferedImage[] backgroundEffects;
+    private final BufferedImage[] backgroundEffects;
     private int index = 0;
     private double timer = 0.1;
     private final double maxTimer = 0.1;
     private double intensity = 10;
+
     public Background(){
         backgroundEffects = Util.getAllImagesFromFolder("backgroundEffect");
         setNewImage("src/main/resources/graphic/background.png");
@@ -20,6 +21,8 @@ public class Background extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
+        drawTool.setCurrentColor(188,74,155,255);
+        drawTool.drawFilledRectangle(-50,-50, Config.WINDOW_WIDTH+100,Config.WINDOW_HEIGHT+100);
         drawTool.setCurrentColor(20,16,19,255);
         drawTool.drawFilledRectangle(0,0, Config.WINDOW_WIDTH,Config.WINDOW_HEIGHT);
         drawTool.setCurrentColor(255,255,255,255);
