@@ -44,7 +44,7 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        viewController.draw(new ListEnemy());
+        viewController.draw(new ListEnemy(300,300,150,player));
     }
 
     /**

@@ -24,6 +24,17 @@ public class Util {
         return start * (1 - time) + end * time;
     }
 
+    public static <ContentType> int countList(List<ContentType> list){
+        int count = 0;
+        list.toFirst();
+        while (list.hasAccess()){
+            count++;
+            list.next();
+        }
+        return count;
+    }
+
+
     /**
      * Finds Object in list and removes it. Current of list ends on first.
      * @param list list remove from
