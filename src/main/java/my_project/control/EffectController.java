@@ -1,15 +1,14 @@
 package my_project.control;
 
-import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.model.Effect;
 
 public class EffectController {
     private List<Effect> effectsList = new List<>();
-    private ViewController viewController;
+    private ProgramController programController;
 
-    public EffectController(ViewController viewController){
-        this.viewController = viewController;
+    public EffectController(ProgramController programController){
+        this.programController = programController;
     }
 
     public void update(){
@@ -24,7 +23,7 @@ public class EffectController {
         effectsList.toFirst();
         while(effectsList.hasAccess()) {
             if (effectsList.getContent().isDestroyed()) {
-                viewController.removeDrawable(effectsList.getContent());
+                programController.removeObject(effectsList.getContent());
                 effectsList.remove();
             } else {
                 effectsList.next();

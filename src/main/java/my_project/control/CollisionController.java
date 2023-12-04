@@ -1,6 +1,5 @@
 package my_project.control;
 
-import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.model.Effect;
 import my_project.model.Player;
@@ -11,13 +10,13 @@ public class CollisionController {
     private List<Enemy> enemyList = new List<>();
     private List<Projectile> projectileList = new List<>();
     private Player player;
-    private ViewController viewController;
+    private ProgramController programController;
     private EffectController effectController;
 
-    public CollisionController(Player player, ViewController viewController){
+    public CollisionController(Player player, ProgramController programController){
         this.player = player;
-        this.viewController = viewController;
-        effectController = new EffectController(viewController);
+        this.programController = programController;
+        effectController = new EffectController(programController);
     }
 
     public void update(){
@@ -29,12 +28,12 @@ public class CollisionController {
 
     public void addEnemy(Enemy enemy){
         enemyList.append(enemy);
-        viewController.draw(enemy);
+        programController.addObject(enemy);
     }
 
     public void addProjectile(Projectile projectile){
         projectileList.append(projectile);
-        viewController.draw(projectile);
+        programController.addObject(projectile);
     }
 
     private void checkEnemyCollision(){
@@ -63,9 +62,9 @@ public class CollisionController {
                 Effect effect = projectileList.getContent().onDestroyed();
                 if (effect != null) {
                     effectController.add(effect);
-                    viewController.draw(effect);
+                    programController.addObject(effect);
                 }
-                viewController.removeDrawable(projectileList.getContent());
+                programController.removeObject(projectileList.getContent());
                 projectileList.remove();
             } else {
                 projectileList.next();

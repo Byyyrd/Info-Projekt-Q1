@@ -1,6 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.control.ViewController;
+import KAGO_framework.model.GraphicalObject;
 import my_project.Util;
 import my_project.model.Background;
 import my_project.model.Bow;
@@ -40,7 +41,7 @@ public class ProgramController {
         viewController.draw(background);
         Player player = new Player();
         viewController.draw(player);
-        collisionController = new CollisionController(player, viewController);
+        collisionController = new CollisionController(player, this);
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
@@ -54,5 +55,13 @@ public class ProgramController {
     public void updateProgram(double dt){
         collisionController.update();
         Util.applyCamShake(dt);
+    }
+
+    public void addObject(GraphicalObject objectToDraw){
+        viewController.draw(objectToDraw);
+    }
+
+    public void removeObject(GraphicalObject objectToRemove){
+        viewController.removeDrawable(objectToRemove);
     }
 }
