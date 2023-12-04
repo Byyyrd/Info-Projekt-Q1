@@ -1,7 +1,10 @@
 package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
+import KAGO_framework.view.DrawTool;
 import my_project.Config;
+
+import java.awt.image.BufferedImage;
 
 public abstract class Projectile extends GraphicalObject {
     protected double degrees;
@@ -10,6 +13,7 @@ public abstract class Projectile extends GraphicalObject {
     protected double offsetY;
     protected boolean isHarmful = true;
     protected boolean destroyed = false;
+    protected BufferedImage[] images;
 
     public Projectile(double x, double y, double degrees, double speed) {
         this.x = x;
@@ -22,6 +26,7 @@ public abstract class Projectile extends GraphicalObject {
     public void update(double dt) {
         move(dt);
     }
+
     private void move(double dt) {
         double dirX = Math.cos(degrees);
         double dirY = Math.sin(degrees);

@@ -4,14 +4,18 @@ import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
+import my_project.Util;
+
+import java.awt.image.BufferedImage;
 
 public class Player extends InteractiveGraphicalObject {
+    private BufferedImage[] images = Util.getAllImagesFromFolder("player");
     private double currentSpeed = 200;
     private int hp = 2;
     private double dashTimer = 0;
     private final double dashSpeed = 700;
     private final double dashDuration = 0.2;
-    private final double dashCooldown = 0.3;
+    private final double dashCooldown = 0.5;
     public Player(){
         x = 488-8; //Mitte des Bildschirms
         y = 488; //Eine sinnvolle Zahl unter dem Zentrum
@@ -20,10 +24,9 @@ public class Player extends InteractiveGraphicalObject {
     @Override
     public void draw(DrawTool drawTool) {
         if(dashTimer > 0)
-            drawTool.setCurrentColor(100,100,100,200);
+            drawTool.drawImage(images[1],x-8,y-8);
         else
-            drawTool.setCurrentColor(255,255,255,255);
-        drawTool.drawFilledCircle(x,y,8);
+            drawTool.drawImage(images[0],x-8,y-8);
     }
 
     @Override

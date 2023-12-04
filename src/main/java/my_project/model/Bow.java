@@ -34,9 +34,9 @@ public class Bow extends InteractiveGraphicalObject {
         double localOffset = 0;
         for (int i = 0; i < 5; i++) {
             if(power == maxPower) {
-                drawTool.setCurrentColor(36, 159, 222, (int) (power * 255) / (i + 1));
+                drawTool.setCurrentColor(255, 255, 255, (int) (power * 255) / (i + 1));
             } else {
-                drawTool.setCurrentColor(180, 32, 42, (int) (power * 255) / (i + 1));
+                drawTool.setCurrentColor(139, 147, 175, (int) (power * 255) / (i + 1));
             }
             drawTool.drawCircle(player.getX()+localOffset, player.getY()+localOffset,16-i);
         }
