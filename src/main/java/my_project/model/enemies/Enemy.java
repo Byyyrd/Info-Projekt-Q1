@@ -9,6 +9,7 @@ public abstract class Enemy extends GraphicalObject {
     protected CollisionController collisionController;
     protected Player player;
 
+
     protected void spawnBullet(double x, double y, double degrees, double speed, ProjectileType projectileType){
         Projectile projectile = null;
         switch (projectileType){

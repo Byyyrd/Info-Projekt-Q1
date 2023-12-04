@@ -4,6 +4,7 @@ import KAGO_framework.control.ViewController;
 import my_project.model.Background;
 import my_project.model.Bow;
 import my_project.model.Player;
+import my_project.model.enemies.ListEnemy;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -42,6 +43,7 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
+        viewController.draw(new ListEnemy());
     }
 
     /**

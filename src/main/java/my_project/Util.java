@@ -80,7 +80,7 @@ public class Util {
      * source "http://www.jeffreythompson.org/collision-detection/rect-rect.php"
      */
 
-    public boolean rToRCollision(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h) {
+    public static boolean rToRCollision(float r1x, float r1y, float r1w, float r1h, float r2x, float r2y, float r2w, float r2h) {
         //Ew, fuck you
         //are the sides of one rectangle touching the other?
         if (r1x + r1w >= r2x &&    // r1 right edge past r2 left
@@ -90,5 +90,21 @@ public class Util {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Checks if two rectangle collide
+     * @param r1x x position of left edge from first rectangle
+     * @param r1y y position of top edge from first rectangle
+     * @param r1w width of first rectangle
+     * @param r1h height of first rectangle
+     * @param r2x x position of left edge from second rectangle
+     * @param r2y y position of top edge from second rectangle
+     * @param r2w width of second rectangle
+     * @param r2h height of second rectangle
+     * @return boolean that describes whether the rectangle collide
+     */
+    public static boolean rectToRectCollision(double r1x, double r1y, double r1w, double r1h, double r2x, double r2y, double r2w, double r2h) {
+        return !(r1x > r2x + r2w) && !(r1x + r1w < r2x) && !(r1y > r2y + r2h) && !(r1y + r1h < r2y);
     }
 }
