@@ -12,7 +12,7 @@ public class ListEnemy extends Enemy {
     public ListEnemy(double x, double y, double speed, Player player) {
         super(x, y, speed, player);
         radius = 8;
-        list.append(new EnemyNode(x,y));
+        list.append(new EnemyNode(x,y,radius));
     }
 
     @Override

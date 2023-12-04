@@ -1,6 +1,7 @@
 package my_project;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
+import KAGO_framework.model.abitur.datenstrukturen.Queue;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,39 @@ public class Util {
         return count;
     }
 
+    public static <ContentType> int countQueue(Queue<ContentType> queue){
+        int count = 0;
+        Queue<ContentType> helpQueue = new Queue<>();
+        while(!queue.isEmpty()){
+            helpQueue.enqueue(queue.front());
+            queue.dequeue();
+            count++;
+        }
+        while(!helpQueue.isEmpty()){
+            queue.enqueue(helpQueue.front());
+            helpQueue.dequeue();
+        }
+        return count;
+    }
+
+    /**
+     * gibt einem content von tail
+     * @param queue die queue von welcher man den Content der tail wissen will
+     * @return den content von tail
+     * @param <ContentType>
+     */
+    public static <ContentType> ContentType getTail(Queue<ContentType> queue) {
+        int count = countQueue(queue);
+        ContentType toReturn = null;
+        for (int i = 0; i < count; i++) {
+            if(i==count-1){
+                toReturn=queue.front();
+            }
+            queue.enqueue(queue.front());
+            queue.dequeue();
+        }
+        return toReturn;
+    }
 
     /**
      * Finds Object in list and removes it. Current of list ends on first.
@@ -124,4 +158,29 @@ public class Util {
     public static boolean rectToRectCollision(double r1x, double r1y, double r1w, double r1h, double r2x, double r2y, double r2w, double r2h) {
         return !(r1x > r2x + r2w) && !(r1x + r1w < r2x) && !(r1y > r2y + r2h) && !(r1y + r1h < r2y);
     }
+
+    /**
+     *
+     * @param x1 X position of 1st circle
+     * @param y1 Y position of 1st circle
+     * @param r1 radius of 1st circle
+     * @param x2 X position of 2nd circle
+     * @param y2 Y position of 2nd circle
+     * @param r2 radius of 2nd circle
+     * @param depth depth of circle intersection till they are considered colliding
+     * @return
+     */
+    public static boolean circleToCircleCollision(double x1, double y1,double r1, double x2, double y2, double r2, double depth){
+        double distance = Math.sqrt(Math.pow((x2-x1),2) + Math.pow((y2-y1),2));
+        return r1+r2-depth > distance;
+    }
+
+    public static int sign(double number){
+        if(number>=0){
+            return 1;
+        }
+        return -1;
+    }
+
+
 }
