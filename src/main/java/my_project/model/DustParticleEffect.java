@@ -3,9 +3,12 @@ package my_project.model;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 
+import java.awt.*;
+
 public class DustParticleEffect extends Effect {
-    private Particle[] circles;
+    private final Particle[] circles;
     private double alpha = 1;
+    private Color color = Color.white;
     public DustParticleEffect(double x, double y){
         super(x,y);
         circles = new Particle[10];
@@ -14,9 +17,18 @@ public class DustParticleEffect extends Effect {
         }
     }
 
+    public DustParticleEffect(double x, double y, int amountOfObjects, double radiusOfEffect, double radiusOfParticles, Color color){
+        super(x,y);
+        circles = new Particle[amountOfObjects];
+        for (int i = 0; i < circles.length; i++) {
+            circles[i] = new Particle(x+(Math.random()-0.5)*radiusOfEffect,y+(Math.random()-0.5)*radiusOfEffect,(Math.random()*radiusOfParticles/2)+radiusOfParticles/2);
+        }
+        this.color = color;
+    }
+
     private class Particle {
-        private double x;
-        private double y;
+        private final double x;
+        private final double y;
         private double radius;
         public Particle(double x, double y, double radius){
             this.x = x;
@@ -27,9 +39,9 @@ public class DustParticleEffect extends Effect {
 
     @Override
     public void draw(DrawTool drawTool) {
-        for (int i = 0; i < circles.length; i++) {
-            drawTool.setCurrentColor(255,255,255,(int)(Math.abs(Math.sin(alpha*2))*255));
-            drawTool.drawFilledCircle(circles[i].x,circles[i].y,circles[i].radius);
+        for (Particle circle : circles) {
+            drawTool.setCurrentColor(color.getRed(), color.getGreen(), color.getBlue(), (int) (Math.abs(Math.sin(alpha * 2)) * 255));
+            drawTool.drawFilledCircle(circle.x, circle.y, circle.radius);
         }
     }
 
@@ -40,8 +52,8 @@ public class DustParticleEffect extends Effect {
             destroyed = true;
             alpha = 0;
         }
-        for (int i = 0; i < circles.length; i++) {
-            circles[i].radius = Math.sin(alpha*2)*10;
+        for (Particle circle : circles) {
+            circle.radius = Math.sin(alpha * 2) * 10;
         }
     }
 }
