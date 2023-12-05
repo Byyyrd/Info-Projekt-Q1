@@ -90,8 +90,8 @@ public class CollisionController {
      */
     private List<Projectile> getWantedProjectiles(boolean harmfulCheck){
         List<Projectile> list = new List<>();
+        projectileList.toFirst();
         while(projectileList.hasAccess()){
-            projectileList.toFirst();
             if(projectileList.getContent().isHarmful() == harmfulCheck){
                 list.append(projectileList.getContent());
             }

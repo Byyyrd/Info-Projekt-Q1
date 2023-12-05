@@ -78,29 +78,30 @@ public class QueueEnemy extends Enemy {
     }
 
     /**
-     * moves compartments of the queue
-     * @param dt
+     * We first define where our desired Position is. Then we go throgh every node of the queue and depending on wheter the node is the first or not we lerp in an angle to the
+     * @param dt deltaTime
      */
     private void moveNodes(double dt){
         double desiredXPos = player.getX();
         double desiredYPos = player.getY();
 
         for (int i = 0; i < Util.countQueue(queue); i++) {
-            if(i == 0){
-                double degrees = Math.atan2(desiredYPos-queue.front().getY(),desiredXPos-queue.front().getX());
-                degrees = Util.lerpAngle(queue.front().getDegrees(),degrees,rotationSpeed);
-                queue.front().moveByAngle(dt,degrees,speed);
-                queue.front().setDegrees(degrees);
-            } else if(!Util.circleToCircleCollision(queue.front().getX(),queue.front().getY(),queue.front().getRadius(),desiredXPos,desiredYPos,queue.front().getRadius(),queue.front().getRadius())){
-                double degrees = Math.atan2(desiredYPos-queue.front().getY(),desiredXPos-queue.front().getX());
-                degrees = Util.lerpAngle(queue.front().getDegrees(),degrees,0.5);
-                queue.front().moveByAngle(dt,degrees,speed);
-                queue.front().setDegrees(degrees);
+            
+            EnemyNode node = queue.front();
+
+            boolean shouldShoot = Math.sqrt(Math.pow( (desiredXPos-node.getX()) ,2) + Math.pow( (desiredYPos-node.getY()) ,2) ) < 250;
+            boolean isIntersecting = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),desiredXPos,desiredYPos,node.getRadius(),node.getRadius());
+            double degrees = Math.atan2(desiredYPos-node.getY(),desiredXPos-node.getX());
+
+            if(!isIntersecting){
+                degrees = Util.lerpAngle(node.getDegrees(),degrees,rotationSpeed+(0.5-rotationSpeed)*Util.isNumberNotZero(i));
+                node.moveByAngle(dt,degrees,speed);
+                node.setDegrees(degrees);
             }
 
-            desiredXPos = queue.front().getX();
-            desiredYPos = queue.front().getY();
-            queue.enqueue(queue.front());
+            desiredXPos = node.getX();
+            desiredYPos = node.getY();
+            queue.enqueue(node);
             queue.dequeue();
         }
     }
