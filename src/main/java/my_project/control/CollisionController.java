@@ -37,7 +37,18 @@ public class CollisionController {
     }
 
     private void checkEnemyCollision(){
-
+        List<Projectile> projectileList = getWantedProjectiles(false);
+        projectileList.toFirst();
+        while(projectileList.hasAccess()){
+            enemyList.toFirst();
+            while (enemyList.hasAccess()){
+                if(enemyList.getContent().checkCollision(projectileList.getContent())) {
+                    projectileList.getContent().setDestroyed(true);
+                }
+                enemyList.next();
+            }
+            projectileList.next();
+        }
     }
 
     private void checkPlayerCollision(){
@@ -74,7 +85,7 @@ public class CollisionController {
 
     /**
      * Returns list of projectiles which have the property of harmfulCheck
-     * @param harmfulCheck which Projectiles are wanted, harmful or not harmful
+     * @param harmfulCheck which Projectiles are wanted, harmful to player or not
      * @return list
      */
     private List<Projectile> getWantedProjectiles(boolean harmfulCheck){

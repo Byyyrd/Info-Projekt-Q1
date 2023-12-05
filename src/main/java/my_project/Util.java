@@ -181,12 +181,15 @@ public class Util {
         return r1+r2-depth > distance;
     }
 
-    public static int sign(double number){
-        if(number>=0){
-            return 1;
+    /**
+     * This is useful for one specific snip of code in QueueEnemy
+     * @param number we want to check if is zero
+     * @return if number 0 we return 0 else we return 1
+     */
+    public static double isNumberNotZero(double number) {
+        if (number == 0) {
+            return 0;
         }
-        return -1;
+        return 1;
     }
-
-
 }

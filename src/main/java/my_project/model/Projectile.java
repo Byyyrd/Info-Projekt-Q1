@@ -50,6 +50,14 @@ public abstract class Projectile extends GraphicalObject {
         return isHarmful;
     }
 
+    public double getSpeed() {
+        return speed;
+    }
+
+    public double getDegrees() {
+        return degrees;
+    }
+
     public boolean checkBounds(){
         boolean inWall = false;
         if((x+offsetX) < Config.leftBound){

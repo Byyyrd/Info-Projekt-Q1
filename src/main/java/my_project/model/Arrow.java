@@ -45,4 +45,8 @@ public class Arrow extends Projectile{
     public Effect onDestroyed() {
         return new DustParticleEffect(x+offsetX,y+offsetX);
     }
+
+    public boolean isStrong(){
+        return speed > speedDecay * 20;
+    }
 }

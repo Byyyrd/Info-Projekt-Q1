@@ -4,6 +4,7 @@ import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.model.Player;
+import my_project.model.Projectile;
 
 public class ListEnemy extends Enemy {
     private List<EnemyNode> list = new List<>();
@@ -13,6 +14,11 @@ public class ListEnemy extends Enemy {
         super(x, y, speed, player);
         radius = 8;
         list.append(new EnemyNode(x,y,radius));
+    }
+
+    @Override
+    public boolean checkCollision(Projectile projectile) {
+        return false;
     }
 
     @Override

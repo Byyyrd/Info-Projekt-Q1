@@ -3,13 +3,13 @@ package my_project.model.enemies;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
+import my_project.model.Arrow;
 import my_project.model.Player;
+import my_project.model.Projectile;
 
 public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
-    private double timer = 5;
-
-    private double rotationSpeed = 0.03;
+    private final double rotationSpeed = 0.03;
 
     public QueueEnemy(double x, double y,double radius, double speed, Player player, int startNodeAmount) {
         super(x, y, speed, player);
@@ -25,11 +25,33 @@ public class QueueEnemy extends Enemy {
     @Override
     public void update(double dt) {
         moveNodes(dt);
-        timer -= dt;
-        if(timer < 0){
-            //addEnemyNode();
-            timer = 5;
+    }
+
+    @Override
+    public boolean checkCollision(Projectile projectile) {
+        boolean gotHit = false;
+        for (int i = 0; i < Util.countQueue(queue); i++) {
+            EnemyNode node = queue.front();
+            for (int j = 0; j < 10; j++) {
+                double xPos = projectile.getX();
+                double yPos = projectile.getY();
+                if(Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),node.getRadius(),node.getRadius())){
+                    gotHit = true;
+                }
+            }
+            queue.enqueue(node);
+            queue.dequeue();
         }
+        if(gotHit){
+            if(projectile.getClass().isNestmateOf(Arrow.class)){
+                Arrow arrow = (Arrow) projectile;
+                getHit(arrow.isStrong());
+            } else {
+                getHit(false);
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -83,4 +105,13 @@ public class QueueEnemy extends Enemy {
         }
     }
 
+    private void getHit(boolean hard){
+        if(hard){
+            for (int i = 0; i < 10; i++) {
+                queue.dequeue();
+            }
+        } else {
+            queue.dequeue();
+        }
+    }
 }

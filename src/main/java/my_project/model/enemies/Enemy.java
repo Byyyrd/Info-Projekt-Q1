@@ -35,4 +35,5 @@ public abstract class Enemy extends GraphicalObject {
         this.player = player;
     }
 
+    public abstract boolean checkCollision(Projectile projectile);
 }
