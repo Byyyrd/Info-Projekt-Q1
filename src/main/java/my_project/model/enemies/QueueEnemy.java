@@ -7,9 +7,9 @@ import my_project.model.Player;
 
 public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
+    private double timer = 5;
 
-    //private double movementRange = Math.PI/4;
-   // private double movementDegree;
+    private double rotationSpeed = 0.03;
 
     public QueueEnemy(double x, double y,double radius, double speed, Player player, int startNodeAmount) {
         super(x, y, speed, player);
@@ -17,7 +17,6 @@ public class QueueEnemy extends Enemy {
         for (int i = 0; i < startNodeAmount; i++) {
             addEnemyNode();
         }
-       // movementDegree = Math.atan2(player.getY()-queue.front().getY(),player.getX()-queue.front().getX());
     }
     @Override
     public void draw(DrawTool drawTool) {
@@ -26,17 +25,21 @@ public class QueueEnemy extends Enemy {
     @Override
     public void update(double dt) {
         moveNodes(dt);
-
+        timer -= dt;
+        if(timer < 0){
+            //addEnemyNode();
+            timer = 5;
+        }
     }
 
     /**
-     * adds an Node to the Queue
+     * adds a Node to the Queue
      */
     private void addEnemyNode(){
         if(queue.isEmpty()){
             queue.enqueue(new EnemyNode(x,y,radius));
         }
-        EnemyNode tail = Util.getTail(queue);
+        EnemyNode tail = Util.getTailContent(queue);
         queue.enqueue(new EnemyNode(tail.getX(),tail.getY(),radius));
     }
 
@@ -45,7 +48,6 @@ public class QueueEnemy extends Enemy {
      * @param drawTool the Object that draws the Enemy
      */
     private void drawNodes(DrawTool drawTool){
-
         for (int i = 0; i < Util.countQueue(queue); i++) {
             drawTool.drawFilledCircle(queue.front().getX(),queue.front().getY(),queue.front().getRadius());
             queue.enqueue(queue.front());
@@ -58,31 +60,20 @@ public class QueueEnemy extends Enemy {
      * @param dt
      */
     private void moveNodes(double dt){
-        //TODO: Nodes moven nur in einem winkel von 45
-        double desiredXPos = player.getX();//initialPlayerXPos + (player.getX() - initialPlayerXPos)/2;
-        double desiredYPos = player.getY();//initialPlayerYPos + (player.getY() - initialPlayerYPos)/2;
+        double desiredXPos = player.getX();
+        double desiredYPos = player.getY();
 
         for (int i = 0; i < Util.countQueue(queue); i++) {
-
-            //FÜR JETZT HABEN DIE KREISE DEN GLEICHEN RADIUS
-            //System.out.println(Math.sqrt(Math.pow( (desiredXPos-queue.front().getX()) ,2) + Math.pow( (desiredYPos-queue.front().getY()) ,2) ));
-            //System.out.println(queue.front().getRadius() > Math.sqrt(Math.pow( (desiredXPos-queue.front().getX()) ,2) + Math.pow( (desiredYPos-queue.front().getY()) ,2) ));
-            if(i<1 || !Util.circleToCircleCollision(queue.front().getX(),queue.front().getY(),queue.front().getRadius(),desiredXPos,desiredYPos,queue.front().getRadius(),queue.front().getRadius())){
-
-               // queue.front().move(dt,speed,desiredXPos,desiredYPos);
+            if(i == 0){
                 double degrees = Math.atan2(desiredYPos-queue.front().getY(),desiredXPos-queue.front().getX());
-
-
-                /*if((movementDegree-degrees-movementRange)/(Math.PI/2) == (int)((movementDegree-degrees-movementRange)/(Math.PI/2))){
-                    movementDegree -=(movementDegree-degrees);
-                }else{
-                    movementDegree -= (Math.signum(movementDegree-degrees)*movementRange);
-                }*/
-
-
-
-
+                degrees = Util.lerpAngle(queue.front().getDegrees(),degrees,rotationSpeed);
                 queue.front().moveByAngle(dt,degrees,speed);
+                queue.front().setDegrees(degrees);
+            } else if(!Util.circleToCircleCollision(queue.front().getX(),queue.front().getY(),queue.front().getRadius(),desiredXPos,desiredYPos,queue.front().getRadius(),queue.front().getRadius())){
+                double degrees = Math.atan2(desiredYPos-queue.front().getY(),desiredXPos-queue.front().getX());
+                degrees = Util.lerpAngle(queue.front().getDegrees(),degrees,0.5);
+                queue.front().moveByAngle(dt,degrees,speed);
+                queue.front().setDegrees(degrees);
             }
 
             desiredXPos = queue.front().getX();

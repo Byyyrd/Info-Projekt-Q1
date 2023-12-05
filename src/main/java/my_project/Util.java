@@ -25,6 +25,12 @@ public class Util {
         return start * (1 - time) + end * time;
     }
 
+    public static double lerpAngle(double start, double end, double time){
+        double xPos = (1-time) * Math.cos(start) + time * Math.cos(end);
+        double yPos = (1-time) * Math.sin(start) + time * Math.sin(end);
+        return Math.atan2(yPos,xPos);
+    }
+
     public static <ContentType> int countList(List<ContentType> list){
         int count = 0;
         list.toFirst();
@@ -56,17 +62,17 @@ public class Util {
      * @return den content von tail
      * @param <ContentType>
      */
-    public static <ContentType> ContentType getTail(Queue<ContentType> queue) {
+    public static <ContentType> ContentType getTailContent(Queue<ContentType> queue) {
         int count = countQueue(queue);
-        ContentType toReturn = null;
+        ContentType tailContent = null;
         for (int i = 0; i < count; i++) {
-            if(i==count-1){
-                toReturn=queue.front();
+            if(i == count - 1){
+                tailContent = queue.front();
             }
             queue.enqueue(queue.front());
             queue.dequeue();
         }
-        return toReturn;
+        return tailContent;
     }
 
     /**

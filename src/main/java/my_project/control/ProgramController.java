@@ -45,7 +45,7 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        QueueEnemy newQueueEnemy = new QueueEnemy(100,100,10,100,player,5);
+        QueueEnemy newQueueEnemy = new QueueEnemy(100,100,10,100,player,50);
         viewController.draw(newQueueEnemy);
         collisionController.addEnemy(newQueueEnemy);
         //viewController.draw(new ListEnemy(300,300,150,player));
