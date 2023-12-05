@@ -32,13 +32,23 @@ public class QueueEnemy extends Enemy {
         boolean gotHit = false;
         for (int i = 0; i < Util.countQueue(queue); i++) {
             EnemyNode node = queue.front();
-            for (int j = 0; j < 10; j++) {
-                double xPos = projectile.getX();
-                double yPos = projectile.getY();
-                if(Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),node.getRadius(),node.getRadius())){
-                    gotHit = true;
-                }
+            boolean collides = false;
+
+
+            if(projectile.getSpeed()>3000) {
+                double antiDegree = projectile.getDegrees() + Math.PI;
+                double prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 100;
+                double prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 100;
+                collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
+            }else {
+                collides = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),node.getRadius(),node.getRadius());
             }
+
+            if(collides){
+                gotHit = true;
+                System.out.println("hit");
+            }
+
             queue.enqueue(node);
             queue.dequeue();
         }
