@@ -14,6 +14,7 @@ public class QueueEnemy extends Enemy {
     public QueueEnemy(double x, double y,double radius, double speed, Player player, int startNodeAmount) {
         super(x, y, speed, player);
         this.radius = radius;
+        setNewImage("src/main/resources/graphic/queue.png");
         for (int i = 0; i < startNodeAmount; i++) {
             addEnemyNode();
         }
@@ -83,7 +84,7 @@ public class QueueEnemy extends Enemy {
     private void drawNodes(DrawTool drawTool){
         drawTool.setCurrentColor(255,255,255,255);
         for (int i = 0; i < Util.countQueue(queue); i++) {
-            drawTool.drawFilledCircle(queue.front().getX(),queue.front().getY(),queue.front().getRadius());
+            drawTool.drawImage(getMyImage(),queue.front().getX()-queue.front().getRadius(),queue.front().getY()-queue.front().getRadius());
             queue.enqueue(queue.front());
             queue.dequeue();
         }
