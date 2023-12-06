@@ -32,27 +32,28 @@ public class QueueEnemy extends Enemy {
         boolean gotHit = false;
         for (int i = 0; i < Util.countQueue(queue); i++) {
             EnemyNode node = queue.front();
-            boolean collides = false;
+            boolean collides;
 
-
-            if(projectile.getSpeed()>3000) {
+            if (projectile.getSpeed()>3000) {
                 double antiDegree = projectile.getDegrees() + Math.PI;
                 double prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 100;
                 double prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 100;
                 collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
-            }else {
-                collides = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),node.getRadius(),node.getRadius());
+            } else {
+                collides = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getHeight()/2,0);
             }
 
             if(collides){
                 gotHit = true;
-                System.out.println("hit");
             }
 
             queue.enqueue(node);
             queue.dequeue();
         }
+
         if(gotHit){
+            projectile.setX(queue.front().getX());
+            projectile.setY(queue.front().getY());
             if(projectile.getClass().isNestmateOf(Arrow.class)){
                 Arrow arrow = (Arrow) projectile;
                 getHit(arrow.isStrong());

@@ -1,7 +1,6 @@
 package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
-import KAGO_framework.view.DrawTool;
 import my_project.Config;
 
 import java.awt.image.BufferedImage;
@@ -9,8 +8,7 @@ import java.awt.image.BufferedImage;
 public abstract class Projectile extends GraphicalObject {
     protected double degrees;
     protected double speed;
-    protected double offsetX;
-    protected double offsetY;
+    protected double imageOffset;
     protected boolean isHarmful = true;
     protected boolean destroyed = false;
     protected BufferedImage[] images;
@@ -60,20 +58,20 @@ public abstract class Projectile extends GraphicalObject {
 
     public boolean checkBounds(){
         boolean inWall = false;
-        if((x+offsetX) < Config.leftBound){
-            x = Config.leftBound - offsetX * 2;
+        if((x+imageOffset) < Config.leftBound){
+            x = Config.leftBound - imageOffset * 2;
             inWall = true;
         }
-        if((x+offsetX) > Config.rightBound){
-            x = Config.rightBound - offsetX * 2;
+        if((x+imageOffset) > Config.rightBound){
+            x = Config.rightBound - imageOffset * 2;
             inWall = true;
         }
-        if((y+offsetY) < Config.upBound){
-            y = Config.upBound - offsetY * 2;
+        if((y+imageOffset) < Config.upBound){
+            y = Config.upBound - imageOffset * 2;
             inWall = true;
         }
-        if((y+offsetY) > Config.downBound){
-            y = Config.downBound - offsetY * 2;
+        if((y+imageOffset) > Config.downBound){
+            y = Config.downBound - imageOffset * 2;
             inWall = true;
         }
         return inWall;

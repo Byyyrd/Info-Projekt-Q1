@@ -12,8 +12,7 @@ public class Arrow extends Projectile{
         super(x,y,degrees,speed);
         images = Util.getAllImagesFromFolder("arrow");
         isHarmful = false;
-        offsetX = 8;
-        offsetY = 8;
+        imageOffset = 8;
     }
 
     @Override
@@ -33,9 +32,9 @@ public class Arrow extends Projectile{
 
         g2d.rotate(degrees, x, y);
         if(speed > speedDecay * 20){
-            drawTool.drawImage(images[1],x-offsetX,y-offsetY);
+            drawTool.drawImage(images[1],x-imageOffset,y-imageOffset);
         } else {
-            drawTool.drawImage(images[0],x-offsetX,y-offsetY);
+            drawTool.drawImage(images[0],x-imageOffset,y-imageOffset);
         }
 
         g2d.setTransform(old);
@@ -43,7 +42,9 @@ public class Arrow extends Projectile{
 
     @Override
     public Effect onDestroyed() {
-        return new DustParticleEffect(x+offsetX,y+offsetX);
+        if(isStrong())
+            return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,Color.red);
+        return new DustParticleEffect(x+imageOffset,y+imageOffset);
     }
 
     public boolean isStrong(){

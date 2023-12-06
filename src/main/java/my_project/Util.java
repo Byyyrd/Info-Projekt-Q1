@@ -206,7 +206,7 @@ public class Util {
     }
 
     /**
-     * calculates wheter a circle and line are colliding or not
+     * calculates weather a circle and line are colliding or not
      * @param p1X X coordinate of point 1
      * @param p1Y Y coordinate of point 1
      * @param p2X X coordinate of point 2
@@ -218,14 +218,12 @@ public class Util {
      * source:https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
      */
     public static boolean isLineAndCircleColliding(double p1X, double p1Y, double p2X, double p2Y, double cX, double cY, double r) {
-
         double dX = p2X-p1X;
         double dY = p2Y-p1Y;
         double fX = p1X-cX;
         double fY = p1Y-cY;
 
         double a = DotProduct(dX, dY, dX, dY);
-        System.out.println(a);
         double b = 2 * DotProduct(fX, fY, dX, dY);
         double c = DotProduct(fX, fY, fX, fY - r * r);
 
