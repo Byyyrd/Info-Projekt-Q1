@@ -26,7 +26,7 @@ public abstract class Enemy extends GraphicalObject {
         collisionController.addProjectile(projectile);
     }
 
-    protected void move(double dt, int speed){
+    protected void move(double dt){
         double degrees = Math.atan2(player.getY()-y,player.getX()-x);
         this.x += Math.cos(degrees) * speed * dt;
         this.y += Math.sin(degrees) * speed * dt;
