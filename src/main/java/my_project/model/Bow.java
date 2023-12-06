@@ -47,7 +47,7 @@ public class Bow extends InteractiveGraphicalObject {
         AffineTransform old = g2d.getTransform();
 
         g2d.rotate(degrees, player.getX()+localOffset, player.getY()+localOffset);
-        drawTool.setCurrentColor(255,255,255,255);
+        drawTool.setCurrentColor(Color.white);
         drawTool.drawImage(getMyImage(),localOffset+smoothOffsetX,localOffset-16+smoothOffsetY);
 
         g2d.setTransform(old);

@@ -5,6 +5,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.Util;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Background extends GraphicalObject {
@@ -25,7 +26,7 @@ public class Background extends GraphicalObject {
         drawTool.drawFilledRectangle(-50,-50, Config.WINDOW_WIDTH+100,Config.WINDOW_HEIGHT+100);
         drawTool.setCurrentColor(20,16,19,255);
         drawTool.drawFilledRectangle(0,0, Config.WINDOW_WIDTH,Config.WINDOW_HEIGHT);
-        drawTool.setCurrentColor(255,255,255,255);
+        drawTool.setCurrentColor(Color.white);
         for (int i = 0; i < 10; i++) {
             drawTool.drawImage(backgroundEffects[index],0,100 * i + Math.random() * intensity + y);
         }

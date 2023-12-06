@@ -8,6 +8,8 @@ import my_project.model.Arrow;
 import my_project.model.Player;
 import my_project.model.Projectile;
 
+import java.awt.*;
+
 public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
     private final double rotationSpeed = 0.03;
@@ -15,7 +17,6 @@ public class QueueEnemy extends Enemy {
     public QueueEnemy(double x, double y, double radius, double speed, Player player, CollisionController collisionController, int startNodeAmount) {
         super(x, y, speed, player, collisionController);
         this.radius = radius;
-        setNewImage("src/main/resources/graphic/visor.png");
         for (int i = 0; i < startNodeAmount; i++) {
             addEnemyNode();
         }
@@ -73,16 +74,16 @@ public class QueueEnemy extends Enemy {
      * @param drawTool the Object that draws the Enemy
      */
     private void drawNodes(DrawTool drawTool){
-        drawTool.setCurrentColor(255,255,255,255);
+        drawTool.setCurrentColor(new Color(0x14A02E));
         for (int i = 0; i < Util.countQueue(queue); i++) {
-            drawTool.drawImage(getMyImage(),queue.front().getX()-queue.front().getRadius(),queue.front().getY()-queue.front().getRadius());
+            drawTool.drawFilledCircle(queue.front().getX(),queue.front().getY(),queue.front().getRadius());
             queue.enqueue(queue.front());
             queue.dequeue();
         }
     }
 
     /**
-     * We first define where our desired Position is. Then we go throgh every node of the queue and depending on wheter the node is the first or not we lerp in an angle to the
+     * We first define where our desired Position is. Then we go through every node of the queue and depending on whether the node is the first or not we lerp in an angle to the
      * @param dt deltaTime
      */
     private void moveNodes(double dt){

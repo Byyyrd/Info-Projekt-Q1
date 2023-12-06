@@ -73,7 +73,7 @@ public class ListEnemy extends Enemy {
 
         list.toFirst();
         while (list.hasAccess()){
-            drawTool.setCurrentColor(Color.white);
+            drawTool.setCurrentColor(new Color(0x403353));
             if(list.getContent() == current)
                 drawTool.drawImage(images[current.index],list.getContent().getX()-16,list.getContent().getY()-16);
             else
@@ -114,7 +114,6 @@ public class ListEnemy extends Enemy {
      * @param dt deltaTime (should come from update)
      */
     private void moveNodes(double dt){
-
         //Save current to later set it to where it was after drawing
         ListEnemyNode current = list.getContent();
         //Move Nodes

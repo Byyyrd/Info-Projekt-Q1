@@ -13,36 +13,37 @@ import java.awt.*;
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
     private double currentCooldown = 0;
+    private int stackSize;
 
-    public StackEnemy(double x, double y, double speed, Player player, CollisionController collisionController, int stackSize) {
-        super(x, y, speed, player, collisionController);
+    public StackEnemy(double x, double y, Player player, CollisionController collisionController, int stackSize) {
+        super(x, y, 100, player, collisionController);
         addStackEntities(stackSize);
+        this.stackSize = stackSize;
     }
 
     public void draw(DrawTool drawTool){
         if(!stack.isEmpty()){
             drawTool.setCurrentColor(new Color(151, 26, 150));
-            drawTool.drawFilledRectangle(x,y, 20,20);
+            drawTool.drawFilledRectangle(x-(stackSize*6+10)/2,y-(stackSize*6+10)/2, stackSize*6+10,stackSize*6+10);
         }
     }
 
     public void update(double dt){
-        currentCooldown -= dt;
-        if(currentCooldown < 0 && !stack.isEmpty()) {
-            spawnBullets();
+        if(!stack.isEmpty()) {
+            super.move(dt);
+            speed = stack.top().speed;
+            currentCooldown -= dt;
+            if (currentCooldown < 0) {
+                spawnBullets();
+            }
         }
-        move(dt);
-    }
-
-    public void move(double dt){
-        super.move(dt);
     }
 
     private void spawnBullets() {
         if (!stack.isEmpty()) {
             for (int i = 0; i < stack.top().amountOfBullets; i++) {
                 double degrees = Math.atan2(player.getY() - y, player.getX() - x);
-                super.spawnBullet(x + 20,y + 20, degrees, stack.top().bulletSpeed, stack.top().type);
+                super.spawnBullet(x, y, degrees + (Math.PI/8 * (i * stack.top().amountOfBullets - stack.top().amountOfBullets/2)), stack.top().bulletSpeed, stack.top().type);
                 currentCooldown = stack.top().coolDown;
             }
         }
@@ -58,10 +59,12 @@ public class StackEnemy extends Enemy {
     @Override
     public boolean checkCollision(Projectile projectile) {
         if(!stack.isEmpty()) {
-            boolean collides = Util.rectToRectCollision(x, y, 20, 20, projectile.getX(), projectile.getY(), projectile.getWidth(), projectile.getHeight());
+            EnemyNode enemyNode = new EnemyNode(x,y,stackSize*5);
+            boolean collides = collidesWithNode(projectile,enemyNode);
             if (collides) {
                 spawnBullets();
                 stack.pop();
+                stackSize -= 1;
             }
             return collides;
         }
@@ -78,11 +81,11 @@ public class StackEnemy extends Enemy {
         private final int bulletSpeed;
 
         public StackEntity(){
-            speed =(int)(Math.random()*40+20);
-            amountOfBullets = (int)(Math.random()*5+5);
+            speed = (int)(Math.random()*40+20);
+            amountOfBullets = (int)((Math.random()*4+4));
             coolDown = 1;
-            type = ProjectileType.Arrow;
-            bulletSpeed = 2000;
+            type = ProjectileType.Bullet;
+            bulletSpeed = 500;
         }
     }
 

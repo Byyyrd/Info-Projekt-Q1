@@ -50,12 +50,9 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        //StackEnemy stackEnemy = new StackEnemy(100,100,150,player,5);
-        //viewController.draw(stackEnemy);
-        //collisionController.addEnemy(stackEnemy);
-        ListEnemy testListEnemy = new ListEnemy(300,300,50,10, player, collisionController);
-        viewController.draw(testListEnemy);
-        collisionController.addEnemy(testListEnemy);
+        StackEnemy stackEnemy = new StackEnemy(100,100,player,collisionController,5);
+        viewController.draw(stackEnemy);
+        collisionController.addEnemy(stackEnemy);
     }
 
     /**
@@ -69,13 +66,23 @@ public class ProgramController {
         else
             background.setIntensity(0);
         if(timer < 0){
-            //QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,100,player,(int)(Math.random()*40+30));
-            //viewController.draw(testQueueEnemy);
-            //collisionController.addEnemy(testQueueEnemy);
+            //spawnTestEnemies();
             timer = 7;
         }
         collisionController.update();
         Util.applyCamShake(dt);
+    }
+
+    private void spawnTestEnemies(){
+        if(Math.random() > 0.8){
+            ListEnemy testListEnemy = new ListEnemy(Math.random()*870+53,100,Math.random()*30+30,(int)(Math.random()*9+2), player, collisionController);
+            viewController.draw(testListEnemy);
+            collisionController.addEnemy(testListEnemy);
+        } else {
+            QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,Math.random()*60+60,player,collisionController,(int)(Math.random()*40+30));
+            viewController.draw(testQueueEnemy);
+            collisionController.addEnemy(testQueueEnemy);
+        }
     }
 
     public void addObject(GraphicalObject objectToDraw){

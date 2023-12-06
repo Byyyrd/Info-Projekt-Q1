@@ -2,6 +2,8 @@ package my_project.model;
 
 import KAGO_framework.view.DrawTool;
 
+import java.awt.*;
+
 public class Bullet extends Projectile{
     public Bullet(double x, double y, double degrees, double speed){
         super(x,y,degrees,speed);
@@ -18,6 +20,8 @@ public class Bullet extends Projectile{
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(getMyImage(),x-imageOffset,y-imageOffset);
+        //drawTool.drawImage(getMyImage(),x-imageOffset,y-imageOffset);
+        drawTool.setCurrentColor(Color.white);
+        drawTool.drawFilledCircle(x,y,8);
     }
 }
