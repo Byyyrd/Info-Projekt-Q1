@@ -81,6 +81,7 @@ public class QueueEnemy extends Enemy {
      * @param drawTool the Object that draws the Enemy
      */
     private void drawNodes(DrawTool drawTool){
+        drawTool.setCurrentColor(255,255,255,255);
         for (int i = 0; i < Util.countQueue(queue); i++) {
             drawTool.drawFilledCircle(queue.front().getX(),queue.front().getY(),queue.front().getRadius());
             queue.enqueue(queue.front());

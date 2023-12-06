@@ -213,9 +213,9 @@ public class Util {
      * @param p2Y Y coordinate of point 2
      * @param cX X coordinate of circle
      * @param cY Y coordinate of circle
-     * @param r raius of circle
+     * @param r radius of circle
      * @return whether the circle and the line are intersecting
-     * source:https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm
+     * source: <a href="https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm">...</a>
      */
     public static boolean isLineAndCircleColliding(double p1X, double p1Y, double p2X, double p2Y, double cX, double cY, double r) {
         double dX = p2X-p1X;

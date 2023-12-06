@@ -21,6 +21,9 @@ public class ProgramController {
     // Referenzen
     private CollisionController collisionController;
     private ViewController viewController;
+    private Player player;
+    private Background background;
+    private double timer = 0;
 
     /**
      * Konstruktor
@@ -38,16 +41,14 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
-        viewController.draw(new Background());
-        Player player = new Player();
+        background = new Background();
+        viewController.draw(background);
+        player = new Player();
         viewController.draw(player);
         collisionController = new CollisionController(player, this);
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        QueueEnemy testQueueEnemy = new QueueEnemy(100,100,10,100,player,50);
-        viewController.draw(testQueueEnemy);
-        collisionController.addEnemy(testQueueEnemy);
         //viewController.draw(new ListEnemy(300,300,150,player));
     }
 
@@ -56,6 +57,17 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        timer -= dt;
+        if(timer < 1)
+            background.setIntensity(50);
+        else
+            background.setIntensity(0);
+        if(timer < 0){
+            QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,100,player,(int)(Math.random()*40+30));
+            viewController.draw(testQueueEnemy);
+            collisionController.addEnemy(testQueueEnemy);
+            timer = 7;
+        }
         collisionController.update();
         Util.applyCamShake(dt);
     }
