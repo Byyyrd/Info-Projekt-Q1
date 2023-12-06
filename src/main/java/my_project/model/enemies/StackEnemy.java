@@ -41,9 +41,11 @@ public class StackEnemy extends Enemy {
 
     private void spawnBullets() {
         if (!stack.isEmpty()) {
+            double spreadDegree = (Math.PI + 2) / (stack.top().amountOfBullets - 1);
             for (int i = 0; i < stack.top().amountOfBullets; i++) {
                 double degrees = Math.atan2(player.getY() - y, player.getX() - x);
-                super.spawnBullet(x, y, degrees + (Math.PI/8 * (i * stack.top().amountOfBullets - stack.top().amountOfBullets/2)), stack.top().bulletSpeed, stack.top().type);
+                double relativeDegree = i * spreadDegree;
+                super.spawnBullet(x, y, degrees + relativeDegree, stack.top().bulletSpeed, stack.top().type);
                 currentCooldown = stack.top().coolDown;
             }
         }
