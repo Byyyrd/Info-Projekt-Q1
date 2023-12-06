@@ -60,6 +60,18 @@ public class Util {
     }
 
     /**
+     * Finds Object in given list and makes it current in that list
+     * @param list list to set current in
+     * @param object obeject inn list to be current
+     * @param <ContentType> Content type of list and Object
+     */
+    public static <ContentType> void listSetCurrent(List<ContentType> list, ContentType object){
+        list.toFirst();
+        while(list.hasAccess() && list.getContent() != object){
+            list.next();
+        }
+    }
+    /**
      * gibt einem content von tail
      *
      * @param queue         die queue von welcher man den Content der tail wissen will
