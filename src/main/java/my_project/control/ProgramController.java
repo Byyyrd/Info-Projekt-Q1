@@ -8,6 +8,7 @@ import my_project.model.Bow;
 import my_project.model.Player;
 import my_project.model.enemies.ListEnemy;
 import my_project.model.enemies.QueueEnemy;
+import my_project.model.enemies.StackEnemy;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -49,6 +50,11 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
+        StackEnemy stackEnemy = new StackEnemy(100,100,150,player,5);
+        stackEnemy.setCollisionController(collisionController);
+        viewController.draw(stackEnemy);
+        collisionController.addEnemy(stackEnemy);
+        //viewController.draw(new ListEnemy(300,300,150,player));
         ListEnemy enim = new ListEnemy(300,300,100,player);
         viewController.draw(enim);
         collisionController.addEnemy(enim);

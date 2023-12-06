@@ -31,8 +31,9 @@ public abstract class Enemy extends GraphicalObject {
         this.x += Math.cos(degrees) * speed * dt;
         this.y += Math.sin(degrees) * speed * dt;
     }
-    public void setPlayer(){
-        this.player = player;
+
+    public void setCollisionController(CollisionController collisionController){
+        this.collisionController = collisionController;
     }
 
     public abstract boolean checkCollision(Projectile projectile);
