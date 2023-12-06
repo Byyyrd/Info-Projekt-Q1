@@ -1,13 +1,14 @@
 package my_project.model.enemies;
 
 import KAGO_framework.view.DrawTool;
+import my_project.control.CollisionController;
 import my_project.model.Player;
 import my_project.model.Projectile;
 
 public class ArrayEnemy extends Enemy {
     private EnemyNode[][] enemyNodesArray;
-    public ArrayEnemy(double x, double y, double speed,double radius, Player player, int ArrayLength) {
-        super(x, y, speed, player);
+    public ArrayEnemy(double x, double y, double speed, double radius, Player player, CollisionController collisionController, int ArrayLength) {
+        super(x, y, speed, player, collisionController);
         this.radius = radius;
         enemyNodesArray = new EnemyNode[ArrayLength][ArrayLength];
         initialiseNodes();

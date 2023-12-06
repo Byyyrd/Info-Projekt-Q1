@@ -3,6 +3,7 @@ package my_project.model.enemies;
 import KAGO_framework.model.abitur.datenstrukturen.Queue;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
+import my_project.control.CollisionController;
 import my_project.model.Arrow;
 import my_project.model.Player;
 import my_project.model.Projectile;
@@ -11,10 +12,10 @@ public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
     private final double rotationSpeed = 0.03;
 
-    public QueueEnemy(double x, double y,double radius, double speed, Player player, int startNodeAmount) {
-        super(x, y, speed, player);
+    public QueueEnemy(double x, double y, double radius, double speed, Player player, CollisionController collisionController, int startNodeAmount) {
+        super(x, y, speed, player, collisionController);
         this.radius = radius;
-        setNewImage("src/main/resources/graphic/queue.png");
+        setNewImage("src/main/resources/graphic/visor.png");
         for (int i = 0; i < startNodeAmount; i++) {
             addEnemyNode();
         }
@@ -33,18 +34,8 @@ public class QueueEnemy extends Enemy {
         boolean gotHit = false;
         for (int i = 0; i < Util.countQueue(queue); i++) {
             EnemyNode node = queue.front();
-            boolean collides;
 
-            if (projectile.getSpeed()>3000) {
-                double antiDegree = projectile.getDegrees() + Math.PI;
-                double prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 100;
-                double prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 100;
-                collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
-            } else {
-                collides = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getHeight()/2,0);
-            }
-
-            if(collides){
+            if (collidesWithNode(projectile,node)) {
                 gotHit = true;
             }
 

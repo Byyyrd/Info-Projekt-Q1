@@ -44,6 +44,10 @@ public abstract class Projectile extends GraphicalObject {
         this.destroyed = destroyed;
     }
 
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
     public boolean isHarmful() {
         return isHarmful;
     }

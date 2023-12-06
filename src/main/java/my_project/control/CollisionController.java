@@ -70,11 +70,7 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
-                Effect effect = projectileList.getContent().onDestroyed();
-                if (effect != null) {
-                    effectController.add(effect);
-                    programController.addObject(effect);
-                }
+                addEffect(projectileList.getContent().onDestroyed());
                 programController.removeObject(projectileList.getContent());
                 projectileList.remove();
             } else {
@@ -83,6 +79,12 @@ public class CollisionController {
         }
     }
 
+    public void addEffect(Effect effect){
+        if (effect != null) {
+            effectController.add(effect);
+            programController.addObject(effect);
+        }
+    }
     /**
      * Returns list of projectiles which have the property of harmfulCheck
      * @param harmfulCheck which Projectiles are wanted, harmful to player or not

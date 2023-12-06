@@ -3,6 +3,7 @@ package my_project.model.enemies;
 import KAGO_framework.model.abitur.datenstrukturen.Stack;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
+import my_project.control.CollisionController;
 import my_project.model.Player;
 import my_project.model.Projectile;
 import my_project.model.ProjectileType;
@@ -13,8 +14,8 @@ public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
     private double currentCooldown = 0;
 
-    public StackEnemy(double x, double y, double speed, Player player, int stackSize) {
-        super(x, y, speed, player);
+    public StackEnemy(double x, double y, double speed, Player player, CollisionController collisionController, int stackSize) {
+        super(x, y, speed, player, collisionController);
         addStackEntities(stackSize);
     }
 

@@ -50,14 +50,12 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        StackEnemy stackEnemy = new StackEnemy(100,100,150,player,5);
-        stackEnemy.setCollisionController(collisionController);
-        viewController.draw(stackEnemy);
-        collisionController.addEnemy(stackEnemy);
-        //viewController.draw(new ListEnemy(300,300,150,player));
-        ListEnemy enim = new ListEnemy(300,300,100,player);
-        viewController.draw(enim);
-        collisionController.addEnemy(enim);
+        //StackEnemy stackEnemy = new StackEnemy(100,100,150,player,5);
+        //viewController.draw(stackEnemy);
+        //collisionController.addEnemy(stackEnemy);
+        ListEnemy testListEnemy = new ListEnemy(300,300,50,10, player, collisionController);
+        viewController.draw(testListEnemy);
+        collisionController.addEnemy(testListEnemy);
     }
 
     /**
@@ -71,9 +69,9 @@ public class ProgramController {
         else
             background.setIntensity(0);
         if(timer < 0){
-            QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,100,player,(int)(Math.random()*40+30));
-            viewController.draw(testQueueEnemy);
-            collisionController.addEnemy(testQueueEnemy);
+            //QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,100,player,(int)(Math.random()*40+30));
+            //viewController.draw(testQueueEnemy);
+            //collisionController.addEnemy(testQueueEnemy);
             timer = 7;
         }
         collisionController.update();

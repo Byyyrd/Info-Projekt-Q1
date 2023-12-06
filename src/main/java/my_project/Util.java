@@ -218,7 +218,7 @@ public class Util {
     }
 
     /**
-     * calculates weather a circle and line are colliding or not
+     * calculates whether a circle and line are colliding or not
      * @param p1X X coordinate of point 1
      * @param p1Y Y coordinate of point 1
      * @param p2X X coordinate of point 2

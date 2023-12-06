@@ -4,6 +4,8 @@ import KAGO_framework.control.ViewController;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
+import my_project.control.CollisionController;
+import my_project.model.DustParticleEffect;
 import my_project.model.Player;
 import my_project.model.Projectile;
 
@@ -15,41 +17,41 @@ public class ListEnemy extends Enemy {
     private double distanceFromCenter;
     private double currentChangeTimer;
     private final double currentChangeSpeed = 5;
-    public ListEnemy(double x, double y, double speed, Player player) {
-        super(x, y, speed, player);
+    public ListEnemy(double x, double y, double speed, int amountOfNodes, Player player, CollisionController collisionController) {
+        super(x, y, speed, player, collisionController);
+        images = Util.getAllImagesFromFolder("listEnemy");
         radius = 16;
         distanceFromCenter = 32;
-        list.append(new ListEnemyNode(x,y,radius,Color.gray));
-        list.append(new ListEnemyNode(x,y,radius,Color.green));
-        list.append(new ListEnemyNode(x,y,radius,Color.black));
-        list.append(new ListEnemyNode(x,y,radius,Color.blue));
-        list.append(new ListEnemyNode(x,y,radius,Color.pink));
-        list.append(new ListEnemyNode(x,y,radius,Color.yellow));
-        list.append(new ListEnemyNode(x,y,radius,Color.red));
-        list.append(new ListEnemyNode(x,y,radius,Color.orange));
+        if (amountOfNodes > 10) amountOfNodes = 10;
+        for (int i = 0; i < amountOfNodes; i++) {
+            list.append(new ListEnemyNode(x,y,radius,i));
+        }
         list.toFirst();
-
     }
 
     @Override
     public boolean checkCollision(Projectile projectile) {
         if(list.hasAccess()){
-            if(projectile.collidesWith(list.getContent())){
-                list.toFirst();
-                while (list.hasAccess()){
-                    list.remove();
-                }
+            if(collidesWithNode(projectile,list.getContent())){
+                projectile.setX(list.getContent().getX());
+                projectile.setY(list.getContent().getY());
+                collisionController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
+                list.remove();
+                list.next();
+                if(!list.hasAccess()) list.toFirst();
                 return true;
-            }else{
+            } else {
                 ListEnemyNode current = list.getContent();
-
                 list.toFirst();
                 while (list.hasAccess()){
-                    if(projectile.collidesWith(list.getContent())){
+                    if(collidesWithNode(projectile,list.getContent())) {
+                        projectile.setX(list.getContent().getX());
+                        projectile.setY(list.getContent().getY());
+                        Util.listSetCurrent(list,current);
                         return true;
                     }
+                    list.next();
                 }
-
                 Util.listSetCurrent(list,current);
             }
         }
@@ -58,10 +60,7 @@ public class ListEnemy extends Enemy {
 
     @Override
     public void draw(DrawTool drawTool) {
-
-
         drawAllNodes(drawTool);
-
     }
 
     /**
@@ -74,17 +73,16 @@ public class ListEnemy extends Enemy {
 
         list.toFirst();
         while (list.hasAccess()){
-            if(list.getContent() == current) {
-                drawTool.setCurrentColor(list.getContent().getColor());
-            }else{
-                drawTool.setCurrentColor(Color.white);
-            }
-            drawTool.drawFilledCircle(list.getContent().getX(),list.getContent().getY(),radius);
+            drawTool.setCurrentColor(Color.white);
+            if(list.getContent() == current)
+                drawTool.drawImage(images[current.index],list.getContent().getX()-16,list.getContent().getY()-16);
+            else
+                drawTool.drawFilledCircle(list.getContent().getX(),list.getContent().getY(),radius);
             list.next();
         }
+
         //reset current
         Util.listSetCurrent(list,current);
-
     }
 
     @Override
@@ -106,8 +104,8 @@ public class ListEnemy extends Enemy {
      * @param dt deltaTime should come from update
      */
     private void moveToPlayer(double dt){
-        double radient = Math.atan2(player.getY() - this.y,player.getX() - this.x);
-        double degree = Math.toDegrees(radient);
+        double radiant = Math.atan2(player.getY() - this.y,player.getX() - this.x);
+        double degree = Math.toDegrees(radiant);
         this.moveInDirection(degree,speed,dt);
     }
 
@@ -120,7 +118,7 @@ public class ListEnemy extends Enemy {
         //Save current to later set it to where it was after drawing
         ListEnemyNode current = list.getContent();
         //Move Nodes
-        rotation += dt;
+        rotation += dt/2;
         double distance = (Math.PI * 2) / Util.countList(list);
         int i = 0;
         list.toFirst();
@@ -136,19 +134,11 @@ public class ListEnemy extends Enemy {
 
 
     private class ListEnemyNode extends EnemyNode{
-        private Color color;
+        private int index;
 
-        public ListEnemyNode(double x, double y, double radius, Color color) {
+        public ListEnemyNode(double x, double y, double radius, int index) {
             super(x, y, radius);
-            this.color = color;
-        }
-
-        public Color getColor() {
-            return color;
-        }
-
-        public void setColor(Color color) {
-            this.color = color;
+            this.index = index;
         }
     }
 }
