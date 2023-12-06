@@ -37,7 +37,6 @@ public class ListEnemy extends Enemy {
                 projectile.setY(list.getContent().getY());
                 collisionController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
                 list.remove();
-                list.next();
                 if(!list.hasAccess()) list.toFirst();
                 return true;
             } else {
