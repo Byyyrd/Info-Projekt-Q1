@@ -23,14 +23,14 @@ public class StackEnemy extends Enemy {
 
     public void draw(DrawTool drawTool){
         if(!stack.isEmpty()){
-            drawTool.setCurrentColor(new Color(151, 26, 150));
+            drawTool.setCurrentColor(new Color(188, 74, 155,255-stackSize*20));
             drawTool.drawFilledRectangle(x-(stackSize*6+10)/2,y-(stackSize*6+10)/2, stackSize*6+10,stackSize*6+10);
         }
     }
 
     public void update(double dt){
         if(!stack.isEmpty()) {
-            super.move(dt);
+            super.move((dt*Math.sqrt(Math.pow(player.getX()-x,2)+Math.pow(player.getY()-y,2)))*0.01);
             speed = stack.top().speed;
             currentCooldown -= dt;
             if (currentCooldown < 0) {
@@ -61,7 +61,7 @@ public class StackEnemy extends Enemy {
     @Override
     public boolean checkCollision(Projectile projectile) {
         if(!stack.isEmpty()) {
-            EnemyNode enemyNode = new EnemyNode(x,y,stackSize*5);
+            EnemyNode enemyNode = new EnemyNode(x,y,stackSize * 7);
             boolean collides = collidesWithNode(projectile,enemyNode);
             if (collides) {
                 spawnBullets();
@@ -75,7 +75,6 @@ public class StackEnemy extends Enemy {
 
 
     private class StackEntity{
-
         private final int speed;
         private final int amountOfBullets;
         private final ProjectileType type;
@@ -90,5 +89,4 @@ public class StackEnemy extends Enemy {
             bulletSpeed = 500;
         }
     }
-
 }
