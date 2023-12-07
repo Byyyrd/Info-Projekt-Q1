@@ -53,9 +53,6 @@ public class ProgramController {
         StackEnemy stackEnemy = new StackEnemy(100,100,player,collisionController,5);
         viewController.draw(stackEnemy);
         collisionController.addEnemy(stackEnemy);
-        ListEnemy enemy = new ListEnemy(100,100,100,10,player,collisionController);
-        viewController.draw(enemy);
-        collisionController.addEnemy(enemy);
     }
 
     /**
