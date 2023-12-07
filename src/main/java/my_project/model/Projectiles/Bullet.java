@@ -1,10 +1,10 @@
-package my_project.model;
+package my_project.model.Projectiles;
 
 import KAGO_framework.view.DrawTool;
 
 import java.awt.*;
 
-public class Bullet extends Projectile{
+public class Bullet extends Projectile {
     public Bullet(double x, double y, double degrees, double speed){
         super(x,y,degrees,speed);
         imageOffset = 8;

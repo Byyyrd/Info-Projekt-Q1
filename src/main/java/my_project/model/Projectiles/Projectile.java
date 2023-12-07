@@ -1,8 +1,10 @@
-package my_project.model;
+package my_project.model.Projectiles;
 
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.Util;
+import my_project.model.Effect;
+import my_project.model.Player;
 
 import java.awt.image.BufferedImage;
 

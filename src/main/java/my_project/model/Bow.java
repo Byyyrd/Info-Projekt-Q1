@@ -4,11 +4,11 @@ import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
+import my_project.model.Projectiles.Arrow;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 public class Bow extends InteractiveGraphicalObject {
     private double power = 0;

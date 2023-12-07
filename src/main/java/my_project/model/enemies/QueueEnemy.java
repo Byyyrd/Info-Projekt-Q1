@@ -4,9 +4,9 @@ import KAGO_framework.model.abitur.datenstrukturen.Queue;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
-import my_project.model.Arrow;
+import my_project.model.Projectiles.Arrow;
 import my_project.model.Player;
-import my_project.model.Projectile;
+import my_project.model.Projectiles.Projectile;
 
 import java.awt.*;
 

@@ -1,10 +1,11 @@
-package my_project.model;
+package my_project.model.Projectiles;
 
 import KAGO_framework.view.DrawTool;
+import my_project.model.Player;
 
 import java.awt.*;
 
-public class BounceBullet extends Projectile{
+public class BounceBullet extends Projectile {
     private boolean canBounce = true;
     private Player player;
     private double timer = 0;

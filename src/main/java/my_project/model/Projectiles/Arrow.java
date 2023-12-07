@@ -1,12 +1,14 @@
-package my_project.model;
+package my_project.model.Projectiles;
 
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
+import my_project.model.DustParticleEffect;
+import my_project.model.Effect;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Arrow extends Projectile{
+public class Arrow extends Projectile {
     double speedDecay = 50;
     public Arrow(double x, double y, double degrees, double speed){
         super(x,y,degrees,speed);

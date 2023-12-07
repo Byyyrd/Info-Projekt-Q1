@@ -4,7 +4,8 @@ import KAGO_framework.model.GraphicalObject;
 import my_project.Util;
 import my_project.control.CollisionController;
 import my_project.model.*;
-import my_project.model.ProjectileType;
+import my_project.model.Projectiles.ProjectileType;
+import my_project.model.Projectiles.*;
 
 import java.awt.image.BufferedImage;
 

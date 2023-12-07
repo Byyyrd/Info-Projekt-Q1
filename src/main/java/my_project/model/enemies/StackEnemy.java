@@ -5,8 +5,8 @@ import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
 import my_project.model.Player;
-import my_project.model.Projectile;
-import my_project.model.ProjectileType;
+import my_project.model.Projectiles.Projectile;
+import my_project.model.Projectiles.ProjectileType;
 
 import java.awt.*;
 
