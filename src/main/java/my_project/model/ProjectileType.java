@@ -1,5 +1,5 @@
 package my_project.model;
 
 public enum ProjectileType {
-    Bullet, Arrow
+    Bullet, Arrow, BounceBullet, ChargeBullet
 }

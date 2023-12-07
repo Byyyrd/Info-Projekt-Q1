@@ -2,6 +2,7 @@ package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
+import my_project.Util;
 
 import java.awt.image.BufferedImage;
 
@@ -44,6 +45,10 @@ public abstract class Projectile extends GraphicalObject {
         this.destroyed = destroyed;
     }
 
+    public boolean checkCollision(Player player){
+        return Util.circleToCircleCollision(x,y,radius,player.getX(),player.getY(),8,0);
+    }
+
     public void setSpeed(double speed) {
         this.speed = speed;
     }
@@ -63,19 +68,19 @@ public abstract class Projectile extends GraphicalObject {
     public boolean checkBounds(){
         boolean inWall = false;
         if((x+imageOffset) < Config.leftBound){
-            x = Config.leftBound - imageOffset * 2;
+            x = Config.leftBound - imageOffset;
             inWall = true;
         }
         if((x+imageOffset) > Config.rightBound){
-            x = Config.rightBound - imageOffset * 2;
+            x = Config.rightBound - imageOffset * 3;
             inWall = true;
         }
         if((y+imageOffset) < Config.upBound){
-            y = Config.upBound - imageOffset * 2;
+            y = Config.upBound - imageOffset;
             inWall = true;
         }
         if((y+imageOffset) > Config.downBound){
-            y = Config.downBound - imageOffset * 2;
+            y = Config.downBound - imageOffset * 3;
             inWall = true;
         }
         return inWall;

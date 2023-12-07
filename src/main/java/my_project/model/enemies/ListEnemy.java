@@ -58,6 +58,21 @@ public class ListEnemy extends Enemy {
     }
 
     @Override
+    public boolean checkCollision(Player player) {
+        ListEnemyNode current = list.getContent();
+        list.toFirst();
+        while (list.hasAccess()){
+            if(Util.circleToCircleCollision(x,y,list.getContent().getDegrees(),player.getX(),player.getY(),8,0)) {
+                Util.listSetCurrent(list,current);
+                return true;
+            }
+            list.next();
+        }
+        Util.listSetCurrent(list,current);
+        return false;
+    }
+
+    @Override
     public void draw(DrawTool drawTool) {
         drawAllNodes(drawTool);
     }

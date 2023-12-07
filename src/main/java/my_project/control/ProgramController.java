@@ -25,6 +25,7 @@ public class ProgramController {
     private Player player;
     private Background background;
     private double timer = 0;
+    private int enemy = 0;
 
     /**
      * Konstruktor
@@ -50,9 +51,6 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        StackEnemy stackEnemy = new StackEnemy(100,100,player,collisionController,5);
-        viewController.draw(stackEnemy);
-        collisionController.addEnemy(stackEnemy);
     }
 
     /**
@@ -67,6 +65,9 @@ public class ProgramController {
             background.setIntensity(0);
         if(timer < 0){
             //spawnTestEnemies();
+            StackEnemy stackEnemy = new StackEnemy(Math.random()*870+53,-100,player,collisionController,(int)(Math.random()*4+2));
+            viewController.draw(stackEnemy);
+            collisionController.addEnemy(stackEnemy);
             timer = 7;
         }
         collisionController.update();
@@ -74,14 +75,22 @@ public class ProgramController {
     }
 
     private void spawnTestEnemies(){
-        if(Math.random() > 0.8){
+        if(enemy == 0){
             ListEnemy testListEnemy = new ListEnemy(Math.random()*870+53,100,Math.random()*30+30,(int)(Math.random()*9+2), player, collisionController);
             viewController.draw(testListEnemy);
             collisionController.addEnemy(testListEnemy);
-        } else {
+        } else if (enemy == 1) {
             QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,Math.random()*60+60,player,collisionController,(int)(Math.random()*40+30));
             viewController.draw(testQueueEnemy);
             collisionController.addEnemy(testQueueEnemy);
+        } else {
+            StackEnemy stackEnemy = new StackEnemy(Math.random()*870+53,100,player,collisionController,(int)(Math.random()*4+2));
+            viewController.draw(stackEnemy);
+            collisionController.addEnemy(stackEnemy);
+        }
+        enemy++;
+        if(enemy > 2){
+            enemy = 0;
         }
     }
 

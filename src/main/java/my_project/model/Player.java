@@ -66,7 +66,8 @@ public class Player extends InteractiveGraphicalObject {
     }
 
     public void takeDamage(){
-        //TODO Player go wäh
+        x = 0;
+        y = 0;
     }
 
     public void setCurrentSpeed(double newSpeed){

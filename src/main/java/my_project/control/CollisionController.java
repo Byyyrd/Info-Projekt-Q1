@@ -55,11 +55,19 @@ public class CollisionController {
         List<Projectile> list = getWantedProjectiles(true);
         list.toFirst();
         while(list.hasAccess()){
-            if(player.collidesWith(list.getContent())) {
+            if(list.getContent().checkCollision(player)) {
                 player.takeDamage();
-                list.getContent().setDestroyed(true);
+                break;
             }
             list.next();
+        }
+        enemyList.toFirst();
+        while(enemyList.hasAccess()){
+            if(enemyList.getContent().checkCollision(player)) {
+                player.takeDamage();
+                break;
+            }
+            enemyList.next();
         }
     }
 
