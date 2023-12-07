@@ -27,6 +27,8 @@ public abstract class Enemy extends GraphicalObject {
         switch (projectileType){
             case Bullet -> projectile = new Bullet(x,y,degrees,speed);
             case Arrow -> projectile = new Arrow(x,y,degrees,speed);
+            case BounceBullet -> projectile = new BounceBullet(x,y,degrees,speed,player);
+            case ChargeBullet -> projectile = new ChargeBullet(x,y,degrees,speed,player);
         }
         collisionController.addProjectile(projectile);
     }
@@ -53,4 +55,6 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     public abstract boolean checkCollision(Projectile projectile);
+
+    public abstract boolean checkCollision(Player player);
 }

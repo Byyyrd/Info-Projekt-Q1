@@ -58,6 +58,19 @@ public class QueueEnemy extends Enemy {
         return false;
     }
 
+    @Override
+    public boolean checkCollision(Player player) {
+        boolean gotHit = false;
+        for (int i = 0; i < Util.countQueue(queue); i++) {
+            EnemyNode node = queue.front();
+
+            if (Util.circleToCircleCollision(x,y,node.getRadius(),player.getX(),player.getY(),8,0)) {
+                gotHit = true;
+            }
+        }
+        return gotHit;
+    }
+
     /**
      * adds a Node to the Queue
      */

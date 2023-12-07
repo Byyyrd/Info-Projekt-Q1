@@ -5,7 +5,7 @@ import KAGO_framework.view.DrawTool;
 
 public class EnemyNode extends GraphicalObject {
     private double degrees = 0;
-    public EnemyNode( double x, double y, double radius) {
+    public EnemyNode(double x, double y, double radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;

@@ -47,4 +47,9 @@ public class ArrayEnemy extends Enemy {
     public boolean checkCollision(Projectile projectile) {
         return false;
     }
+
+    @Override
+    public boolean checkCollision(Player player) {
+        return false;
+    }
 }
