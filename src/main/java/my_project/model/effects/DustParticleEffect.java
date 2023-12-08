@@ -21,7 +21,8 @@ public class DustParticleEffect extends Effect {
         super(x,y);
         circles = new Particle[amountOfObjects];
         for (int i = 0; i < circles.length; i++) {
-            circles[i] = new Particle(x+(Math.random()-0.5)*radiusOfEffect,y+(Math.random()-0.5)*radiusOfEffect,(Math.random()*(radiusOfParticles/2))+radiusOfParticles/2);
+            double degrees = (Math.random()-0.5) * 2 * Math.PI;
+            circles[i] = new Particle(x+Math.cos(degrees)*radiusOfEffect*Math.random(),y+Math.sin(degrees)*radiusOfEffect*Math.random(),(Math.random()*(radiusOfParticles/2))+radiusOfParticles/2);
         }
         this.color = color;
     }
