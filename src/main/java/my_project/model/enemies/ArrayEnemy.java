@@ -11,13 +11,13 @@ public class ArrayEnemy extends Enemy {
     private double emergenceDegrees;
     private double rotationSpeed = 0.03;
     private boolean hasInitialised = false;
+
     public ArrayEnemy(double x, double y, double speed, double radius, Player player, CollisionController collisionController, int ArrayLength) {
         super(x, y, speed, player, collisionController);
         this.radius = radius;
         enemyNodesArray = new EnemyNode[ArrayLength][ArrayLength];
         updateNodes();
         hasInitialised=true;
-
     }
 
     @Override

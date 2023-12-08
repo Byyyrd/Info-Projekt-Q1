@@ -59,16 +59,14 @@ public class ProgramController {
      */
     public void updateProgram(double dt){
         timer -= dt;
+        if(player.isDead()) viewController.reset();
         if(timer < 1)
             background.setIntensity(50);
         else
             background.setIntensity(0);
         if(timer < 0){
-            //spawnTestEnemies();
-            StackEnemy stackEnemy = new StackEnemy(Math.random()*870+53,-100,player,collisionController,(int)(Math.random()*4+2));
-            viewController.draw(stackEnemy);
-            collisionController.addEnemy(stackEnemy);
-            timer = 7;
+            spawnTestEnemies();
+            timer = 10;
         }
         collisionController.update();
         Util.applyCamShake(dt);
@@ -76,15 +74,15 @@ public class ProgramController {
 
     private void spawnTestEnemies(){
         if(enemy == 0){
-            ListEnemy testListEnemy = new ListEnemy(Math.random()*870+53,100,Math.random()*30+30,(int)(Math.random()*9+2), player, collisionController);
+            ListEnemy testListEnemy = new ListEnemy(Math.random()*870+53,-100,Math.random()*30+30,(int)(Math.random()*9+2), player, collisionController);
             viewController.draw(testListEnemy);
             collisionController.addEnemy(testListEnemy);
         } else if (enemy == 1) {
-            QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,100,10,Math.random()*60+60,player,collisionController,(int)(Math.random()*40+30));
+            QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,-100,10,Math.random()*60+60,player,collisionController,(int)(Math.random()*40+30));
             viewController.draw(testQueueEnemy);
             collisionController.addEnemy(testQueueEnemy);
         } else {
-            StackEnemy stackEnemy = new StackEnemy(Math.random()*870+53,100,player,collisionController,(int)(Math.random()*4+2));
+            StackEnemy stackEnemy = new StackEnemy(Math.random()*870+53,-100,player,collisionController,(int)(Math.random()*4+2));
             viewController.draw(stackEnemy);
             collisionController.addEnemy(stackEnemy);
         }

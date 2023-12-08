@@ -2,8 +2,8 @@ package my_project.model.projectiles;
 
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
-import my_project.model.DustParticleEffect;
-import my_project.model.Effect;
+import my_project.model.effects.DustParticleEffect;
+import my_project.model.effects.Effect;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

@@ -4,6 +4,7 @@ import KAGO_framework.model.GraphicalObject;
 import my_project.Util;
 import my_project.control.CollisionController;
 import my_project.model.*;
+import my_project.model.effects.Effect;
 import my_project.model.projectiles.ProjectileType;
 import my_project.model.projectiles.*;
 
@@ -14,6 +15,7 @@ public abstract class Enemy extends GraphicalObject {
     protected Player player;
     protected double speed;
     protected BufferedImage[] images;
+    protected boolean destroyed = false;
 
     public Enemy(double x, double y, double speed, Player player, CollisionController collisionController){
         this.x = x;
@@ -53,6 +55,18 @@ public abstract class Enemy extends GraphicalObject {
         }
 
         return collides;
+    }
+
+    public Effect onDestroyed(){
+        return null;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
     }
 
     public abstract boolean checkCollision(Projectile projectile);

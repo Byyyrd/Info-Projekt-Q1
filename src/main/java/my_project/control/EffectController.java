@@ -1,7 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
-import my_project.model.Effect;
+import my_project.model.effects.Effect;
 
 public class EffectController {
     private List<Effect> effectsList = new List<>();

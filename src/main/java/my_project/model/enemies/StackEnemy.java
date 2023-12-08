@@ -5,6 +5,8 @@ import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
 import my_project.model.Player;
+import my_project.model.effects.DustParticleEffect;
+import my_project.model.effects.Effect;
 import my_project.model.projectiles.Projectile;
 import my_project.model.projectiles.ProjectileType;
 
@@ -71,6 +73,7 @@ public class StackEnemy extends Enemy {
                 stack.pop();
                 stackSize -= 1;
             }
+            if(stack.isEmpty()) destroyed = true;
             return collides;
         }
         return false;
@@ -84,6 +87,10 @@ public class StackEnemy extends Enemy {
         return false;
     }
 
+    @Override
+    public Effect onDestroyed() {
+        return new DustParticleEffect(x,y,50,60,10,new Color(188, 74, 155));
+    }
 
     private class StackEntity{
         private final int speed;

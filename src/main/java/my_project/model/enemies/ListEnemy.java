@@ -4,7 +4,7 @@ import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
-import my_project.model.DustParticleEffect;
+import my_project.model.effects.DustParticleEffect;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
 
@@ -37,6 +37,7 @@ public class ListEnemy extends Enemy {
                 collisionController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
                 list.remove();
                 if(!list.hasAccess()) list.toFirst();
+                if(list.isEmpty()) destroyed = true;
                 return true;
             } else {
                 ListEnemyNode current = list.getContent();

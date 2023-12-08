@@ -53,6 +53,7 @@ public class QueueEnemy extends Enemy {
             } else {
                 getHit(false);
             }
+            if(queue.isEmpty()) destroyed = true;
             return true;
         }
         return false;

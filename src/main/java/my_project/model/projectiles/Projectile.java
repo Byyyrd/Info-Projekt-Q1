@@ -3,7 +3,7 @@ package my_project.model.projectiles;
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.Util;
-import my_project.model.Effect;
+import my_project.model.effects.Effect;
 import my_project.model.Player;
 
 import java.awt.image.BufferedImage;

@@ -1,7 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
-import my_project.model.Effect;
+import my_project.model.effects.Effect;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
 import my_project.model.enemies.Enemy;
@@ -45,7 +45,13 @@ public class CollisionController {
                 if(enemyList.getContent().checkCollision(projectileList.getContent())) {
                     projectileList.getContent().setDestroyed(true);
                 }
-                enemyList.next();
+                if (enemyList.getContent().isDestroyed()) {
+                    addEffect(enemyList.getContent().onDestroyed());
+                    programController.removeObject(enemyList.getContent());
+                    enemyList.remove();
+                } else {
+                    enemyList.next();
+                }
             }
             projectileList.next();
         }

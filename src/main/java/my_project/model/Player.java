@@ -11,11 +11,12 @@ import java.awt.image.BufferedImage;
 public class Player extends InteractiveGraphicalObject {
     private BufferedImage[] images = Util.getAllImagesFromFolder("player");
     private double currentSpeed = 200;
-    private int hp = 2;
+    private boolean dead = false;
     private double dashTimer = 0;
     private final double dashSpeed = 700;
     private final double dashDuration = 0.2;
     private final double dashCooldown = 0.5;
+
     public Player(){
         x = 488-8; //Mitte des Bildschirms
         y = 488; //Eine sinnvolle Zahl unter dem Zentrum
@@ -66,6 +67,11 @@ public class Player extends InteractiveGraphicalObject {
     }
 
     public void takeDamage(){
+        dead = true;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 
     public void setCurrentSpeed(double newSpeed){
