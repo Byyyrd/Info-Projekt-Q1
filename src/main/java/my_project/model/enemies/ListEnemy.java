@@ -62,7 +62,7 @@ public class ListEnemy extends Enemy {
         ListEnemyNode current = list.getContent();
         list.toFirst();
         while (list.hasAccess()){
-            if(Util.circleToCircleCollision(x,y,list.getContent().getDegrees(),player.getX(),player.getY(),8,0)) {
+            if(Util.circleToCircleCollision(list.getContent().getX(),list.getContent().getY(),list.getContent().getRadius(),player.getX(),player.getY(),8,4)) {
                 Util.listSetCurrent(list,current);
                 return true;
             }

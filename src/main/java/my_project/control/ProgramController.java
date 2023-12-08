@@ -5,6 +5,7 @@ import KAGO_framework.model.GraphicalObject;
 import my_project.Util;
 import my_project.model.Background;
 import my_project.model.Bow;
+import my_project.model.Outline;
 import my_project.model.Player;
 import my_project.model.enemies.ListEnemy;
 import my_project.model.enemies.QueueEnemy;
@@ -24,6 +25,7 @@ public class ProgramController {
     private ViewController viewController;
     private Player player;
     private Background background;
+    private Outline outline;
     private double timer = 0;
     private int enemy = 0;
 
@@ -51,6 +53,8 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
+        outline = new Outline();
+        viewController.draw(outline);
     }
 
     /**
@@ -58,6 +62,9 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        viewController.removeDrawable(outline);
+        outline = new Outline();
+        viewController.draw(outline);
         timer -= dt;
         if(player.isDead()) viewController.reset();
         if(timer < 1)
