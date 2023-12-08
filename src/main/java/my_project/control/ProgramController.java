@@ -53,8 +53,7 @@ public class ProgramController {
         Bow bow = new Bow(player,collisionController);
         viewController.draw(bow);
         viewController.register(bow);
-        outline = new Outline();
-        viewController.draw(outline);
+        viewController.setOutline(new Outline());
     }
 
     /**
@@ -62,9 +61,6 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        viewController.removeDrawable(outline);
-        outline = new Outline();
-        viewController.draw(outline);
         timer -= dt;
         if(player.isDead()) viewController.reset();
         if(timer < 1)
