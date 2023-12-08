@@ -1,4 +1,4 @@
-package my_project.model.Projectiles;
+package my_project.model.projectiles;
 
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;

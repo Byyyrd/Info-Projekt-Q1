@@ -3,7 +3,7 @@ package my_project.control;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.model.Effect;
 import my_project.model.Player;
-import my_project.model.Projectiles.Projectile;
+import my_project.model.projectiles.Projectile;
 import my_project.model.enemies.Enemy;
 
 public class CollisionController {

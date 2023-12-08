@@ -4,7 +4,7 @@ import KAGO_framework.model.InteractiveGraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
-import my_project.model.Projectiles.Arrow;
+import my_project.model.projectiles.Arrow;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

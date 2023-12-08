@@ -1,4 +1,4 @@
-package my_project.model.Projectiles;
+package my_project.model.projectiles;
 
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
