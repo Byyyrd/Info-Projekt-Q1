@@ -12,6 +12,15 @@ import my_project.model.projectiles.ProjectileType;
 
 import java.awt.*;
 
+/**
+ * @author Maksym and Maxim
+ * @date 08.12.2023
+ * @version 1.3
+ * @param stack speichert StackEntities
+ * @param currentCooldown Bullet cooldown für das Erstellen
+ * @param stackSize die größe des stack-Stacks
+ */
+
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
     private double currentCooldown = 0;
@@ -25,8 +34,12 @@ public class StackEnemy extends Enemy {
 
     public void draw(DrawTool drawTool){
         if(!stack.isEmpty()){
-            drawTool.setCurrentColor(new Color(188, 74, 155,255-stackSize*40));
-            drawTool.drawFilledRectangle(x-(stackSize*6+10)/2,y-(stackSize*6+10)/2, stackSize*6+10,stackSize*6+10);
+            for (int i = 0; i < stackSize; i++) {
+                drawTool.setCurrentColor(new Color(188, 74, 155,150));
+                drawTool.drawFilledRectangle(x-(i*6+10)/2,y-(i*6+10)/2, i*6+10,i*6+10);
+                drawTool.setCurrentColor(new Color(0, 0, 0,150));
+                drawTool.drawRectangle((x-(i*6+10)/2)-1,(y-(i*6+10)/2)-1, i*6+12,i*6+12);
+            }
         }
     }
 
