@@ -6,6 +6,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawingPanel;
+import my_project.model.Outline;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,7 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
     }
 
     // Referenzen
+    private Outline outline;
     private DrawFrame drawFrame;    // das Fenster des Programms
     private ProgramController programController; // das Objekt, das das Programm steuern soll
     private Timer gameProcess;
@@ -82,6 +84,10 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
             if(Config.INFO_MESSAGES) System.out.println("** Achtung! Standardfenster deaktiviert => wird nicht angezeigt.). **");
         }
         startProgram();
+    }
+
+    public void setOutline(Outline outline) {
+        this.outline = outline;
     }
 
     /**
@@ -293,6 +299,8 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
             currentObject.update(dtSeconds);
             if (my_project.Config.useSound && soundController != null) soundController.update(dtSeconds);
         }
+        outline.draw(drawTool);
+        outline.update(dtSeconds);
     }
 
     /**

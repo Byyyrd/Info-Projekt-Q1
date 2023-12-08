@@ -8,7 +8,7 @@ import my_project.model.projectiles.Projectile;
 
 public class ArrayEnemy extends Enemy {
     private EnemyNode[][] enemyNodesArray;
-    private double emergenceDegrees;
+    private double degreesForAllEnemies;
     private double rotationSpeed = 0.03;
     private boolean hasInitialised = false;
 
@@ -60,12 +60,12 @@ public class ArrayEnemy extends Enemy {
         double degrees = Math.atan2(desiredYPos - y, desiredXPos - x);
 
         if(!isIntersecting) {
-            degrees = Util.lerpAngle(emergenceDegrees, degrees, rotationSpeed);//+(0.5-rotationSpeed)*Util.isNumberNotZero(i)
+            degrees = Util.lerpAngle(degreesForAllEnemies, degrees, rotationSpeed);//+(0.5-rotationSpeed)*Util.isNumberNotZero(i)
 
             x += Math.cos(degrees) * speed * dt;
             y += Math.sin(degrees) * speed * dt;
 
-            emergenceDegrees = degrees;
+            degreesForAllEnemies = degrees;
         }
     }
 

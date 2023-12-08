@@ -17,12 +17,11 @@ public class Background extends GraphicalObject {
 
     public Background(){
         backgroundEffects = Util.getAllImagesFromFolder("backgroundEffect");
-        setNewImage("src/main/resources/graphic/background.png");
     }
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(188,74,155,255);
+        drawTool.setCurrentColor(new Color(0x141013));
         drawTool.drawFilledRectangle(-50,-50, Config.WINDOW_WIDTH+100,Config.WINDOW_HEIGHT+100);
         drawTool.setCurrentColor(20,16,19,255);
         drawTool.drawFilledRectangle(0,0, Config.WINDOW_WIDTH,Config.WINDOW_HEIGHT);
@@ -30,7 +29,6 @@ public class Background extends GraphicalObject {
         for (int i = 0; i < 10; i++) {
             drawTool.drawImage(backgroundEffects[index],0,100 * i + Math.random() * intensity + y);
         }
-        drawTool.drawImage(getMyImage(),0,0);
     }
 
     @Override
