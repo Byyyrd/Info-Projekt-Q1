@@ -47,9 +47,20 @@ public abstract class Enemy extends GraphicalObject {
 
         if (projectile.getSpeed() > 3000) {
             double antiDegree = projectile.getDegrees() + Math.PI;
-            double prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 50;
-            double prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 50;
+            double prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20 + projectile.getImageOffset();
+            double prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 20;
             collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
+            if(collides) return true;
+            prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20 - projectile.getImageOffset();
+            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
+            if(collides) return true;
+            prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20;
+            prevPointY = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20 + projectile.getImageOffset();
+            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
+            if(collides) return true;
+            prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 20 + projectile.getImageOffset();
+            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
+            //TODO: BESSER MACHEN BITTE, WER HAT MAXIM KOCHEN LASSEN :crying_emoji:
         } else {
             collides = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getHeight()/2,0);
         }

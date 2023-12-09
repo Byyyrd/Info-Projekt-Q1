@@ -1,7 +1,8 @@
 package my_project.view;
 
+import KAGO_framework.control.ViewController;
 import KAGO_framework.model.InteractiveGraphicalObject;
-import my_project.control.ProgramController;
+import my_project.control.PlayerController;
 import java.awt.event.MouseEvent;
 
 /**
@@ -59,5 +60,4 @@ public class InputManager extends InteractiveGraphicalObject {
         if(e.getButton() == 3)
             playerController.updateRightMouseState(false);
     }
-
 }
