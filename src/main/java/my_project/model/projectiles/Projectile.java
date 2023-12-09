@@ -67,6 +67,10 @@ public abstract class Projectile extends GraphicalObject {
         return degrees;
     }
 
+    public double getImageOffset() {
+        return imageOffset;
+    }
+
     public boolean checkBounds(){
         boolean inWall = false;
         if((x+imageOffset) < Config.leftBound){

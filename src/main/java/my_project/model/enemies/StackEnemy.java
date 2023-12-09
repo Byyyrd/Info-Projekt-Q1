@@ -12,15 +12,6 @@ import my_project.model.projectiles.ProjectileType;
 
 import java.awt.*;
 
-/**
- * @author Maksym and Maxim
- * @date 08.12.2023
- * @version 1.3
- * @param stack speichert StackEntities
- * @param currentCooldown Bullet cooldown für das Erstellen
- * @param stackSize die größe des stack-Stacks
- */
-
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
     private double currentCooldown = 0;
@@ -82,6 +73,8 @@ public class StackEnemy extends Enemy {
             EnemyNode enemyNode = new EnemyNode(x,y,stackSize * 10+5);
             boolean collides = collidesWithNode(projectile,enemyNode);
             if (collides) {
+                projectile.setX(x);
+                projectile.setY(y);
                 spawnBullets();
                 stack.pop();
                 stackSize -= 1;

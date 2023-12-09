@@ -10,6 +10,7 @@ import my_project.model.Player;
 import my_project.model.enemies.ListEnemy;
 import my_project.model.enemies.QueueEnemy;
 import my_project.model.enemies.StackEnemy;
+import my_project.view.InputManager;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -22,6 +23,7 @@ public class ProgramController {
 
     // Referenzen
     private CollisionController collisionController;
+    private PlayerController playerController;
     private ViewController viewController;
     private Player player;
     private Background background;
@@ -47,13 +49,19 @@ public class ProgramController {
     public void startProgram() {
         background = new Background();
         viewController.draw(background);
+        viewController.setOutline(new Outline());
+
         player = new Player();
         viewController.draw(player);
-        collisionController = new CollisionController(player, this);
-        Bow bow = new Bow(player,collisionController);
+        Bow bow = new Bow();
         viewController.draw(bow);
-        viewController.register(bow);
-        viewController.setOutline(new Outline());
+
+        collisionController = new CollisionController(player, this);
+        playerController = new PlayerController(player,bow,collisionController);
+
+        InputManager inputManager = new InputManager(playerController);
+        viewController.draw(inputManager);
+        viewController.register(inputManager);
     }
 
     /**
@@ -61,8 +69,8 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        //This code can be deleted
         timer -= dt;
-        if(player.isDead()) viewController.reset();
         if(timer < 1)
             background.setIntensity(50);
         else
@@ -71,6 +79,7 @@ public class ProgramController {
             spawnTestEnemies();
             timer = 10;
         }
+
         collisionController.update();
         Util.applyCamShake(dt);
     }
