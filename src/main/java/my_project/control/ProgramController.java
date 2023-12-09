@@ -47,18 +47,19 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        //Visual Model
         background = new Background();
         viewController.draw(background);
         viewController.setOutline(new Outline());
-
+        //Active Model
         player = new Player();
         viewController.draw(player);
         Bow bow = new Bow();
         viewController.draw(bow);
-
+        //Control
         collisionController = new CollisionController(player, this);
         playerController = new PlayerController(player,bow,collisionController);
-
+        //View
         InputManager inputManager = new InputManager(playerController);
         viewController.draw(inputManager);
         viewController.register(inputManager);
