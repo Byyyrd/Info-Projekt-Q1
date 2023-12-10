@@ -15,10 +15,10 @@ import java.awt.*;
 
 
 /**
+ * Describes the behavior of a StackEnemy
+ *
  * @author Maksym und Maxim
  * @version 1.3
- *
- * Beschreibt das Verhalten vom StackEnemy
  */
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
@@ -26,13 +26,11 @@ public class StackEnemy extends Enemy {
     private int stackSize;
 
     /**
-     * @param x Position vom Stack Enemy, wird aus der Enemy-Klasse gererbt
-     * @param y Position vom Stack Enemy, wird aus der Enemy-Klasse gererbt
+     * @param x postion of the StackEnemy (top left edge)
+     * @param y postion of the StackEnemy (top left edge)
      * @param player eine Player Referenz, wird aus der Enemy-Klasse gererbt
      * @param collisionController eine collisionController Referenz, wird aus der Enemy-Klasse gererbt
-     * @param stackSize Anzahl der eingefügten StackEntities in den stack Stack
-     *
-     * Fügt StackEntities mit der stackSize Anzahl hinzu
+     * @param stackSize number of added StackEntities in stack-Stack
      */
     public StackEnemy(double x, double y, Player player, CollisionController collisionController, int stackSize) {
         super(x, y, 100, player, collisionController);
@@ -41,7 +39,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * Zeichnet den StackEnemy
+     * Draws a StackEnemy in shape of a pyramid
      */
     public void draw(DrawTool drawTool){
         if(!stack.isEmpty()){
@@ -55,10 +53,11 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * Bewegung vom StackEnemy
-     * Die Geschwindigkeit ist von dem Abstand zwischen dem StackEnemy und Spieler Abhängig
+     * Movement of the StackEnemy and creation of new Bullets
      *
-     * Erstellt neue Bullets (Zeit ist abhängig von der Bullet-Art)
+     * The speed is depended on the distance between the Player and the stackEnemy
+     *
+     * Creats new Bullets depended on the coolDown (coolDown is depended on the BulletType)
      */
 
     public void update(double dt){
@@ -76,7 +75,11 @@ public class StackEnemy extends Enemy {
     }
 
     /**
+     * Calculates the degree of each created Bullet around the StackEnemy
      *
+     * Creates new Bullets
+     *
+     * Sets currentCooldown on the coolDown of the StackEntity at the top of the stack-Stack
      */
 
     private void spawnBullets() {
@@ -92,9 +95,9 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * @param stackSize Anzahl der eingefügten StackEntities
+     * Adds a number of StackEntities in the stack-Stack
      *
-     * Fügt StackEntities in den stack Stack hinzu
+     * @param stackSize number of added StackEntities in the stack-Stack
      */
 
     private void addStackEntities(int stackSize) {
@@ -105,7 +108,12 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * @return ob Projectile und EnenmyNode kollidieren
+     * Checks whether an EnemyNode and a Projectile collide
+     * If true sets the projectile to the StackEnemy position, spawns new Bullets, removes one StackEntity from the stack-Stack and decreases the stackSize by 1
+     *
+     * If the stack-Stack is Empty set destroyed on true
+     *
+     * @return whether Projectile and EnemyNode collide
      */
 
     @Override
@@ -127,7 +135,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * @return ob Player und StackEnemy kollidieren
+     * @return whether the StackEnemy and the player collide
      */
 
     @Override
@@ -139,7 +147,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * @return ein neues Partikel
+     * @return a new DustParticle on the x,y postion of the StackEnemy
      */
     @Override
     public Effect onDestroyed() {
@@ -147,9 +155,9 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     *  Private Klasse StackEntity
+     *  Private class of StackEnemy
      *
-     *  Wird benötigt um ein StackEnmy sinnvoll umzusetzen
+     *  Used for a task-related implementation of the StackEnemy
      */
     private class StackEntity{
         private final int speed;
@@ -159,11 +167,16 @@ public class StackEnemy extends Enemy {
         private final int bulletSpeed;
 
         /**
-         * Die Geschwindigkeit ist zufällig zwischen 20 und 59
+         * Sets speed on a value between 20 and 59
          *
-         * Die Anzahl von Kugel ist zufällig zwischen 4 und 7
+         * Sets numberOfBullets on a value between 4 and 7
          *
-         * Die Bullet-Art wird zufällig bestimmt
+         * Sets Bullet-Type randomly
+         * 50% for a normal Bullet
+         * 25% for a charged Bullet
+         * 25% for a bouncing Bullet
+         *
+         * Sets the coolDown based on the bulletType
          */
 
         public StackEntity(){
