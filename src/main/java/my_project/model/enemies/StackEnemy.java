@@ -12,17 +12,37 @@ import my_project.model.projectiles.ProjectileType;
 
 import java.awt.*;
 
+
+
+/**
+ * @author Maksym und Maxim
+ * @version 1.3
+ *
+ * Beschreibt das Verhalten vom StackEnemy
+ */
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
     private double currentCooldown = 0;
     private int stackSize;
 
+    /**
+     * @param x Position vom Stack Enemy, wird aus der Enemy-Klasse gererbt
+     * @param y Position vom Stack Enemy, wird aus der Enemy-Klasse gererbt
+     * @param player eine Player Referenz, wird aus der Enemy-Klasse gererbt
+     * @param collisionController eine collisionController Referenz, wird aus der Enemy-Klasse gererbt
+     * @param stackSize Anzahl der eingefügten StackEntities in den stack Stack
+     *
+     * Fügt StackEntities mit der stackSize Anzahl hinzu
+     */
     public StackEnemy(double x, double y, Player player, CollisionController collisionController, int stackSize) {
         super(x, y, 100, player, collisionController);
         addStackEntities(stackSize);
         this.stackSize = stackSize;
     }
 
+    /**
+     * Zeichnet den StackEnemy
+     */
     public void draw(DrawTool drawTool){
         if(!stack.isEmpty()){
             for (int i = 0; i < stackSize; i++) {
@@ -33,6 +53,13 @@ public class StackEnemy extends Enemy {
             }
         }
     }
+
+    /**
+     * Bewegung vom StackEnemy
+     * Die Geschwindigkeit ist von dem Abstand zwischen dem StackEnemy und Spieler Abhängig
+     *
+     * Erstellt neue Bullets (Zeit ist abhängig von der Bullet-Art)
+     */
 
     public void update(double dt){
         if(!stack.isEmpty()) {
@@ -48,6 +75,10 @@ public class StackEnemy extends Enemy {
         }
     }
 
+    /**
+     *
+     */
+
     private void spawnBullets() {
         if (!stack.isEmpty()) {
             double spreadDegree = (Math.PI + 2) / (stack.top().amountOfBullets - 1);
@@ -60,12 +91,22 @@ public class StackEnemy extends Enemy {
         }
     }
 
+    /**
+     * @param stackSize Anzahl der eingefügten StackEntities
+     *
+     * Fügt StackEntities in den stack Stack hinzu
+     */
+
     private void addStackEntities(int stackSize) {
         for (int i = 0; i < stackSize; i++) {
             StackEntity stackEntity = new StackEntity();
             stack.push(stackEntity);
         }
     }
+
+    /**
+     * @return ob Projectile und EnenmyNode kollidieren
+     */
 
     @Override
     public boolean checkCollision(Projectile projectile) {
@@ -85,6 +126,10 @@ public class StackEnemy extends Enemy {
         return false;
     }
 
+    /**
+     * @return ob Player und StackEnemy kollidieren
+     */
+
     @Override
     public boolean checkCollision(Player player) {
         if(!stack.isEmpty()) {
@@ -93,17 +138,33 @@ public class StackEnemy extends Enemy {
         return false;
     }
 
+    /**
+     * @return ein neues Partikel
+     */
     @Override
     public Effect onDestroyed() {
         return new DustParticleEffect(x,y,50,60,10,new Color(188, 74, 155));
     }
 
+    /**
+     *  Private Klasse StackEntity
+     *
+     *  Wird benötigt um ein StackEnmy sinnvoll umzusetzen
+     */
     private class StackEntity{
         private final int speed;
         private final int amountOfBullets;
         private final ProjectileType type;
         private final double coolDown;
         private final int bulletSpeed;
+
+        /**
+         * Die Geschwindigkeit ist zufällig zwischen 20 und 59
+         *
+         * Die Anzahl von Kugel ist zufällig zwischen 4 und 7
+         *
+         * Die Bullet-Art wird zufällig bestimmt
+         */
 
         public StackEntity(){
             speed = (int)(Math.random()*40+20);
