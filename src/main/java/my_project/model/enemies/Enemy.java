@@ -43,29 +43,22 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     protected boolean collidesWithNode(Projectile projectile, EnemyNode node){
-        boolean collides;
-
+        double offset = projectile.getHeight()/2;
+        double[] xOffsets = new double[]{0,0,offset,-offset};
+        double[] yOffsets = new double[]{offset,-offset,0,0};
         if (projectile.getSpeed() > 3000) {
-            double antiDegree = projectile.getDegrees() + Math.PI;
-            double prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20 + projectile.getImageOffset();
-            double prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 20;
-            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
-            if(collides) return true;
-            prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20 - projectile.getImageOffset();
-            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
-            if(collides) return true;
-            prevPointX = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20;
-            prevPointY = projectile.getX() + Math.cos(antiDegree) * projectile.getSpeed() * 1 / 20 + projectile.getImageOffset();
-            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
-            if(collides) return true;
-            prevPointY = projectile.getY() + Math.sin(antiDegree) * projectile.getSpeed() * 1 / 20 + projectile.getImageOffset();
-            collides = Util.isLineAndCircleColliding(prevPointX,prevPointY,projectile.getX(),projectile.getY(),node.getX(),node.getY(),node.getRadius());
-            //TODO: BESSER MACHEN BITTE, WER HAT MAXIM KOCHEN LASSEN :crying_emoji:
+            for (int i = 0; i < xOffsets.length; i++) {
+                double antiDegree = Math.atan2(Math.sin(projectile.getDegrees()),Math.cos(projectile.getDegrees()));
+                double prevPointX = projectile.getX() + xOffsets[i] + (Math.cos(antiDegree) * projectile.getSpeed() * 0.02);
+                double prevPointY = projectile.getY() + yOffsets[i] + (Math.sin(antiDegree) * projectile.getSpeed() * 0.02);
+                if(Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),prevPointX,prevPointY,projectile.getHeight()/2,0))
+                    return true;
+            }
         } else {
-            collides = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getHeight()/2,0);
+            return Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getHeight()/2,0);
         }
 
-        return collides;
+        return false;
     }
 
     public Effect onDestroyed(){

@@ -12,13 +12,8 @@ import my_project.model.projectiles.ProjectileType;
 
 import java.awt.*;
 
-
-
 /**
- * Describes the behavior of a StackEnemy
- *
- * @author Maksym und Maxim
- * @version 1.3
+ * Describes the behavior of a StackEnemy.
  */
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();
@@ -26,11 +21,11 @@ public class StackEnemy extends Enemy {
     private int stackSize;
 
     /**
-     * @param x postion of the StackEnemy (top left edge)
-     * @param y postion of the StackEnemy (top left edge)
-     * @param player eine Player Referenz, wird aus der Enemy-Klasse gererbt
-     * @param collisionController eine collisionController Referenz, wird aus der Enemy-Klasse gererbt
-     * @param stackSize number of added StackEntities in stack-Stack
+     * @param x X coordinate of the StackEnemy (top left edge)
+     * @param y Y coordinate of the StackEnemy (top left edge)
+     * @param player Used to chase the player
+     * @param collisionController TODO: TO BE REMOVED
+     * @param stackSize Number of added StackEntities in used stack
      */
     public StackEnemy(double x, double y, Player player, CollisionController collisionController, int stackSize) {
         super(x, y, 100, player, collisionController);
@@ -39,7 +34,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * Draws a StackEnemy in shape of a pyramid
+     * Draws the StackEnemy in shape of a pyramid
      */
     public void draw(DrawTool drawTool){
         if(!stack.isEmpty()){
@@ -55,9 +50,9 @@ public class StackEnemy extends Enemy {
     /**
      * Movement of the StackEnemy and creation of new Bullets
      *
-     * The speed is depended on the distance between the Player and the stackEnemy
+     * The speed is depended on the distance between the Player and the StackEnemy
      *
-     * Creats new Bullets depended on the coolDown (coolDown is depended on the BulletType)
+     * Creates new Bullets depending on the cooldown (cooldown is depended on the BulletType)
      */
 
     public void update(double dt){
@@ -75,13 +70,12 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * Calculates the degree of each created Bullet around the StackEnemy
+     * Calculates the degree of each created Bullet around the StackEnemy.
      *
-     * Creates new Bullets
+     * Creates new Bullets.
      *
-     * Sets currentCooldown on the coolDown of the StackEntity at the top of the stack-Stack
+     * Sets currentCooldown on the coolDown of the StackEntity at the top of the used stack
      */
-
     private void spawnBullets() {
         if (!stack.isEmpty()) {
             double spreadDegree = (Math.PI + 2) / (stack.top().amountOfBullets - 1);
@@ -89,15 +83,15 @@ public class StackEnemy extends Enemy {
                 double degrees = Math.atan2(player.getY() - y, player.getX() - x);
                 double relativeDegree = i * spreadDegree;
                 super.spawnBullet(x, y, degrees + relativeDegree, stack.top().bulletSpeed, stack.top().type);
-                currentCooldown = stack.top().coolDown;
+                currentCooldown = stack.top().cooldown;
             }
         }
     }
 
     /**
-     * Adds a number of StackEntities in the stack-Stack
+     * Adds a number of StackEntities in the used stack
      *
-     * @param stackSize number of added StackEntities in the stack-Stack
+     * @param stackSize Number of added StackEntities in the stack-Stack
      */
 
     private void addStackEntities(int stackSize) {
@@ -108,12 +102,12 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * Checks whether an EnemyNode and a Projectile collide
-     * If true sets the projectile to the StackEnemy position, spawns new Bullets, removes one StackEntity from the stack-Stack and decreases the stackSize by 1
+     * Checks whether an EnemyNode and a Projectile collide.
+     * If true sets the projectile to the StackEnemy position, spawns new Bullets, removes one StackEntity from the stack-Stack and decreases the stackSize by 1.
      *
      * If the stack-Stack is Empty set destroyed on true
      *
-     * @return whether Projectile and EnemyNode collide
+     * @return Whether Projectile and EnemyNode collide
      */
 
     @Override
@@ -135,7 +129,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * @return whether the StackEnemy and the player collide
+     * @return Whether the StackEnemy and the player collide
      */
 
     @Override
@@ -147,7 +141,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * @return a new DustParticle on the x,y postion of the StackEnemy
+     * @return A new DustParticle on the x,y postion of the StackEnemy
      */
     @Override
     public Effect onDestroyed() {
@@ -155,7 +149,7 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     *  Private class of StackEnemy
+     *  Private class of StackEnemy.
      *
      *  Used for a task-related implementation of the StackEnemy
      */
@@ -163,20 +157,22 @@ public class StackEnemy extends Enemy {
         private final int speed;
         private final int amountOfBullets;
         private final ProjectileType type;
-        private final double coolDown;
+        private final double cooldown;
         private final int bulletSpeed;
 
         /**
-         * Sets speed on a value between 20 and 59
+         * Sets speed on a value between 20 and 59.
          *
-         * Sets numberOfBullets on a value between 4 and 7
+         * Sets numberOfBullets on a value between 4 and 7.
          *
-         * Sets Bullet-Type randomly
-         * 50% for a normal Bullet
-         * 25% for a charged Bullet
-         * 25% for a bouncing Bullet
+         * Sets Bullet-Type randomly:
+         * <pre>
+         *     50% for a normal Bullet
+         *     25% for a charged Bullet
+         *     25% for a bouncing Bullet
+         * </pre>
          *
-         * Sets the coolDown based on the bulletType
+         * Sets the cooldown based on the bulletType
          */
 
         public StackEntity(){
@@ -190,10 +186,10 @@ public class StackEnemy extends Enemy {
                 type = ProjectileType.BounceBullet;
             }
             switch (type){
-                case Bullet -> coolDown = 2;
-                case BounceBullet -> coolDown = 4;
-                case ChargeBullet -> coolDown = 5;
-                default -> coolDown = 1;
+                case Bullet -> cooldown = 2;
+                case BounceBullet -> cooldown = 4;
+                case ChargeBullet -> cooldown = 5;
+                default -> cooldown = 1;
             }
             bulletSpeed = 500;
         }
