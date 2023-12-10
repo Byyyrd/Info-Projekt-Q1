@@ -1,6 +1,8 @@
 package my_project.model.projectiles;
 
 import KAGO_framework.view.DrawTool;
+import my_project.model.effects.DustParticleEffect;
+import my_project.model.effects.Effect;
 
 import java.awt.*;
 
@@ -23,5 +25,10 @@ public class Bullet extends Projectile {
         //drawTool.drawImage(getMyImage(),x-imageOffset,y-imageOffset);
         drawTool.setCurrentColor(Color.white);
         drawTool.drawFilledCircle(x,y,8);
+    }
+
+    @Override
+    public Effect onDestroyed() {
+        return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,Color.white);
     }
 }

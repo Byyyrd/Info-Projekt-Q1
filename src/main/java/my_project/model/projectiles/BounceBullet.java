@@ -2,6 +2,8 @@ package my_project.model.projectiles;
 
 import KAGO_framework.view.DrawTool;
 import my_project.model.Player;
+import my_project.model.effects.DustParticleEffect;
+import my_project.model.effects.Effect;
 
 import java.awt.*;
 
@@ -38,5 +40,12 @@ public class BounceBullet extends Projectile {
         else
             drawTool.setCurrentColor(new Color(0x73172d));
         drawTool.drawFilledCircle(x,y,8);
+    }
+
+    @Override
+    public Effect onDestroyed() {
+        if(canBounce)
+            return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,new Color(0xdf3e23));
+        return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,new Color(0x73172d));
     }
 }

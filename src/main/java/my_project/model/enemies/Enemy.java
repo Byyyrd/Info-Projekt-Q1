@@ -43,19 +43,16 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     protected boolean collidesWithNode(Projectile projectile, EnemyNode node){
-        double offset = projectile.getHeight()/2;
-        double[] xOffsets = new double[]{0,0,offset,-offset};
-        double[] yOffsets = new double[]{offset,-offset,0,0};
-        if (projectile.getSpeed() > 3000) {
-            for (int i = 0; i < xOffsets.length; i++) {
-                double antiDegree = Math.atan2(Math.sin(projectile.getDegrees()),Math.cos(projectile.getDegrees()));
-                double prevPointX = projectile.getX() + xOffsets[i] + (Math.cos(antiDegree) * projectile.getSpeed() * 0.02);
-                double prevPointY = projectile.getY() + yOffsets[i] + (Math.sin(antiDegree) * projectile.getSpeed() * 0.02);
-                if(Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),prevPointX,prevPointY,projectile.getHeight()/2,0))
+        if (projectile.getSpeed() > 2000) {
+            for (int i = 0; i < Math.floor(projectile.getSpeed() * 0.01); i++) {
+                double antiDegree = Math.atan2(-Math.sin(projectile.getDegrees()),-Math.cos(projectile.getDegrees()));
+                double prevPointX = projectile.getX() + (Math.cos(antiDegree) * i);
+                double prevPointY = projectile.getY() + (Math.sin(antiDegree) * i);
+                if(Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),prevPointX,prevPointY,projectile.getImageOffset(),0))
                     return true;
             }
         } else {
-            return Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getHeight()/2,0);
+            return Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),projectile.getX(),projectile.getY(),projectile.getImageOffset(),0);
         }
 
         return false;
