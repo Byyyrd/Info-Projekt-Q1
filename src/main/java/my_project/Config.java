@@ -1,20 +1,19 @@
 package my_project;
 
 /**
- * In dieser Klasse werden globale, statische Einstellungen verwaltet.
- * Die Werte können nach eigenen Wünschen angepasst werden.
+ * The Config class is used to manage global settings.
  */
 public class Config {
 
-    // Titel des Programms (steht oben in der Fenstertitelzeile)
+    // Title of the programm
     public final static String WINDOW_TITLE = "LDS Slayer - Revenge of Info LK";
 
-    // Konfiguration des Standardfensters: Anzeige und Breite des Programmfensters (Width) und Höhe des Programmfensters (Height)
+    // Options for the window
     public final static boolean SHOW_DEFAULT_WINDOW = true;
-    public final static int WINDOW_WIDTH = 960+16;   // Eigentlich 960, aber 16 Pixel extra aufgrund von JPanel
-    public final static int WINDOW_HEIGHT = 540+10+29;   // Effektive Höhe ist etwa 10 Pixel (JPanel Einrückung) und 29 Pixel geringer (Titelleiste wird mitgezählt)
+    public final static int WINDOW_WIDTH = 960+16;   // Actually 960, but 16 pixels extra due to the discrepancy from JPanel
+    public final static int WINDOW_HEIGHT = 540+10+29;   // Actually 960, but 10 pixels extra due titelbar and 29 pixels extra due to the discrepancy from JPanel
 
-    // Weitere Optionen für das Projekt
+    // More options for the programm
     public final static boolean useSound = true;
     public final static int leftBound = 43;
     public final static int rightBound = 933;

@@ -6,6 +6,10 @@ import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
 import my_project.model.enemies.Enemy;
 
+/**
+ * The CollisionController class checks for collision by passing information to enemies and projectiles and letting them calculate collision.
+ * It also checks if enemies and projectiles have to be deleted and if yes, does it.
+ */
 public class CollisionController {
     private List<Enemy> enemyList = new List<>();
     private List<Projectile> projectileList = new List<>();
@@ -13,29 +17,63 @@ public class CollisionController {
     private ProgramController programController;
     private EffectController effectController;
 
+    /**
+     * Registers all needed objects for future collision checks
+     *
+     * @param player Player that is currently in use
+     * @param programController Program controller for registering effects and removing objects
+     */
     public CollisionController(Player player, ProgramController programController){
         this.player = player;
         this.programController = programController;
         effectController = new EffectController(programController);
     }
 
+    /**
+     * Updates all checks for collision
+     */
     public void update(){
         checkEnemyCollision();
         checkPlayerCollision();
-        checkBullets();
+        checkProjectiles();
         effectController.update();
     }
 
+    /**
+     * Registers a given enemy, so collision can be detected in the future
+     *
+     * @param enemy The to be registered enemy
+     */
     public void addEnemy(Enemy enemy){
         enemyList.append(enemy);
         programController.addObject(enemy);
     }
 
+    /**
+     * Registers a given projectile, so collision can be detected in the future
+     *
+     * @param projectile The to be registered projectile
+     */
     public void addProjectile(Projectile projectile){
         projectileList.append(projectile);
         programController.addObject(projectile);
     }
 
+    /**
+     * Passes a given effect onto the effect controller and draws it
+     *
+     * @param effect The to be registered effect
+     */
+    public void addEffect(Effect effect){
+        if (effect != null) {
+            effectController.add(effect);
+            programController.addObject(effect);
+        }
+    }
+
+    /**
+     * Checks for collisions between all non-harmful projectiles and enemies and removes all the enemies that are supposed to be removed from the enemy list
+     */
     private void checkEnemyCollision(){
         List<Projectile> projectileList = getWantedProjectiles(false);
         projectileList.toFirst();
@@ -57,13 +95,17 @@ public class CollisionController {
         }
     }
 
+    /**
+     * Checks for collisions between all harmful projectiles and the player and all the enemies and the player.
+     * If collision accuses, the player takes damage
+     */
     private void checkPlayerCollision(){
         List<Projectile> list = getWantedProjectiles(true);
         list.toFirst();
         while(list.hasAccess()){
             if(list.getContent().checkCollision(player)) {
                 player.takeDamage();
-                break;
+                return;
             }
             list.next();
         }
@@ -71,16 +113,16 @@ public class CollisionController {
         while(enemyList.hasAccess()){
             if(enemyList.getContent().checkCollision(player)) {
                 player.takeDamage();
-                break;
+                return;
             }
             enemyList.next();
         }
     }
 
     /**
-     * removes bullets from list that are supposed to be removed
+     * Removes all the projectiles that are supposed to be removed from the projectile list
      */
-    private void checkBullets(){
+    private void checkProjectiles(){
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
@@ -93,16 +135,11 @@ public class CollisionController {
         }
     }
 
-    public void addEffect(Effect effect){
-        if (effect != null) {
-            effectController.add(effect);
-            programController.addObject(effect);
-        }
-    }
     /**
-     * Returns list of projectiles which have the property of harmfulCheck
-     * @param harmfulCheck which Projectiles are wanted, harmful to player or not
-     * @return list
+     * Returns a list of all projectiles that have the property of harmfulCheck
+     *
+     * @param harmfulCheck Which projectiles are wanted, harmful to player or not
+     * @return List of all needed projectiles
      */
     private List<Projectile> getWantedProjectiles(boolean harmfulCheck){
         List<Projectile> list = new List<>();

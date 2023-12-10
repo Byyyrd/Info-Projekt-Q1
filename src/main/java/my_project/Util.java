@@ -7,8 +7,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Vector;
 
+/**
+ * The Util class is completely made up of static functions.
+ * It is used to not have duplicate code fragments and generalize the functions every class could use.
+ */
 public class Util {
     private static double camShakeX;
     private static double camShakeY;
@@ -16,24 +19,40 @@ public class Util {
     private static double duration;
 
     /**
-     * Lerp is short for linear interpolation
+     * Lerp is short for linear interpolation.
      * It interpolates / smooths a number from one to another
      *
-     * @param start starting number
-     * @param end   ending number
-     * @param time  time it should take (0 is no movement, 1 is instantaneous movement)
-     * @return a smoothed value between start and end
+     * @param start Starting number
+     * @param end Ending number
+     * @param time Time it should take (0 is no movement, 1 is instantaneous movement)
+     * @return A smoothed value between the start and end
      */
     public static double lerp(double start, double end, double time) {
         return start * (1 - time) + end * time;
     }
 
+    /**
+     * Lerp is short for linear interpolation.
+     * It interpolates / smooths a number from one to another.
+     * This version takes two radians values between -PI and PI and interpolates them
+     *
+     * @param start Starting angle
+     * @param end Ending angle
+     * @param time Time it should take (0 is no movement, 1 is instantaneous movement)
+     * @return A smoothed angle between the start and end
+     */
     public static double lerpAngle(double start, double end, double time) {
         double xPos = (1 - time) * Math.cos(start) + time * Math.cos(end);
         double yPos = (1 - time) * Math.sin(start) + time * Math.sin(end);
         return Math.atan2(yPos, xPos);
     }
 
+    /**
+     * Counts the amount of objects inside a list, while setting current to null
+     *
+     * @param list List to count in
+     * @return The number of objects (0 if the list is empty)
+     */
     public static <ContentType> int countList(List<ContentType> list) {
         int count = 0;
         list.toFirst();
@@ -44,6 +63,12 @@ public class Util {
         return count;
     }
 
+    /**
+     * Counts the amount of objects inside a queue, without changing it
+     *
+     * @param queue Queue to count in
+     * @return The number of objects (0 if the queue is empty)
+     */
     public static <ContentType> int countQueue(Queue<ContentType> queue) {
         int count = 0;
         Queue<ContentType> helpQueue = new Queue<>();
@@ -60,10 +85,10 @@ public class Util {
     }
 
     /**
-     * Finds Object in given list and makes it current in that list
-     * @param list list to set current in
-     * @param object obeject inn list to be current
-     * @param <ContentType> Content type of list and Object
+     * Finds an object inside a given list and makes it the current
+     *
+     * @param list List to set current in
+     * @param object Object to set current to
      */
     public static <ContentType> void listSetCurrent(List<ContentType> list, ContentType object){
         list.toFirst();
@@ -71,12 +96,12 @@ public class Util {
             list.next();
         }
     }
+
     /**
-     * gibt einem content von tail
+     * Gets the content of the tail inside a given queue
      *
-     * @param queue         die queue von welcher man den Content der tail wissen will
-     * @param <ContentType>
-     * @return den content von tail
+     * @param queue Queue to be searched in
+     * @return The content of the tail, not the node
      */
     public static <ContentType> ContentType getTailContent(Queue<ContentType> queue) {
         int count = countQueue(queue);
@@ -92,11 +117,11 @@ public class Util {
     }
 
     /**
-     * Finds Object in list and removes it. Current of list ends on first.
+     * Finds a given object inside a list and removes it.
+     * Current of the list is then put on first
      *
-     * @param list          list remove from
-     * @param content       Object that  needs to be removed
-     * @param <ContentType> Type of Objects in list and Object to find
+     * @param list List to be removed from
+     * @param content Object to be removed
      */
     public static <ContentType> void removeFromList(List<ContentType> list, ContentType content) {
         findFromList(list, content);
@@ -105,11 +130,10 @@ public class Util {
     }
 
     /**
-     * Finds object in list and makes it current.
+     * Finds a given object inside a list and makes it the current object of the list
      *
-     * @param list          list that includes searched Object
-     * @param content       Object to be searched
-     * @param <ContentType> Type of Objects in list and searched Object
+     * @param list List that includes searched object
+     * @param content Object to be searched
      */
     public static <ContentType> void findFromList(List<ContentType> list, ContentType content) {
         list.toFirst();
@@ -133,8 +157,8 @@ public class Util {
      * <p>
      * Any other kind of structure won't work
      *
-     * @param path the name of the top folder
-     * @return an Array of Buffered Images that can be drawn using drawTool.drawImage()
+     * @param path The name of the top folder
+     * @return An Array of Buffered Images that can be drawn using drawTool.drawImage()
      */
     public static BufferedImage[] getAllImagesFromFolder(String path) {
         File directory = new File("src/main/resources/graphic/" + path);
@@ -150,6 +174,11 @@ public class Util {
         return images;
     }
 
+    /**
+     * Updates the values for the camera shake
+     *
+     * @param dt Time between the current and the last frame
+     */
     public static void applyCamShake(double dt) {
         camShakeX = (duration * strength * Math.random()) * 2 - (duration * strength);
         camShakeY = (duration * strength * Math.random()) * 2 - (duration * strength);
@@ -157,6 +186,12 @@ public class Util {
         if (duration < 0) duration = 0;
     }
 
+    /**
+     * Applies new values to the camera shake, if the new values are higher than the current
+     *
+     * @param duration Duration of the camera shake
+     * @param strength Strength of the camera shake
+     */
     public static void setCamShake(double duration, double strength) {
         if (Util.strength * Util.duration < strength * duration) {
             Util.duration = duration;
@@ -164,36 +199,43 @@ public class Util {
         }
     }
 
+    /**
+     * Returns the values used for camera shake
+     *
+     * @return A double array with the 1st index being the x camera shake and the 2nd the y camera shake
+     */
     public static double[] getCamShake() {
         return new double[]{camShakeX, camShakeY};
     }
 
     /**
-     * Checks if two rectangle collide
+     * Checks whether two given rectangles collide
      *
-     * @param r1x x position of left edge from first rectangle
-     * @param r1y y position of top edge from first rectangle
-     * @param r1w width of first rectangle
-     * @param r1h height of first rectangle
-     * @param r2x x position of left edge from second rectangle
-     * @param r2y y position of top edge from second rectangle
-     * @param r2w width of second rectangle
-     * @param r2h height of second rectangle
-     * @return boolean that describes whether the rectangle collide
+     * @param r1x X position of left edge from first rectangle
+     * @param r1y Y position of top edge from first rectangle
+     * @param r1w Width of first rectangle
+     * @param r1h Height of first rectangle
+     * @param r2x X position of left edge from second rectangle
+     * @param r2y Y position of top edge from second rectangle
+     * @param r2w Width of second rectangle
+     * @param r2h Height of second rectangle
+     * @return A boolean that describes whether the rectangles collide
      */
     public static boolean rectToRectCollision(double r1x, double r1y, double r1w, double r1h, double r2x, double r2y, double r2w, double r2h) {
         return !(r1x > r2x + r2w) && !(r1x + r1w < r2x) && !(r1y > r2y + r2h) && !(r1y + r1h < r2y);
     }
 
     /**
-     * @param x1    X position of 1st circle
-     * @param y1    Y position of 1st circle
-     * @param r1    radius of 1st circle
-     * @param x2    X position of 2nd circle
-     * @param y2    Y position of 2nd circle
-     * @param r2    radius of 2nd circle
-     * @param depth depth of circle intersection till they are considered colliding
-     * @return
+     * Checks whether two given circles collide
+     *
+     * @param x1 X position of 1st circle
+     * @param y1 Y position of 1st circle
+     * @param r1 Radius of 1st circle
+     * @param x2 Y position of 2nd circle
+     * @param y2 X position of 2nd circle
+     * @param r2 Radius of 2nd circle
+     * @param depth Depth of the circle intersection that has to happen until it the circles are considered colliding
+     * @return A boolean that describes whether the circles collide
      */
     public static boolean circleToCircleCollision(double x1, double y1, double r1, double x2, double y2, double r2, double depth) {
         double distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
@@ -203,8 +245,8 @@ public class Util {
     /**
      * This is useful for one specific snip of code in QueueEnemy
      *
-     * @param number we want to check if is zero
-     * @return if number 0 we return 0 else we return 1
+     * @param number Number to check
+     * @return 0 if number is 0 else 1
      */
     public static double isNumberNotZero(double number) {
         if (number == 0) {
@@ -213,20 +255,30 @@ public class Util {
         return 1;
     }
 
+    /**
+     * Pretends that the given numbers are 2d-vectors and calculates the dot product
+     *
+     * @param aX The first number of the first vector
+     * @param aY The second number of the first vector
+     * @param bX The first number of the second vector
+     * @param bY The second number of the second vector
+     * @return The calculated value of the dot product
+     */
     public static double DotProduct(double aX, double aY, double bX, double bY) {
         return aX * bX + aY * bY;
     }
 
     /**
-     * calculates whether a circle and line are colliding or not
-     * @param p1X X coordinate of point 1
-     * @param p1Y Y coordinate of point 1
-     * @param p2X X coordinate of point 2
-     * @param p2Y Y coordinate of point 2
+     * Calculates whether a circle and line are intersecting
+     *
+     * @param p1X X coordinate of the first point of the line
+     * @param p1Y Y coordinate of the first point of the line
+     * @param p2X X coordinate of the second point of the line
+     * @param p2Y Y coordinate of the second point of the line
      * @param cX X coordinate of circle
      * @param cY Y coordinate of circle
-     * @param r radius of circle
-     * @return whether the circle and the line are intersecting
+     * @param r Radius of circle
+     * @return Whether the circle and the line are intersecting
      * source: <a href="https://stackoverflow.com/questions/1073336/circle-line-segment-collision-detection-algorithm">...</a>
      */
     public static boolean isLineAndCircleColliding(double p1X, double p1Y, double p2X, double p2Y, double cX, double cY, double r) {
@@ -252,7 +304,7 @@ public class Util {
 
             // either solution may be on or off the ray so need to test both
             // t1 is always the smaller value, because BOTH discriminant and
-            // a are nonnegative.
+            // variable "a" are non-negative.
             double t1 = (-b - discriminant) / (2 * a);
             double t2 = (-b + discriminant) / (2 * a);
 
@@ -271,18 +323,17 @@ public class Util {
                 return true;
             }
 
-            // here t1 didn't intersect so we are either started
+            // here t1 didn't intersect, so we are either started
             // inside the sphere or completely past it
             if (t2 >= 0 && t2 <= 1) {
                 // ExitWound
                 return true;
             }
 
-            // no intn: FallShort, Past, CompletelyInside
+            // no intersection: FallShort, Past, CompletelyInside
             return false;
         }
     }
-
 }
 
 

@@ -70,11 +70,13 @@ public class Bow extends GraphicalObject {
 
     /**
      * Gets all the necessary infos to shoot an arrow
+     * <pre>
      * index 0 -> X Position
      * index 1 -> Y Position
      * index 2 -> Degrees
      * index 3 -> Speed
-     * @return
+     * </pre>
+     * @return a double array with all infos
      */
     public double[] getShootInfo(){
         if(power == 0) return null;

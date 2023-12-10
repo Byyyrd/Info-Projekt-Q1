@@ -27,7 +27,6 @@ public class ProgramController {
     private ViewController viewController;
     private Player player;
     private Background background;
-    private Outline outline;
     private double timer = 0;
     private int enemy = 2;
 

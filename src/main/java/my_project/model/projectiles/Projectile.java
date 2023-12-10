@@ -48,7 +48,7 @@ public abstract class Projectile extends GraphicalObject {
     }
 
     public boolean checkCollision(Player player){
-        return Util.circleToCircleCollision(x,y,radius,player.getX(),player.getY(),8,0);
+        return Util.circleToCircleCollision(x,y,radius,player.getX(),player.getY(),8,4);
     }
 
     public void setSpeed(double speed) {
