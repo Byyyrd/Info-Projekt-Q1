@@ -25,10 +25,9 @@ public class ProgramController {
     private CollisionController collisionController;
     private PlayerController playerController;
     private ViewController viewController;
+    private EnemySpawnController enemySpawnController;
     private Player player;
     private Background background;
-    private double timer = 0;
-    private int enemy = 2;
 
     /**
      * Konstruktor
@@ -58,6 +57,7 @@ public class ProgramController {
         //Control
         collisionController = new CollisionController(player, this);
         playerController = new PlayerController(player,bow,collisionController);
+        enemySpawnController = new EnemySpawnController(this,collisionController,player);
         //View
         InputManager inputManager = new InputManager(playerController);
         viewController.draw(inputManager);
@@ -69,39 +69,9 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        //This code can be deleted
-        timer -= dt;
-        if(timer < 1)
-            background.setIntensity(50);
-        else
-            background.setIntensity(0);
-        if(timer < 0){
-            spawnTestEnemies();
-            timer = 10;
-        }
-
+        enemySpawnController.update(dt);
         collisionController.update();
         Util.applyCamShake(dt);
-    }
-
-    private void spawnTestEnemies(){
-        /*if(enemy == 0){
-            ListEnemy testListEnemy = new ListEnemy(Math.random()*870+53,-100,Math.random()*30+30,(int)(Math.random()*9+2), player, collisionController);
-            viewController.draw(testListEnemy);
-            collisionController.addEnemy(testListEnemy);
-        } else if (enemy == 1) {
-            QueueEnemy testQueueEnemy = new QueueEnemy(Math.random()*870+53,-100,10,Math.random()*60+60,player,collisionController,(int)(Math.random()*40+30));
-            viewController.draw(testQueueEnemy);
-            collisionController.addEnemy(testQueueEnemy);
-        } else {*/
-            StackEnemy stackEnemy = new StackEnemy(Math.random()*870+53,-100,player,collisionController,(int)(Math.random()*4+2));
-            viewController.draw(stackEnemy);
-            collisionController.addEnemy(stackEnemy);
-        //}
-        enemy++;
-        if(enemy > 2){
-            enemy = 0;
-        }
     }
 
     public void addObject(GraphicalObject objectToDraw){

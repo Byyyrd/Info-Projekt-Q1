@@ -28,8 +28,7 @@ public class PlayerController{
 
     public void updateLeftMouseState(boolean isDown){
         bow.setLeftMouseDown(isDown);
-        if(!isDown)
-            shootArrow();
+        if(!isDown) shootArrow();
     }
 
     private void shootArrow(){

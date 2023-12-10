@@ -1,6 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
+import my_project.model.Background;
 import my_project.model.effects.Effect;
 
 /**
@@ -9,6 +10,7 @@ import my_project.model.effects.Effect;
 public class EffectController {
     private List<Effect> effectsList = new List<>();
     private ProgramController programController;
+    private Background background;
 
     /**
      * Registers the program controller to delete effects in the future

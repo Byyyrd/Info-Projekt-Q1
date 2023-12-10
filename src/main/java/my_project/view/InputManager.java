@@ -6,16 +6,26 @@ import my_project.control.PlayerController;
 import java.awt.event.MouseEvent;
 
 /**
- * Realisiert ein Objekt, dass alle Eingaben empfängt und dann danach passende Methoden
- * im PlayerController aufruft
+ * The InputManager class manages all inputs the user could make and forwards it to the player controller.
+ * Only update should be called, all the other methods are for mouse detection and called automatically
  */
 public class InputManager extends InteractiveGraphicalObject {
     private PlayerController playerController;
 
+    /**
+     * Registers the used player controller for future use
+     *
+     * @param playerController the player controller in use
+     */
     public InputManager(PlayerController playerController){
         this.playerController = playerController;
     }
 
+    /**
+     * Updates the input and forwards it to the player controller
+     *
+     * @param dt Time between the current and the last frame
+     */
     public void update(double dt) {
         double currentSpeed = playerController.getCurrentSpeed();
         double xDisplacement = 0;
