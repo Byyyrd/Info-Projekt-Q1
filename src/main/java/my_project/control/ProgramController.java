@@ -23,6 +23,7 @@ public class ProgramController {
     private PlayerController playerController;
     private ViewController viewController;
     private EnemyWaveController enemyWaveController;
+    private ModificationController modificationController;
     private Player player;
     private Background background;
 
@@ -47,20 +48,25 @@ public class ProgramController {
         viewController.draw(background);
         viewController.setOutline(new Outline());
         //Active Model
-        player = new Player();
-        viewController.draw(player);
         Bow bow = new Bow();
         viewController.draw(bow);
+        player = new Player();
+        viewController.draw(player);
         //Control
         SpawnController spawnController = new SpawnController(this);
-        playerController = new PlayerController(player,bow,spawnController);
+        modificationController = new ModificationController();
+        playerController = new PlayerController(player,bow,spawnController,modificationController);
         collisionController = new CollisionController(playerController,spawnController);
         enemyWaveController = new EnemyWaveController(spawnController);
         spawnController.setCollisionController(collisionController);
+        modificationController.setPlayerController(playerController);
         //View
         InputManager inputManager = new InputManager(playerController);
         viewController.draw(inputManager);
         viewController.register(inputManager);
+
+        //Set COntroller refernces (Bad mvc maybe fix :( )//TODO BETTER MVC
+        bow.setModificationController(modificationController);
     }
 
     /**
@@ -70,6 +76,7 @@ public class ProgramController {
     public void updateProgram(double dt){
         enemyWaveController.update(dt);
         collisionController.update();
+        modificationController.update(dt);
         Util.applyCamShake(dt);
     }
 

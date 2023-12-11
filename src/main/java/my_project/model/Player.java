@@ -36,4 +36,6 @@ public class Player extends GraphicalObject {
         if((y+8) < Config.upBound) y = Config.upBound - 8;
         if((y+8) > Config.downBound) y = Config.downBound - 8;
     }
+
+
 }
