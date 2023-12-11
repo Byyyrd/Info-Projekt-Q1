@@ -21,7 +21,7 @@ public class EnemyWaveController {
         timer -= dt;
         if(timer < 0){
             spawnTestEnemies();
-            timer = 1;
+            timer = 6;
         }
     }
 

@@ -1,10 +1,9 @@
 package my_project.model.modifiers;
 
 import my_project.control.PlayerController;
-import my_project.model.Player;
 
-public class SlowModifier extends PlayerModifier{
-    public SlowModifier(double duration, double strength) {
+public class SlowingModifier extends PlayerModifier{
+    public SlowingModifier(double duration, double strength) {
         super(duration, strength);
     }
     @Override

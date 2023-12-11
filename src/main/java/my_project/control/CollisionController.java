@@ -64,7 +64,6 @@ public class CollisionController {
      */
     public void addEffect(Effect effect){
         if (effect != null) {
-            spawnController.addEffect(effect);
             effectController.add(effect);
         }
     }

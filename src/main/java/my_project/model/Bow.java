@@ -3,8 +3,7 @@ package my_project.model;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
-import my_project.control.ModificationController;
-import my_project.model.modifiers.SlowModifier;
+import my_project.control.ModifierController;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -20,7 +19,7 @@ public class Bow extends GraphicalObject {
     private double power = 0;
     private final double maxPower = 1;
 
-    private ModificationController modificationController;
+    private ModifierController modifierController;
 
     public Bow(){
         setNewImage("src/main/resources/graphic/bow.png");
@@ -66,8 +65,6 @@ public class Bow extends GraphicalObject {
             if (power > maxPower) {
                 power = maxPower;
             }
-            //TODO Make slow stop when power = 0 and not after some time
-            modificationController.add(new SlowModifier(power * 0.75,dt));
             Util.setCamShake(0.1,power*20);
         } else {
             power = 0;
@@ -92,6 +89,10 @@ public class Bow extends GraphicalObject {
         return new double[]{desiredX + Math.cos(degrees) * 20,desiredY + Math.sin(degrees) * 20,degrees,power};
     }
 
+    public double getPower() {
+        return power;
+    }
+
     public void setMousePosition(double mouseX, double mouseY){
         this.mouseX = mouseX;
         this.mouseY = mouseY;
@@ -104,9 +105,5 @@ public class Bow extends GraphicalObject {
     public void updateDesiredPosition(double desiredX, double desiredY){
         this.desiredX = desiredX;
         this.desiredY = desiredY;
-    }
-
-    public void setModificationController(ModificationController modificationController) {
-        this.modificationController = modificationController;
     }
 }

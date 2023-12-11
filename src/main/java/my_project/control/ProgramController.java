@@ -20,12 +20,9 @@ public class ProgramController {
 
     // Referenzen
     private CollisionController collisionController;
-    private PlayerController playerController;
     private ViewController viewController;
     private EnemyWaveController enemyWaveController;
-    private ModificationController modificationController;
-    private Player player;
-    private Background background;
+    private ModifierController modifierController;
 
     /**
      * Konstruktor
@@ -44,29 +41,26 @@ public class ProgramController {
      */
     public void startProgram() {
         //Visual Model
-        background = new Background();
+        Background background = new Background();
         viewController.draw(background);
         viewController.setOutline(new Outline());
         //Active Model
         Bow bow = new Bow();
         viewController.draw(bow);
-        player = new Player();
+        Player player = new Player();
         viewController.draw(player);
         //Control
         SpawnController spawnController = new SpawnController(this);
-        modificationController = new ModificationController();
-        playerController = new PlayerController(player,bow,spawnController,modificationController);
+        modifierController = new ModifierController();
+        PlayerController playerController = new PlayerController(player, bow, spawnController, modifierController);
         collisionController = new CollisionController(playerController,spawnController);
         enemyWaveController = new EnemyWaveController(spawnController);
         spawnController.setCollisionController(collisionController);
-        modificationController.setPlayerController(playerController);
+        modifierController.setPlayerController(playerController);
         //View
         InputManager inputManager = new InputManager(playerController);
         viewController.draw(inputManager);
         viewController.register(inputManager);
-
-        //Set COntroller refernces (Bad mvc maybe fix :( )//TODO BETTER MVC
-        bow.setModificationController(modificationController);
     }
 
     /**
@@ -76,7 +70,7 @@ public class ProgramController {
     public void updateProgram(double dt){
         enemyWaveController.update(dt);
         collisionController.update();
-        modificationController.update(dt);
+        modifierController.update(dt);
         Util.applyCamShake(dt);
     }
 

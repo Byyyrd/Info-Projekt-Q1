@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends GraphicalObject {
     private BufferedImage[] images = Util.getAllImagesFromFolder("player");
+    private boolean drawFirstImage = true;
 
     public Player(){
         x = 488-8; //Mitte des Bildschirms
@@ -17,7 +18,14 @@ public class Player extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(images[0],x-8,y-8);
+        if(drawFirstImage)
+            drawTool.drawImage(images[0],x-8,y-8);
+        else
+            drawTool.drawImage(images[1],x-8,y-8);
+    }
+
+    public void setDrawFirstImage(boolean drawFirstImage) {
+        this.drawFirstImage = drawFirstImage;
     }
 
     public void takeDamage(){
@@ -36,6 +44,4 @@ public class Player extends GraphicalObject {
         if((y+8) < Config.upBound) y = Config.upBound - 8;
         if((y+8) > Config.downBound) y = Config.downBound - 8;
     }
-
-
 }

@@ -13,18 +13,19 @@ public abstract class PlayerModifier {
         this.strength = strength;
     }
 
-    public void applyModifier(PlayerController playerController) {
-        timer = duration;
-        applied = true;
-    }
-
     public void update(double dt) {
         if (applied) {
             timer -= dt;
         }
     }
-    public void removeModifier(PlayerController playerController){
+
+    public void applyModifier(PlayerController playerController) {
         timer = duration;
+        applied = true;
+    }
+
+    public void removeModifier(PlayerController playerController){
+        timer = -1;
         applied = false;
     }
 

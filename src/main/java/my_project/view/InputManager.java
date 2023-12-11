@@ -27,6 +27,7 @@ public class InputManager extends InteractiveGraphicalObject {
      * @param dt Time between the current and the last frame
      */
     public void update(double dt) {
+        playerController.update(dt);
         double currentSpeed = playerController.getCurrentSpeed();
         double xDisplacement = 0;
         double yDisplacement = 0;

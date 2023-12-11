@@ -4,6 +4,7 @@ import my_project.Util;
 import my_project.model.Player;
 import my_project.model.Bow;
 import my_project.model.modifiers.AccelerationModifier;
+import my_project.model.modifiers.SlowingModifier;
 import my_project.model.projectiles.Arrow;
 
 public class PlayerController{
@@ -11,25 +12,34 @@ public class PlayerController{
     private Player player;
     private Bow bow;
     private SpawnController spawnController;
-    private ModificationController modificationController;
-
+    private ModifierController modifierController;
+    //Dash
     private final double dashMultiplier = 3.5;
     private final double dashDuration = .2;
-
+    private final double dashCooldown = .5;
+    private double dashTimer = 0;
+    private boolean canDash = true;
+    //Modifiers
     private double slowPercentage = 0;
     private double accelerationPercentage = 0;
 
-    public PlayerController(Player player, Bow bow, SpawnController spawnController,ModificationController modificationController){
+    public PlayerController(Player player, Bow bow, SpawnController spawnController, ModifierController modifierController){
         this.player = player;
         this.bow = bow;
         this.spawnController = spawnController;
-        this.modificationController = modificationController;
+        this.modifierController = modifierController;
+    }
+
+    public void update(double dt){
+        dashTimer -= dt;
+        if(dashTimer < 0)
+            player.setDrawFirstImage(true);
+        modifierController.add(new SlowingModifier(dt,bow.getPower() * 0.3));
     }
 
     public void updatePlayerPosition(double xDisplacement, double yDisplacement){
         if(slowPercentage < 0.01)
             slowPercentage = 0;
-        System.out.println(slowPercentage);
         xDisplacement = xDisplacement - xDisplacement * slowPercentage + xDisplacement * accelerationPercentage;
         yDisplacement = yDisplacement - yDisplacement * slowPercentage + yDisplacement * accelerationPercentage;
         player.movePlayer(xDisplacement, yDisplacement);
@@ -54,9 +64,13 @@ public class PlayerController{
     }
 
     public void updateRightMouseState(boolean isDown){
-        //TODO DASH
-        if(isDown){
-            modificationController.add(new AccelerationModifier(dashDuration,dashMultiplier));
+        if(!isDown)
+            canDash = true;
+        if(isDown && dashTimer < 0 && canDash){
+            canDash = false;
+            dashTimer = dashDuration + dashCooldown;
+            modifierController.add(new AccelerationModifier(dashDuration,dashMultiplier));
+            player.setDrawFirstImage(false);
         }
     }
 
