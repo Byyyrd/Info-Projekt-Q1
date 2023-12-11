@@ -21,7 +21,7 @@ public class Player extends GraphicalObject {
     }
 
     public void takeDamage(){
-
+        //TODO AAAAAAAAAAAAAAA
     }
 
     public void movePlayer(double xDisplacement, double yDisplacement){

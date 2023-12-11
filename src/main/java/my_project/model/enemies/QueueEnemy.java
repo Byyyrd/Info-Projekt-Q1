@@ -4,6 +4,7 @@ import KAGO_framework.model.abitur.datenstrukturen.Queue;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
+import my_project.control.SpawnController;
 import my_project.model.projectiles.Arrow;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
@@ -14,8 +15,8 @@ public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
     private final double rotationSpeed = 0.03;
 
-    public QueueEnemy(double x, double y, double radius, double speed, Player player, CollisionController collisionController, int startNodeAmount) {
-        super(x, y, speed, player, collisionController);
+    public QueueEnemy(double x, double y, double radius, double speed, Player player, SpawnController spawnController, int startNodeAmount) {
+        super(x, y, speed, player, spawnController);
         this.radius = radius;
         for (int i = 0; i < startNodeAmount; i++) {
             addEnemyNode();

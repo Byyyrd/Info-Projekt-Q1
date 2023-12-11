@@ -13,20 +13,20 @@ import my_project.model.enemies.Enemy;
 public class CollisionController {
     private List<Enemy> enemyList = new List<>();
     private List<Projectile> projectileList = new List<>();
-    private Player player;
-    private ProgramController programController;
+    private PlayerController playerController;
+    private SpawnController spawnController;
     private EffectController effectController;
 
     /**
      * Registers all needed objects for future collision checks
      *
-     * @param player Player that is currently in use
-     * @param programController Program controller for registering effects and removing objects
+     * @param playerController Player controller that is currently in use
+     * @param spawnController Spawn controller for registering effects and removing objects
      */
-    public CollisionController(Player player, ProgramController programController){
-        this.player = player;
-        this.programController = programController;
-        effectController = new EffectController(programController);
+    public CollisionController(PlayerController playerController, SpawnController spawnController){
+        this.playerController = playerController;
+        this.spawnController = spawnController;
+        effectController = new EffectController(spawnController);
     }
 
     /**
@@ -44,9 +44,8 @@ public class CollisionController {
      *
      * @param enemy The to be registered enemy
      */
-    public void addEnemy(Enemy enemy){
+    public void registerEnemy(Enemy enemy){
         enemyList.append(enemy);
-        programController.addObject(enemy);
     }
 
     /**
@@ -54,9 +53,8 @@ public class CollisionController {
      *
      * @param projectile The to be registered projectile
      */
-    public void addProjectile(Projectile projectile){
+    public void registerProjectile(Projectile projectile){
         projectileList.append(projectile);
-        programController.addObject(projectile);
     }
 
     /**
@@ -66,9 +64,13 @@ public class CollisionController {
      */
     public void addEffect(Effect effect){
         if (effect != null) {
+            spawnController.addEffect(effect);
             effectController.add(effect);
-            programController.addObject(effect);
         }
+    }
+
+    public Player getPlayer(){
+        return playerController.getPlayer();
     }
 
     /**
@@ -85,7 +87,7 @@ public class CollisionController {
                 }
                 if (enemyList.getContent().isDestroyed()) {
                     addEffect(enemyList.getContent().onDestroyed());
-                    programController.removeObject(enemyList.getContent());
+                    spawnController.removeObject(enemyList.getContent());
                     enemyList.remove();
                 } else {
                     enemyList.next();
@@ -103,16 +105,16 @@ public class CollisionController {
         List<Projectile> list = getWantedProjectiles(true);
         list.toFirst();
         while(list.hasAccess()){
-            if(list.getContent().checkCollision(player)) {
-                player.takeDamage();
+            if(list.getContent().checkCollision(playerController.getPlayer())) {
+                playerController.getPlayer().takeDamage();
                 return;
             }
             list.next();
         }
         enemyList.toFirst();
         while(enemyList.hasAccess()){
-            if(enemyList.getContent().checkCollision(player)) {
-                player.takeDamage();
+            if(enemyList.getContent().checkCollision(playerController.getPlayer())) {
+                playerController.getPlayer().takeDamage();
                 return;
             }
             enemyList.next();
@@ -127,7 +129,7 @@ public class CollisionController {
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
                 addEffect(projectileList.getContent().onDestroyed());
-                programController.removeObject(projectileList.getContent());
+                spawnController.removeObject(projectileList.getContent());
                 projectileList.remove();
             } else {
                 projectileList.next();

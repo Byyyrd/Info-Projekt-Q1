@@ -3,6 +3,7 @@ package my_project.model.enemies;
 import KAGO_framework.model.GraphicalObject;
 import my_project.Util;
 import my_project.control.CollisionController;
+import my_project.control.SpawnController;
 import my_project.model.*;
 import my_project.model.effects.Effect;
 import my_project.model.projectiles.ProjectileType;
@@ -11,18 +12,18 @@ import my_project.model.projectiles.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Enemy extends GraphicalObject {
-    protected CollisionController collisionController;
+    protected SpawnController spawnController;
     protected Player player;
     protected double speed;
     protected BufferedImage[] images;
     protected boolean destroyed = false;
 
-    public Enemy(double x, double y, double speed, Player player, CollisionController collisionController){
+    public Enemy(double x, double y, double speed, Player player, SpawnController spawnController){
         this.x = x;
         this.y = y;
         this.player = player;
         this.speed = speed;
-        this.collisionController = collisionController;
+        this.spawnController = spawnController;
     }
 
     protected void spawnBullet(double x, double y, double degrees, double speed, ProjectileType projectileType){
@@ -33,7 +34,7 @@ public abstract class Enemy extends GraphicalObject {
             case BounceBullet -> projectile = new BounceBullet(x,y,degrees,speed,player);
             case ChargeBullet -> projectile = new ChargeBullet(x,y,degrees,speed,player);
         }
-        collisionController.addProjectile(projectile);
+        spawnController.addProjectile(projectile);
     }
 
     protected void move(double dt){

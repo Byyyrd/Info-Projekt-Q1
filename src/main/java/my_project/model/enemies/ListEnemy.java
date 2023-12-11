@@ -4,6 +4,7 @@ import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
+import my_project.control.SpawnController;
 import my_project.model.effects.DustParticleEffect;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
@@ -16,8 +17,9 @@ public class ListEnemy extends Enemy {
     private double distanceFromCenter;
     private double currentChangeTimer;
     private final double currentChangeSpeed = 5;
-    public ListEnemy(double x, double y, double speed, int amountOfNodes, Player player, CollisionController collisionController) {
-        super(x, y, speed, player, collisionController);
+
+    public ListEnemy(double x, double y, double speed, int amountOfNodes, Player player, SpawnController spawnController) {
+        super(x, y, speed, player, spawnController);
         images = Util.getAllImagesFromFolder("listEnemy");
         radius = 16;
         distanceFromCenter = 32;
@@ -34,7 +36,7 @@ public class ListEnemy extends Enemy {
             if(collidesWithNode(projectile,list.getContent())){
                 projectile.setX(list.getContent().getX());
                 projectile.setY(list.getContent().getY());
-                collisionController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
+                spawnController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
                 list.remove();
                 if(!list.hasAccess()) list.toFirst();
                 if(list.isEmpty()) destroyed = true;

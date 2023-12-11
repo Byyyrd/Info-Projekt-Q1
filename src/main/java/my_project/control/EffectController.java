@@ -9,16 +9,16 @@ import my_project.model.effects.Effect;
  */
 public class EffectController {
     private List<Effect> effectsList = new List<>();
-    private ProgramController programController;
+    private SpawnController spawnController;
     private Background background;
 
     /**
      * Registers the program controller to delete effects in the future
      *
-     * @param programController Currently used program controller
+     * @param spawnController Currently used spawn controller
      */
-    public EffectController(ProgramController programController){
-        this.programController = programController;
+    public EffectController(SpawnController spawnController){
+        this.spawnController = spawnController;
     }
 
     /**
@@ -35,6 +35,7 @@ public class EffectController {
      */
     public void add(Effect effect){
         effectsList.append(effect);
+        spawnController.addEffect(effect);
     }
 
     /**
@@ -44,7 +45,7 @@ public class EffectController {
         effectsList.toFirst();
         while(effectsList.hasAccess()) {
             if (effectsList.getContent().isDestroyed()) {
-                programController.removeObject(effectsList.getContent());
+                spawnController.removeObject(effectsList.getContent());
                 effectsList.remove();
             } else {
                 effectsList.next();

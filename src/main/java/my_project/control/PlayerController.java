@@ -9,12 +9,12 @@ public class PlayerController{
     private double currentSpeed = 200;
     private Player player;
     private Bow bow;
-    private CollisionController collisionController;
+    private SpawnController spawnController;
 
-    public PlayerController(Player player, Bow bow, CollisionController collisionController){
+    public PlayerController(Player player, Bow bow, SpawnController spawnController){
         this.player = player;
         this.bow = bow;
-        this.collisionController = collisionController;
+        this.spawnController = spawnController;
     }
 
     public void updatePlayerPosition(double xDisplacement, double yDisplacement){
@@ -36,11 +36,15 @@ public class PlayerController{
         if(shootInfo == null) return;
         Util.setCamShake(0.2,shootInfo[3]*50+20);
         Arrow arrow = new Arrow(shootInfo[0],shootInfo[1],shootInfo[2],shootInfo[3] * 5000);
-        collisionController.addProjectile(arrow);
+        spawnController.addProjectile(arrow);
     }
 
     public void updateRightMouseState(boolean isDown){
         //TODO implement dash
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     public double getCurrentSpeed() {

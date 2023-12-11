@@ -4,6 +4,7 @@ import KAGO_framework.model.abitur.datenstrukturen.Stack;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
+import my_project.control.SpawnController;
 import my_project.model.Player;
 import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
@@ -24,11 +25,11 @@ public class StackEnemy extends Enemy {
      * @param x X coordinate of the StackEnemy (top left edge)
      * @param y Y coordinate of the StackEnemy (top left edge)
      * @param player Used to chase the player
-     * @param collisionController TODO: TO BE REMOVED
+     * @param spawnController Used to spawn bullets
      * @param stackSize Number of added StackEntities in used stack
      */
-    public StackEnemy(double x, double y, Player player, CollisionController collisionController, int stackSize) {
-        super(x, y, 100, player, collisionController);
+    public StackEnemy(double x, double y, Player player, SpawnController spawnController, int stackSize) {
+        super(x, y, 100, player, spawnController);
         addStackEntities(stackSize);
         this.stackSize = stackSize;
     }

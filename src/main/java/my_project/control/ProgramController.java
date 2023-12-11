@@ -7,9 +7,6 @@ import my_project.model.Background;
 import my_project.model.Bow;
 import my_project.model.Outline;
 import my_project.model.Player;
-import my_project.model.enemies.ListEnemy;
-import my_project.model.enemies.QueueEnemy;
-import my_project.model.enemies.StackEnemy;
 import my_project.view.InputManager;
 
 /**
@@ -25,7 +22,7 @@ public class ProgramController {
     private CollisionController collisionController;
     private PlayerController playerController;
     private ViewController viewController;
-    private EnemySpawnController enemySpawnController;
+    private EnemyWaveController enemyWaveController;
     private Player player;
     private Background background;
 
@@ -55,9 +52,11 @@ public class ProgramController {
         Bow bow = new Bow();
         viewController.draw(bow);
         //Control
-        collisionController = new CollisionController(player, this);
-        playerController = new PlayerController(player,bow,collisionController);
-        enemySpawnController = new EnemySpawnController(this,collisionController,player);
+        SpawnController spawnController = new SpawnController(this);
+        playerController = new PlayerController(player,bow,spawnController);
+        collisionController = new CollisionController(playerController,spawnController);
+        enemyWaveController = new EnemyWaveController(spawnController);
+        spawnController.setCollisionController(collisionController);
         //View
         InputManager inputManager = new InputManager(playerController);
         viewController.draw(inputManager);
@@ -69,7 +68,7 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        enemySpawnController.update(dt);
+        enemyWaveController.update(dt);
         collisionController.update();
         Util.applyCamShake(dt);
     }
