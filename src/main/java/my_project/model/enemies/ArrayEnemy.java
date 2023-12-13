@@ -98,6 +98,14 @@ public class ArrayEnemy extends Enemy {
 
     @Override
     public boolean checkCollision(Player player) {
+        for (int i = 0; i < enemyNodesArray.length; i++) {
+            for (int j = 0; j < enemyNodesArray[i].length; j++) {
+                EnemyNode node = enemyNodesArray[i][j];
+                if(enemyNodesArray[i][j] != null && Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius()/2,player.getX(),player.getY(),8,4)){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

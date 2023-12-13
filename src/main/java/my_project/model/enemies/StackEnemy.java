@@ -42,6 +42,7 @@ public class StackEnemy extends Enemy {
             for (int i = 0; i < stackSize; i++) {
                 drawTool.setCurrentColor(new Color(188, 74, 155,150));
                 drawTool.drawFilledRectangle(x-(i*6+10)/2,y-(i*6+10)/2, i*6+10,i*6+10);
+                drawTool.setLineWidth(5);
                 drawTool.setCurrentColor(new Color(0, 0, 0,150));
                 drawTool.drawRectangle((x-(i*6+10)/2)-1,(y-(i*6+10)/2)-1, i*6+12,i*6+12);
             }
@@ -78,7 +79,7 @@ public class StackEnemy extends Enemy {
      * Sets currentCooldown on the coolDown of the StackEntity at the top of the used stack
      */
     private void spawnBullets() {
-        if (!stack.isEmpty()) {
+        if (!stack.isEmpty() && checkBounds()) {
             double spreadDegree = (Math.PI + 2) / (stack.top().amountOfBullets - 1);
             for (int i = 0; i < stack.top().amountOfBullets; i++) {
                 double degrees = Math.atan2(player.getY() - y, player.getX() - x);

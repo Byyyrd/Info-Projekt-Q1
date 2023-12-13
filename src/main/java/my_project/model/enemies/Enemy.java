@@ -1,6 +1,7 @@
 package my_project.model.enemies;
 
 import KAGO_framework.model.GraphicalObject;
+import my_project.Config;
 import my_project.Util;
 import my_project.control.CollisionController;
 import my_project.control.SpawnController;
@@ -57,6 +58,14 @@ public abstract class Enemy extends GraphicalObject {
         }
 
         return false;
+    }
+
+    protected boolean checkBounds(){
+        if(x < Config.leftBound) return false;
+        if(x > Config.rightBound) return false;
+        if(y < Config.upBound) return false;
+        if(y > Config.downBound) return false;
+        return true;
     }
 
     public Effect onDestroyed(){

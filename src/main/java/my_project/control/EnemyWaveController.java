@@ -7,7 +7,7 @@ public class EnemyWaveController {
 
     private SpawnController spawnController;
     private double timer = 0;
-    private int enemyKind = 3;
+    private int enemyKind = 1;
 
     public EnemyWaveController(SpawnController spawnController){
         this.spawnController = spawnController;
@@ -27,14 +27,17 @@ public class EnemyWaveController {
 
     private void spawnTestEnemies(){
         Enemy newEnemy;
-        if(enemyKind == 0){
-            newEnemy = new ListEnemy(Math.random()*870+53,-100,Math.random()*30+30,(int)(Math.random()*9+2), spawnController.getPlayer(), spawnController);
+        double degrees = (Math.random() - 0.5) * 2 * Math.PI;
+        double xPos = 1200 * Math.cos(degrees);
+        double yPos = 1000 * Math.sin(degrees);
+        if(enemyKind == 0) {
+            newEnemy = new ListEnemy(xPos,yPos,Math.random()*30+100,(int)(Math.random()*9+2), spawnController.getPlayer(), spawnController);
         } else if (enemyKind == 1) {
-            newEnemy = new QueueEnemy(Math.random()*870+53,-100,10,Math.random()*60+60,spawnController.getPlayer(),spawnController,(int)(Math.random()*40+30));
+            newEnemy = new QueueEnemy(xPos,yPos,10,Math.random()*60+200,spawnController.getPlayer(),spawnController,(int)(Math.random()*40+30));
         } else if (enemyKind == 2){
-            newEnemy = new StackEnemy(Math.random()*870+53,-100,spawnController.getPlayer(),spawnController,(int)(Math.random()*4+2));
+            newEnemy = new StackEnemy(xPos,yPos,spawnController.getPlayer(),spawnController,(int)(Math.random()*4+2));
         } else {
-            newEnemy = new ArrayEnemy(Math.random()*870+53,-100,150,20,spawnController.getPlayer(),spawnController,5);
+            newEnemy = new ArrayEnemy(xPos,yPos,150,20,spawnController.getPlayer(),spawnController,(int)(Math.random()*5+2));
         }
         spawnController.addEnemy(newEnemy);
         enemyKind++;

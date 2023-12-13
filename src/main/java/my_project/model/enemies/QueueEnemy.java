@@ -5,6 +5,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.CollisionController;
 import my_project.control.SpawnController;
+import my_project.model.effects.DustParticleEffect;
 import my_project.model.projectiles.Arrow;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
@@ -46,8 +47,6 @@ public class QueueEnemy extends Enemy {
         }
 
         if(gotHit){
-            projectile.setX(queue.front().getX());
-            projectile.setY(queue.front().getY());
             if(projectile.getClass().isNestmateOf(Arrow.class)){
                 Arrow arrow = (Arrow) projectile;
                 getHit(arrow.isStrong());
@@ -65,10 +64,11 @@ public class QueueEnemy extends Enemy {
         boolean gotHit = false;
         for (int i = 0; i < Util.countQueue(queue); i++) {
             EnemyNode node = queue.front();
-
-            if (Util.circleToCircleCollision(x,y,node.getRadius(),player.getX(),player.getY(),8,0)) {
+            if (Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),player.getX(),player.getY(),8,0)) {
                 gotHit = true;
             }
+            queue.enqueue(node);
+            queue.dequeue();
         }
         return gotHit;
     }
@@ -127,6 +127,9 @@ public class QueueEnemy extends Enemy {
     }
 
     private void getHit(boolean hard){
+        EnemyNode node = queue.front();
+        if(node != null)
+            spawnController.addEffect(new DustParticleEffect(node.getX(),node.getY(),15,30,10,Color.green));
         if(hard){
             for (int i = 0; i < 10; i++) {
                 queue.dequeue();

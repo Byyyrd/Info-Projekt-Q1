@@ -27,8 +27,10 @@ public class BounceBullet extends Projectile {
             degrees = Math.atan2(player.getY()-y,player.getX()-x);
             if(!canBounce){
                 destroyed = true;
+            } else {
+                speed /= 2;
+                canBounce = false;
             }
-            canBounce = false;
         }
     }
 
