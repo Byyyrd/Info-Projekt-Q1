@@ -2,6 +2,9 @@ package my_project.model.modifiers;
 
 import my_project.control.PlayerController;
 
+/**
+ * The SlowingModifier increases the slowPercentage of the player while active.
+ */
 public class SlowingModifier extends PlayerModifier{
     public SlowingModifier(double duration, double strength) {
         super(duration, strength);

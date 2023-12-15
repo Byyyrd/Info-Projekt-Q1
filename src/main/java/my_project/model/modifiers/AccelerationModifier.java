@@ -3,6 +3,9 @@ package my_project.model.modifiers;
 import my_project.control.PlayerController;
 import my_project.model.Player;
 
+/**
+ * The AccelerationModifier increases the accelerationPercentage of the player while active.
+ */
 public class AccelerationModifier extends PlayerModifier{
     public AccelerationModifier(double duration, double strength) {
         super(duration, strength);
