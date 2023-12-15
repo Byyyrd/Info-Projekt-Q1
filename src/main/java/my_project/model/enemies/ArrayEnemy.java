@@ -1,9 +1,7 @@
 package my_project.model.enemies;
 
 import KAGO_framework.view.DrawTool;
-import javafx.scene.effect.Effect;
 import my_project.Util;
-import my_project.control.CollisionController;
 import my_project.control.SpawnController;
 import my_project.model.Player;
 import my_project.model.effects.DustParticleEffect;
@@ -36,16 +34,16 @@ public class ArrayEnemy extends Enemy {
     }
 
     /**
-     * updates the position of the EnemyNodes according to x and y
-     * this is used to first draw the Nodes as well
-     * if the enemy node is null, and it is not giving the nodes their values it is kept null
+     * Updates the position of the EnemyNodes according to x and y.
+     * This function is used by drawNodes() to draw the nodes properly.
+     * If the enemy node is null, and it is not giving the nodes their values it is kept null
      */
     private void updateNodes(){
         double xOrigin =  x + -(enemyNodesArray.length-1) * radius;
         double yOrigin =  y + -(enemyNodesArray.length-1) * radius;
         for (int i = 0; i < enemyNodesArray.length; i++) {
             for (int j = 0; j < enemyNodesArray[i].length ; j++) {
-                if(hasInitialised&&enemyNodesArray[i][j]==null){
+                if(hasInitialised && enemyNodesArray[i][j]==null){
                     continue;
                 }
                 double nY = yOrigin + i * radius * 2;
@@ -56,10 +54,9 @@ public class ArrayEnemy extends Enemy {
     }
 
     /**
-     * draws the Nodes as rectangles
-     * first updates their positions
+     * Draws the Nodes as rectangles amd updates their positions
      *
-     * @param drawTool
+     * @param drawTool Current draw tool in use
      */
     private void drawNodes(DrawTool drawTool){
         boolean isDead = true;
@@ -100,7 +97,6 @@ public class ArrayEnemy extends Enemy {
         }
     }
 
-
     @Override
     public boolean checkCollision(Projectile projectile) {
         for (int i = 0; i < enemyNodesArray.length; i++) {
@@ -114,8 +110,6 @@ public class ArrayEnemy extends Enemy {
         }
         return false;
     }
-
-
 
     @Override
     public boolean checkCollision(Player player) {

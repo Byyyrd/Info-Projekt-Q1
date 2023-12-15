@@ -3,8 +3,19 @@ package my_project.model.enemies;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 
+/**
+ * The EnemyNode class is used to generalize the individual components an enemy has
+ */
 public class EnemyNode extends GraphicalObject {
     private double degrees = 0;
+
+    /**
+     * Sets the proper values for the enemy node, as a circle
+     *
+     * @param x X coordinate of the node
+     * @param y Y coordinate of the node
+     * @param radius Radius coordinate of the node
+     */
     public EnemyNode(double x, double y, double radius) {
         this.x = x;
         this.y = y;
@@ -36,13 +47,9 @@ public class EnemyNode extends GraphicalObject {
     }
 
     @Override
-    public void draw(DrawTool drawTool){
-
-    }
+    public void draw(DrawTool drawTool) {}
     @Override
-    public void update(double dt) {
-
-    }
+    public void update(double dt) {}
 
     public void setDegrees(double degrees) {
         this.degrees = degrees;

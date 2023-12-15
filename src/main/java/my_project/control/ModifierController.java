@@ -34,9 +34,10 @@ public class ModifierController {
     }
 
     /**
-     * Add one modifier to the modifier list.
-     * It'll be applied,updated and deleted on expiration
-     * @param modifier the modifier to add
+     * Adds one modifier to the modifier list.
+     * It'll be applied, updated and deleted on expiration
+     *
+     * @param modifier Modifier to add
      */
     public void add(PlayerModifier modifier){
         modifiers.append(modifier);

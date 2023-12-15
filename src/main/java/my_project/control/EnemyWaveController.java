@@ -1,6 +1,5 @@
 package my_project.control;
 
-import my_project.model.Player;
 import my_project.model.enemies.*;
 
 public class EnemyWaveController {

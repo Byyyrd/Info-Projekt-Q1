@@ -7,6 +7,9 @@ import my_project.model.modifiers.AccelerationModifier;
 import my_project.model.modifiers.SlowingModifier;
 import my_project.model.projectiles.Arrow;
 
+/**
+ * The PlayerController class changes all player related variables according to input and various modifiers
+ */
 public class PlayerController{
     private double currentSpeed = 200;
     private Player player;
@@ -23,6 +26,14 @@ public class PlayerController{
     private double slowPercentage = 0;
     private double accelerationPercentage = 0;
 
+    /**
+     * Get a reference for all needed objects for later use
+     *
+     * @param player Current player in use
+     * @param bow Current bow in use
+     * @param spawnController Current spawn controller in use
+     * @param modifierController Current modifier controller in use
+     */
     public PlayerController(Player player, Bow bow, SpawnController spawnController, ModifierController modifierController){
         this.player = player;
         this.bow = bow;
@@ -31,13 +42,8 @@ public class PlayerController{
     }
 
     /**
-     * dashTimer counts down from 0
-     *
-     * If dashTimer is lower than 0
-     * Sets a new Player-Image
-     * Adds a slowingModifier
+     * Updates all variables
      */
-
     public void update(double dt){
         dashTimer -= dt;
         if(dashTimer < 0)
@@ -73,9 +79,8 @@ public class PlayerController{
     }
 
     /**
-     * Sets left mouse button on isDown
-     *
-     * If the button is not down the bow shoots an Arrow
+     * Sets left mouse button on isDown.
+     * If the button is not down the bow shoots an Arrow.
      *
      * @param isDown isDown stands for the state of a button (isDown or isUp)
      */
@@ -86,8 +91,7 @@ public class PlayerController{
     }
 
     /**
-     * Creates a new Arrow-Projectile from the shootInfo-array (gets the information from the Bow)
-     *
+     * Creates a new Arrow-Projectile from the shootInfo-array (gets the information from the Bow).
      * Responsible for shaking the Screen
      */
 
@@ -100,17 +104,10 @@ public class PlayerController{
     }
 
     /**
-     * Checks whether the player can dash dependent on isDown
+     * Applies the input for the right mouse button
      *
-     * If is not down the player is able to dash
-     *
-     * Else dashTimer and canDash get updated
-     * Adds a new AccelerationModifier
-     * Sets new Player-Image
-     *
-     * @param isDown isDown stands for the state of a button (isDown or isUp)
+     * @param isDown Whether the button is being pressed
      */
-
     public void updateRightMouseState(boolean isDown){
         if(!isDown)
             canDash = true;

@@ -3,7 +3,6 @@ package my_project.model.enemies;
 import KAGO_framework.model.GraphicalObject;
 import my_project.Config;
 import my_project.Util;
-import my_project.control.CollisionController;
 import my_project.control.SpawnController;
 import my_project.model.*;
 import my_project.model.effects.Effect;
@@ -12,6 +11,9 @@ import my_project.model.projectiles.*;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * The Enemy class is a template class to make creating, updating and deleting enemies easier
+ */
 public abstract class Enemy extends GraphicalObject {
     protected SpawnController spawnController;
     protected Player player;
@@ -58,16 +60,17 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     /**
-     * returns whether an Enemy node of the Enemy is colliding with a Projectile.
+     * Returns whether an enemy node is colliding with a Projectile.
      * At high speeds to proof collision projectile position is back tracked.
      * Because calculations are made only after a frame is rendered a projectile might skip over an enemy.
+     *
      * @param projectile projectile to check collision with
      * @param node node to check collision with
      * @return whether projectile and node are colliding
      */
     protected boolean collidesWithNode(Projectile projectile, EnemyNode node){
         if (projectile.getSpeed() > 2000) {
-            for (int i = 0; i < Math.floor(projectile.getSpeed() * 0.01); i++) {
+            for (int i = (int)(projectile.getSpeed() * 0.01); i >= 0; i--) {
                 double antiDegree = Math.atan2(-Math.sin(projectile.getDegrees()),-Math.cos(projectile.getDegrees()));
                 double prevPointX = projectile.getX() + (Math.cos(antiDegree) * i);
                 double prevPointY = projectile.getY() + (Math.sin(antiDegree) * i);
@@ -83,6 +86,7 @@ public abstract class Enemy extends GraphicalObject {
 
     /**
      * checks whether Enemy is on fully on screen or not
+     *
      * @return boolean whether the before mentioned statement is true
      */
     protected boolean checkBounds(){
@@ -93,6 +97,11 @@ public abstract class Enemy extends GraphicalObject {
         return true;
     }
 
+    /**
+     * Is called when the enemy is destroyed
+     *
+     * @return An effect that should be created on destruction
+     */
     public Effect onDestroyed(){
         return null;
     }
@@ -106,11 +115,11 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     /**
-     * abstract method to implement,
+     * Abstract method to implement,
      * supposed to check whether collision is present with projectile
      *
      * @param projectile projectile to check if colliding
-     * @return return true if colliding else returns false
+     * @return Return whether the hitting projectile should be destroyed or not
      */
 
     public abstract boolean checkCollision(Projectile projectile);
@@ -120,7 +129,7 @@ public abstract class Enemy extends GraphicalObject {
      * supposed to check whether collision is present with player
      *
      * @param player projectile to check if colliding
-     * @return return true if colliding else returns false
+     * @return Return true if colliding else returns false
      */
     public abstract boolean checkCollision(Player player);
 }

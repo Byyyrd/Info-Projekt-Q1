@@ -3,7 +3,6 @@ package my_project.model.enemies;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
-import my_project.control.CollisionController;
 import my_project.control.SpawnController;
 import my_project.model.effects.DustParticleEffect;
 import my_project.model.Player;
@@ -28,50 +27,6 @@ public class ListEnemy extends Enemy {
             list.append(new ListEnemyNode(x,y,radius,i));
         }
         list.toFirst();
-    }
-
-    @Override
-    public boolean checkCollision(Projectile projectile) {
-        if(list.hasAccess()){
-            if(collidesWithNode(projectile,list.getContent())){
-                projectile.setX(list.getContent().getX());
-                projectile.setY(list.getContent().getY());
-                spawnController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
-                list.remove();
-                if(!list.hasAccess()) list.toFirst();
-                if(list.isEmpty()) destroyed = true;
-                return true;
-            } else {
-                ListEnemyNode current = list.getContent();
-                list.toFirst();
-                while (list.hasAccess()){
-                    if(collidesWithNode(projectile,list.getContent())) {
-                        projectile.setX(list.getContent().getX());
-                        projectile.setY(list.getContent().getY());
-                        Util.listSetCurrent(list,current);
-                        return true;
-                    }
-                    list.next();
-                }
-                Util.listSetCurrent(list,current);
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean checkCollision(Player player) {
-        ListEnemyNode current = list.getContent();
-        list.toFirst();
-        while (list.hasAccess()){
-            if(Util.circleToCircleCollision(list.getContent().getX(),list.getContent().getY(),list.getContent().getRadius(),player.getX(),player.getY(),8,4)) {
-                Util.listSetCurrent(list,current);
-                return true;
-            }
-            list.next();
-        }
-        Util.listSetCurrent(list,current);
-        return false;
     }
 
     @Override
@@ -147,10 +102,64 @@ public class ListEnemy extends Enemy {
         Util.listSetCurrent(list,current);
     }
 
+    @Override
+    public boolean checkCollision(Projectile projectile) {
+        if(list.hasAccess()){
+            if(collidesWithNode(projectile,list.getContent())){
+                projectile.setX(list.getContent().getX());
+                projectile.setY(list.getContent().getY());
+                spawnController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
+                list.remove();
+                if(!list.hasAccess()) list.toFirst();
+                if(list.isEmpty()) destroyed = true;
+                return true;
+            } else {
+                ListEnemyNode current = list.getContent();
+                list.toFirst();
+                while (list.hasAccess()){
+                    if(collidesWithNode(projectile,list.getContent())) {
+                        projectile.setX(list.getContent().getX());
+                        projectile.setY(list.getContent().getY());
+                        Util.listSetCurrent(list,current);
+                        return true;
+                    }
+                    list.next();
+                }
+                Util.listSetCurrent(list,current);
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public boolean checkCollision(Player player) {
+        ListEnemyNode current = list.getContent();
+        list.toFirst();
+        while (list.hasAccess()){
+            if(Util.circleToCircleCollision(list.getContent().getX(),list.getContent().getY(),list.getContent().getRadius(),player.getX(),player.getY(),8,4)) {
+                Util.listSetCurrent(list,current);
+                return true;
+            }
+            list.next();
+        }
+        Util.listSetCurrent(list,current);
+        return false;
+    }
+
+    /**
+     * An extension to the enemy node to add individual images
+     */
     private class ListEnemyNode extends EnemyNode{
         private int index;
 
+        /**
+         * Sets the proper values of the node
+         *
+         * @param x X position of the node
+         * @param y Y position of the node
+         * @param radius Radius position of the node
+         * @param index Index of the image in the image array
+         */
         public ListEnemyNode(double x, double y, double radius, int index) {
             super(x, y, radius);
             this.index = index;

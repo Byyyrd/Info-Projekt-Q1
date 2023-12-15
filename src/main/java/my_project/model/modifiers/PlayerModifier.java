@@ -22,6 +22,11 @@ public abstract class PlayerModifier {
         this.strength = strength;
     }
 
+    /**
+     * Decreases the timer of the effect
+     *
+     * @param dt Time between current and last frame
+     */
     public void update(double dt) {
         if (applied) {
             timer -= dt;

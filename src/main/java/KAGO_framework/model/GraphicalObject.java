@@ -91,20 +91,20 @@ public class GraphicalObject implements Drawable {
         height = this.myImage.getHeight();
     }
 
-    @Override
     /**
      * Wird vom Hintergrundprozess für jeden Frame aufgerufen. Nur hier kann die grafische Repräsentation des Objekts realisiert
      * werden. Es ist möglich über das Grafikobjekt "drawTool" ein Bild zeichnen zu lassen, aber auch geometrische Formen sind machbar.
      */
+    @Override
     public void draw(DrawTool drawTool){
         if(getMyImage() != null) drawTool.drawImage(getMyImage(),x,y);
     }
 
-    @Override
     /**
      * Wird vom Hintergrundprozess für jeden Frame aufgerufen. Hier kann das verhalten des Objekts festgelegt werden, zum Beispiel
      * seine Bewegung.
      */
+    @Override
     public void update(double dt){
 
     }

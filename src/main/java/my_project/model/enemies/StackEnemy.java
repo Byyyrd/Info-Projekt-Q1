@@ -3,7 +3,6 @@ package my_project.model.enemies;
 import KAGO_framework.model.abitur.datenstrukturen.Stack;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
-import my_project.control.CollisionController;
 import my_project.control.SpawnController;
 import my_project.model.Player;
 import my_project.model.effects.DustParticleEffect;
@@ -50,13 +49,10 @@ public class StackEnemy extends Enemy {
     }
 
     /**
-     * Movement of the StackEnemy and creation of new Bullets
-     *
-     * The speed is depended on the distance between the Player and the StackEnemy
-     *
+     * Movement of the StackEnemy and creation of new Bullets.
+     * The speed is depended on the distance between the Player and the StackEnemy.
      * Creates new Bullets depending on the cooldown (cooldown is depended on the BulletType)
      */
-
     public void update(double dt){
         if(!stack.isEmpty()) {
             double speedMultiplier = 1;
@@ -73,9 +69,7 @@ public class StackEnemy extends Enemy {
 
     /**
      * Calculates the degree of each created Bullet around the StackEnemy.
-     *
      * Creates new Bullets.
-     *
      * Sets currentCooldown on the coolDown of the StackEntity at the top of the used stack
      */
     private void spawnBullets() {
@@ -95,22 +89,12 @@ public class StackEnemy extends Enemy {
      *
      * @param stackSize Number of added StackEntities in the stack-Stack
      */
-
     private void addStackEntities(int stackSize) {
         for (int i = 0; i < stackSize; i++) {
             StackEntity stackEntity = new StackEntity();
             stack.push(stackEntity);
         }
     }
-
-    /**
-     * Checks whether an EnemyNode and a Projectile collide.
-     * If true sets the projectile to the StackEnemy position, spawns new Bullets, removes one StackEntity from the stack-Stack and decreases the stackSize by 1.
-     *
-     * If the stack-Stack is Empty set destroyed on true
-     *
-     * @return Whether Projectile and EnemyNode collide
-     */
 
     @Override
     public boolean checkCollision(Projectile projectile) {
@@ -130,10 +114,6 @@ public class StackEnemy extends Enemy {
         return false;
     }
 
-    /**
-     * @return Whether the StackEnemy and the player collide
-     */
-
     @Override
     public boolean checkCollision(Player player) {
         if(!stack.isEmpty()) {
@@ -142,18 +122,13 @@ public class StackEnemy extends Enemy {
         return false;
     }
 
-    /**
-     * @return A new DustParticle on the x,y postion of the StackEnemy
-     */
     @Override
     public Effect onDestroyed() {
         return new DustParticleEffect(x,y,50,60,10,new Color(188, 74, 155));
     }
 
     /**
-     *  Private class of StackEnemy.
-     *
-     *  Used for a task-related implementation of the StackEnemy
+     *  Private class used for a task-related implementation of the StackEnemy
      */
     private class StackEntity{
         private final int speed;
@@ -164,9 +139,7 @@ public class StackEnemy extends Enemy {
 
         /**
          * Sets speed on a value between 20 and 59.
-         *
          * Sets numberOfBullets on a value between 4 and 7.
-         *
          * Sets Bullet-Type randomly:
          * <pre>
          *     50% for a normal Bullet
