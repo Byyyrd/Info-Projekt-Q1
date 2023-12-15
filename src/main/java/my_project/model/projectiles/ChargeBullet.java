@@ -7,11 +7,23 @@ import my_project.model.effects.Effect;
 
 import java.awt.*;
 
+/**
+ * Describes the behavior of a ChargeBullet
+ */
 public class ChargeBullet extends Projectile {
     private boolean isCharging = false;
     private double timer = 1;
     private Player player;
 
+    /**
+     * Sets all needed values on instantiation
+     *
+     * @param x X coordinate of the projectile
+     * @param y Y coordinate of the projectile
+     * @param degrees The angle at which the projectile is rotated in radians
+     * @param speed Speed of the projectile movement
+     * @param player Player to home towards
+     */
     public ChargeBullet(double x, double y, double degrees, double speed, Player player) {
         super(x, y, degrees, speed);
         imageOffset = 8;

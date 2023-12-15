@@ -8,8 +8,20 @@ import my_project.model.effects.Effect;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
+/**
+ * Describes the behavior of an Arrow, the standard player weapon
+ */
 public class Arrow extends Projectile {
     double speedDecay = 50;
+
+    /**
+     * Sets all needed values on instantiation
+     *
+     * @param x X coordinate of the enemy
+     * @param y Y coordinate of the enemy
+     * @param degrees The angle at which the projectile is rotated in radians
+     * @param speed Speed of the enemy movement
+     */
     public Arrow(double x, double y, double degrees, double speed){
         super(x,y,degrees,speed);
         images = Util.getAllImagesFromFolder("arrow");
@@ -49,6 +61,9 @@ public class Arrow extends Projectile {
         return new DustParticleEffect(x+imageOffset,y+imageOffset);
     }
 
+    /**
+     * @return Whether the arrow is fast enough to make more damage
+     */
     public boolean isStrong(){
         return speed > speedDecay * 20;
     }
