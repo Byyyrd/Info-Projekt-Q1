@@ -5,10 +5,20 @@ import my_project.Util;
 
 import java.awt.*;
 
+/**
+ * The DustParticleEffect is a standard effect, usually used when something is destroyed
+ */
 public class DustParticleEffect extends Effect {
     private final Particle[] circles;
     private double alpha = 1;
     private Color color = Color.white;
+
+    /**
+     * Sets the position of the effect, standard version
+     *
+     * @param x X coordinate of the effect
+     * @param y Y coordinate of the effect
+     */
     public DustParticleEffect(double x, double y){
         super(x,y);
         circles = new Particle[10];
@@ -17,6 +27,16 @@ public class DustParticleEffect extends Effect {
         }
     }
 
+    /**
+     * Sets the used variables of the effect, extended version
+     *
+     * @param x X coordinate of the effect
+     * @param y Y coordinate of the effect
+     * @param amountOfObjects Amount of all particles in the effect
+     * @param radiusOfEffect Range in which particles can spawn in away from the x and y coordinates
+     * @param radiusOfParticles Average radius of the particles in the effect
+     * @param color Used color of the effect
+     */
     public DustParticleEffect(double x, double y, int amountOfObjects, double radiusOfEffect, double radiusOfParticles, Color color){
         super(x,y);
         circles = new Particle[amountOfObjects];
@@ -27,10 +47,21 @@ public class DustParticleEffect extends Effect {
         this.color = color;
     }
 
+    /**
+     * The particle class is for drawing the individual circles in the effect
+     */
     private class Particle {
         private final double x;
         private final double y;
         private double radius;
+
+        /**
+         *  Sets the position and radius of an individual circle
+         *
+         * @param x X coordinate of the circle
+         * @param y X coordinate of the circle
+         * @param radius Radius of the circle
+         */
         public Particle(double x, double y, double radius){
             this.x = x;
             this.y = y;
@@ -38,6 +69,11 @@ public class DustParticleEffect extends Effect {
         }
     }
 
+    /**
+     * Draws all particles
+     *
+     * @param drawTool Draw tool in use
+     */
     @Override
     public void draw(DrawTool drawTool) {
         for (Particle circle : circles) {
@@ -46,6 +82,11 @@ public class DustParticleEffect extends Effect {
         }
     }
 
+    /**
+     * Fades the particles out
+     *
+     * @param dt Time between the current and the last frame
+     */
     @Override
     public void update(double dt) {
         alpha = Util.lerp(alpha,0,dt*2);
