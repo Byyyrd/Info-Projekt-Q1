@@ -12,6 +12,11 @@ public abstract class PlayerModifier {
     protected double timer;
     private boolean applied;
 
+    /**
+     * Base Constructor for all inheriting classes to set up essential parameters duration and strength for later use.
+     * @param duration the duration of the modifier after it has been applied in seconds
+     * @param strength the strength to use when applying and removing modifiers in corresponding methods
+     */
     public PlayerModifier(double duration, double strength) {
         this.duration = duration;
         this.strength = strength;
