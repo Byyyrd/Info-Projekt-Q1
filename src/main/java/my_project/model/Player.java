@@ -29,9 +29,19 @@ public class Player extends GraphicalObject {
         this.drawFirstImage = drawFirstImage;
     }
 
+    /**
+     * method that is called upon when the player gets hit
+     */
     public void takeDamage(){
         DrawFrame.getActivePanel().setVisible(false);
     }
+
+    /**
+     * moves the ployer towards an x and y coordinate
+     *
+     * @param xDisplacement x coordinate
+     * @param yDisplacement y coordinate
+     */
 
     public void movePlayer(double xDisplacement, double yDisplacement){
         x += xDisplacement;
@@ -39,6 +49,9 @@ public class Player extends GraphicalObject {
         checkBounds();
     }
 
+    /**
+     * if player touches Outline, he gets stopped
+     */
     private void checkBounds(){
         if((x+8) < Config.leftBound) x = Config.leftBound - 8;
         if((x+8) > Config.rightBound) x = Config.rightBound - 8;
