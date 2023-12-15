@@ -1,7 +1,9 @@
 package my_project.control;
 
+import KAGO_framework.control.Drawable;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
+import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.Util;
 import my_project.model.Background;
 import my_project.model.Bow;
@@ -24,6 +26,8 @@ public class ProgramController {
     private EnemyWaveController enemyWaveController;
     private ModifierController modifierController;
 
+    private List<Drawable> scene = new List<>();
+
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -42,13 +46,13 @@ public class ProgramController {
     public void startProgram() {
         //Visual Model
         Background background = new Background();
-        viewController.draw(background);
+        scene.append(background);
         viewController.setOutline(new Outline());
         //Active Model
         Bow bow = new Bow();
-        viewController.draw(bow);
+        scene.append(bow);
         Player player = new Player();
-        viewController.draw(player);
+        scene.append(player);
         //Control
         SpawnController spawnController = new SpawnController(this);
         modifierController = new ModifierController();
@@ -59,8 +63,14 @@ public class ProgramController {
         modifierController.setPlayerController(playerController);
         //View
         InputManager inputManager = new InputManager(playerController);
-        viewController.draw(inputManager);
+        scene.append(inputManager);
         viewController.register(inputManager);
+
+        scene.toFirst();
+        while (scene.hasAccess()){
+            viewController.draw(scene.getContent());
+            scene.next();
+        }
     }
 
     /**
