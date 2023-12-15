@@ -64,7 +64,7 @@ public class PlayerController{
         xDisplacement = xDisplacement - xDisplacement * slowPercentage + xDisplacement * accelerationPercentage;
         yDisplacement = yDisplacement - yDisplacement * slowPercentage + yDisplacement * accelerationPercentage;
         player.movePlayer(xDisplacement, yDisplacement);
-        bow.updateDesiredPosition(player.getX(),player.getY());
+        bow.setDesiredPosition(player.getX(),player.getY());
     }
 
     /**

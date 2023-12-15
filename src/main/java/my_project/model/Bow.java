@@ -22,6 +22,9 @@ public class Bow extends GraphicalObject {
 
     private ModifierController modifierController;
 
+    /**
+     * Creates a new Bow object with default values
+     */
     public Bow(){
         setNewImage("src/main/resources/graphic/bow.png");
     }
@@ -42,6 +45,10 @@ public class Bow extends GraphicalObject {
         g2d.setTransform(old);
     }
 
+    /**
+     * draws the circle indicating the charge status
+     * @param drawTool from kago method draw
+     */
     private void drawChargeCircles(DrawTool drawTool){
         for (int i = 0; i < 5; i++) {
             if(power == maxPower) {
@@ -60,6 +67,10 @@ public class Bow extends GraphicalObject {
         smoothOffsetY = Util.lerp(smoothOffsetY,desiredY,1 - Math.pow(0.5,dt*50));
     }
 
+    /**
+     * Increases current bow power while under max and left mouse button is down
+     * @param dt time between each frame
+     */
     private void charge(double dt){
         if(leftMouseDown){
             power += dt * chargeSpeed;
@@ -103,7 +114,7 @@ public class Bow extends GraphicalObject {
         leftMouseDown = isDown;
     }
 
-    public void updateDesiredPosition(double desiredX, double desiredY){
+    public void setDesiredPosition(double desiredX, double desiredY){
         this.desiredX = desiredX;
         this.desiredY = desiredY;
     }
