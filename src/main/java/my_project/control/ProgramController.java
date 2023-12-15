@@ -1,6 +1,7 @@
 package my_project.control;
 
 import KAGO_framework.control.Drawable;
+import KAGO_framework.control.SoundController;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.model.abitur.datenstrukturen.List;
@@ -44,6 +45,9 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        //Testing
+        viewController.getSoundController().loadSound("src/main/resources/sound/test.mp3","mainTrack",true);
+        SoundController.playSound("mainTrack");
         //Visual Model
         Background background = new Background();
         scene.append(background);

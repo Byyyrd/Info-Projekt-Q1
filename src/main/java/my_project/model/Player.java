@@ -1,5 +1,6 @@
 package my_project.model;
 
+import KAGO_framework.control.SoundController;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawTool;
@@ -39,6 +40,7 @@ public class Player extends GraphicalObject {
      * Method that is called when the player gets hit
      */
     public void takeDamage(){
+        SoundController.stopSound("mainTrack");
         DrawFrame.getActivePanel().setVisible(false);
     }
 
