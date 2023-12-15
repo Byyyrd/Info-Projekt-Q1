@@ -35,6 +35,11 @@ public class ArrayEnemy extends Enemy {
         moveNodes(dt);
     }
 
+    /**
+     * updates the position of the EnemyNodes according to x and y
+     * this is used to first draw the Nodes as well
+     * if the enemy node is null, and it is not giving the nodes their values it is kept null
+     */
     private void updateNodes(){
         double xOrigin =  x + -(enemyNodesArray.length-1) * radius;
         double yOrigin =  y + -(enemyNodesArray.length-1) * radius;
@@ -49,6 +54,13 @@ public class ArrayEnemy extends Enemy {
             }
         }
     }
+
+    /**
+     * draws the Nodes as rectangles
+     * first updates their positions
+     *
+     * @param drawTool
+     */
     private void drawNodes(DrawTool drawTool){
         boolean isDead = true;
         for (int i = 0; i < enemyNodesArray.length; i++) {
@@ -65,6 +77,12 @@ public class ArrayEnemy extends Enemy {
         }
         if (isDead) destroyed = true;
     }
+
+    /**
+     * Moves the nodes towards the player by the time from the last frame
+     *
+     * @param dt Time from last frame
+     */
     private void moveNodes(double dt){
         double desiredXPos = player.getX();
         double desiredYPos = player.getY();
@@ -82,6 +100,7 @@ public class ArrayEnemy extends Enemy {
         }
     }
 
+
     @Override
     public boolean checkCollision(Projectile projectile) {
         for (int i = 0; i < enemyNodesArray.length; i++) {
@@ -95,6 +114,8 @@ public class ArrayEnemy extends Enemy {
         }
         return false;
     }
+
+
 
     @Override
     public boolean checkCollision(Player player) {
