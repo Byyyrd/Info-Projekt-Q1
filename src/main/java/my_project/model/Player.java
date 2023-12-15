@@ -1,6 +1,7 @@
 package my_project.model;
 
 import KAGO_framework.model.GraphicalObject;
+import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.Util;
@@ -29,8 +30,7 @@ public class Player extends GraphicalObject {
     }
 
     public void takeDamage(){
-        x = 0;
-        y = 0;
+        DrawFrame.getActivePanel().setVisible(false);
     }
 
     public void movePlayer(double xDisplacement, double yDisplacement){

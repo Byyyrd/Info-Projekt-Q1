@@ -12,7 +12,7 @@ public class DrawFrame extends JFrame {
     // Attribute
 
     // Referenzen
-    private DrawingPanel activePanel;           // Das im Moment sichtbare DrawingPanel
+    private static DrawingPanel activePanel;           // Das im Moment sichtbare DrawingPanel
 
     /**
      * Konstruktor
@@ -41,6 +41,10 @@ public class DrawFrame extends JFrame {
         add(panel);
         revalidate();
         activePanel = panel;
+    }
+
+    public static DrawingPanel getActivePanel(){
+        return activePanel;
     }
 
     @Override

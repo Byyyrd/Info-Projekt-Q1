@@ -24,10 +24,11 @@ public class EnemyNode extends GraphicalObject {
         y += Math.sin(degrees) * speed * dt;
     }
     /**
-     * similair to moveByCoordinates but instead of a x,y coordinate uses an angle
-     * @param dt time last frame was rendered
-     * @param speed speed of node movement
-     * @param degrees angle node is moded to
+     * Similar to moveByCoordinates but instead of an x,y coordinate uses an angle
+     *
+     * @param dt Time last frame was rendered
+     * @param speed Speed of node movement
+     * @param degrees Angle node is moved to
      */
     protected void moveByAngle(double dt,double degrees, double speed){
         x += Math.cos(degrees) * speed * dt;

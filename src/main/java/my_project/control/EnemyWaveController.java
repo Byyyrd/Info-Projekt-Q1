@@ -7,6 +7,7 @@ public class EnemyWaveController {
 
     private SpawnController spawnController;
     private double timer = 0;
+    private double simpleTimer = 0;
     private int enemyKind = 1;
 
     public EnemyWaveController(SpawnController spawnController){
@@ -19,9 +20,17 @@ public class EnemyWaveController {
 
     private void spawnEnemies(double dt){
         timer -= dt;
+        simpleTimer -= dt;
         if(timer < 0){
             spawnTestEnemies();
-            timer = 6;
+            timer = 10;
+        }
+        if(simpleTimer < 0){
+            double degrees = (Math.random() - 0.5) * 2 * Math.PI;
+            double xPos = 1200 * Math.cos(degrees);
+            double yPos = 1000 * Math.sin(degrees);
+            spawnController.addEnemy(new SimpleEnemy(xPos,yPos,200,spawnController.getPlayer(),spawnController));
+            simpleTimer = 1;
         }
     }
 

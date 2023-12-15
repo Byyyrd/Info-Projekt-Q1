@@ -18,6 +18,7 @@ public class Bow extends GraphicalObject {
     private double desiredY;
     private double power = 0;
     private final double maxPower = 1;
+    private double chargeSpeed = 100;
 
     private ModifierController modifierController;
 
@@ -61,7 +62,7 @@ public class Bow extends GraphicalObject {
 
     private void charge(double dt){
         if(leftMouseDown){
-            power += dt;
+            power += dt * chargeSpeed;
             if (power > maxPower) {
                 power = maxPower;
             }

@@ -122,7 +122,7 @@ public class ListEnemy extends Enemy {
     private void moveToPlayer(double dt){
         double radiant = Math.atan2(player.getY() - this.y,player.getX() - this.x);
         double degree = Math.toDegrees(radiant);
-        this.moveInDirection(degree,speed,dt);
+        moveInDirection(degree,speed,dt);
     }
 
     /**
