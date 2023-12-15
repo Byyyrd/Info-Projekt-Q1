@@ -8,6 +8,9 @@ import my_project.model.Player;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * The Projectile class is a template class to make creating, updating and deleting projectiles easier
+ */
 public abstract class Projectile extends GraphicalObject {
     protected double degrees;
     protected double speed;
@@ -16,6 +19,14 @@ public abstract class Projectile extends GraphicalObject {
     protected boolean destroyed = false;
     protected BufferedImage[] images;
 
+    /**
+     * Sets all needed values on instantiation
+     *
+     * @param x X coordinate of the projectile
+     * @param y Y coordinate of the projectile
+     * @param degrees The angle at which the projectile is rotated in radians
+     * @param speed Speed of the projectile movement
+     */
     public Projectile(double x, double y, double degrees, double speed) {
         this.x = x;
         this.y = y;
@@ -28,6 +39,11 @@ public abstract class Projectile extends GraphicalObject {
         move(dt);
     }
 
+    /**
+     * Moves the projectile according to the angle and speed of it
+     *
+     * @param dt Time between the current frame and the last frame
+     */
     private void move(double dt) {
         double dirX = Math.cos(degrees);
         double dirY = Math.sin(degrees);
@@ -35,6 +51,11 @@ public abstract class Projectile extends GraphicalObject {
         y += dirY * speed * dt;
     }
 
+    /**
+     * Is called when the projectile is destroyed
+     *
+     * @return An effect that should be created on destruction
+     */
     public Effect onDestroyed(){
         return null;
     }
@@ -71,6 +92,12 @@ public abstract class Projectile extends GraphicalObject {
         return imageOffset;
     }
 
+    /**
+     * Checks whether the projectile is outside the boundaries of the arena.
+     * If yes, it pushes the projectile back inside
+     *
+     * @return Whether the projectile was outside the boundaries of the arena or not
+     */
     public boolean checkBounds(){
         boolean inWall = false;
         if((x+imageOffset) < Config.leftBound){
