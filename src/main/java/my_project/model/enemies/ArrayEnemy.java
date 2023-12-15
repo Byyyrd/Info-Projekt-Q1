@@ -9,18 +9,32 @@ import my_project.model.projectiles.Projectile;
 
 import java.awt.*;
 
+/**
+ * Describes the behavior of an ArrayEnemy
+ */
 public class ArrayEnemy extends Enemy {
     private EnemyNode[][] enemyNodesArray;
     private double degreesForAllEnemies;
     private double rotationSpeed = 0.03;
     private boolean hasInitialised = false;
 
+    /**
+     * Sets all needed values on instantiation and for future use
+     *
+     * @param x X coordinate of the enemy
+     * @param y Y coordinate of the enemy
+     * @param speed Speed of the enemy movement
+     * @param radius Radius of a single enemy node, represented by a square
+     * @param player Player to home towards
+     * @param spawnController Spawn controller in use
+     * @param ArrayLength The width and height of the 2D-Array. The amount of nodes is the length squared
+     */
     public ArrayEnemy(double x, double y, double speed, double radius, Player player, SpawnController spawnController, int ArrayLength) {
         super(x, y, speed, player, spawnController);
         this.radius = radius;
         enemyNodesArray = new EnemyNode[ArrayLength][ArrayLength];
         updateNodes();
-        hasInitialised=true;
+        hasInitialised = true;
     }
 
     @Override

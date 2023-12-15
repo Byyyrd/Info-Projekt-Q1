@@ -11,20 +11,23 @@ import my_project.model.projectiles.Projectile;
 
 import java.awt.*;
 
+/**
+ * Describes the behavior of a QueueEnemy
+ */
 public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
     private final double rotationSpeed = 0.03;
 
     /**
+     * Sets initial values for the enemy
      *
-     *
-     * @param x
-     * @param y
-     * @param radius
-     * @param speed
-     * @param player
-     * @param spawnController
-     * @param startNodeAmount
+     * @param x X coordinate of the front of the enemy
+     * @param y Y coordinate of the front of the enemy
+     * @param radius Radius of the individual nodes
+     * @param speed Speed of the front of the enemy
+     * @param player Player in use
+     * @param spawnController Spawn controller in use
+     * @param startNodeAmount Amount of nodes at the instantiation of the enemy
      */
     public QueueEnemy(double x, double y, double radius, double speed, Player player, SpawnController spawnController, int startNodeAmount) {
         super(x, y, speed, player, spawnController);

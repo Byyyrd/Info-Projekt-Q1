@@ -2,7 +2,6 @@ package my_project.model.enemies;
 
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
-import my_project.control.EffectController;
 import my_project.control.SpawnController;
 import my_project.model.Player;
 import my_project.model.effects.DustParticleEffect;
@@ -11,7 +10,20 @@ import my_project.model.projectiles.Projectile;
 
 import java.awt.*;
 
+/**
+ * Describes the behavior of a SimpleEnemy, that just homes at the player
+ */
 public class SimpleEnemy extends Enemy{
+
+    /**
+     * Sets all needed values on instantiation and for future use
+     *
+     * @param x X coordinate of the enemy
+     * @param y X coordinate of the enemy
+     * @param speed Speed of the enemy movement
+     * @param player Player to home towards
+     * @param spawnController Spawn controller in use
+     */
     public SimpleEnemy(double x, double y, double speed, Player player, SpawnController spawnController){
         super(x, y, speed, player, spawnController);
         radius = 10;

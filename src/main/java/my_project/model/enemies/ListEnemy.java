@@ -10,6 +10,9 @@ import my_project.model.projectiles.Projectile;
 
 import java.awt.*;
 
+/**
+ * Describes the behavior of a ListEnemy
+ */
 public class ListEnemy extends Enemy {
     private List<ListEnemyNode> list = new List<>();
     private double rotation;
@@ -17,6 +20,16 @@ public class ListEnemy extends Enemy {
     private double currentChangeTimer;
     private final double currentChangeSpeed = 5;
 
+    /**
+     * Sets all needed values on instantiation and for future use
+     *
+     * @param x X coordinate of the enemy
+     * @param y Y coordinate of the enemy
+     * @param speed Speed of the enemy movement
+     * @param amountOfNodes Amount of nodes at the instantiation of the enemy
+     * @param player Player to home towards
+     * @param spawnController Spawn controller in use
+     */
     public ListEnemy(double x, double y, double speed, int amountOfNodes, Player player, SpawnController spawnController) {
         super(x, y, speed, player, spawnController);
         images = Util.getAllImagesFromFolder("listEnemy");

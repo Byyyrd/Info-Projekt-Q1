@@ -13,7 +13,7 @@ import my_project.model.projectiles.ProjectileType;
 import java.awt.*;
 
 /**
- * Describes the behavior of a StackEnemy.
+ * Describes the behavior of a StackEnemy
  */
 public class StackEnemy extends Enemy {
     private Stack<StackEntity> stack = new Stack<>();

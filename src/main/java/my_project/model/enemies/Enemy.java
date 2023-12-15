@@ -21,6 +21,15 @@ public abstract class Enemy extends GraphicalObject {
     protected BufferedImage[] images;
     protected boolean destroyed = false;
 
+    /**
+     * Sets all needed values on instantiation and for future use
+     *
+     * @param x X coordinate of the enemy
+     * @param y Y coordinate of the enemy
+     * @param speed Speed of the enemy movement
+     * @param player Player to home towards
+     * @param spawnController Spawn controller in use
+     */
     public Enemy(double x, double y, double speed, Player player, SpawnController spawnController){
         this.x = x;
         this.y = y;
@@ -30,7 +39,8 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     /**
-     * spawns a Projectile. Depending on projectileType is either a Bullet,Arrow,Bounce,Bulltet or ChargeBullet
+     * Spawns a Projectile. Depending on projectileType is either a Bullet, Arrow, BounceBullet or ChargeBullet
+     *
      * @param x x spawn coordinate
      * @param y y spawn coordinate
      * @param degrees angle projectile is shot at
@@ -116,7 +126,7 @@ public abstract class Enemy extends GraphicalObject {
 
     /**
      * Abstract method to implement,
-     * supposed to check whether collision is present with projectile
+     * supposed to check whether collision is present with a projectile
      *
      * @param projectile projectile to check if colliding
      * @return Return whether the hitting projectile should be destroyed or not
@@ -125,10 +135,10 @@ public abstract class Enemy extends GraphicalObject {
     public abstract boolean checkCollision(Projectile projectile);
 
     /**
-     * abstract method to implement,
-     * supposed to check whether collision is present with player
+     * Abstract method to implement,
+     * supposed to check whether collision is present with the player
      *
-     * @param player projectile to check if colliding
+     * @param player Player to check if colliding
      * @return Return true if colliding else returns false
      */
     public abstract boolean checkCollision(Player player);
