@@ -27,6 +27,15 @@ public abstract class Enemy extends GraphicalObject {
         this.spawnController = spawnController;
     }
 
+    /**
+     * spawns a Projectile. Depending on projectileType is either a Bullet,Arrow,Bounce,Bulltet or ChargeBullet
+     * @param x x spawn coordinate
+     * @param y y spawn coordinate
+     * @param degrees angle projectile is shot at
+     * @param speed speed of projectile
+     * @param projectileType type of projectile, enum
+     */
+
     protected void spawnBullet(double x, double y, double degrees, double speed, ProjectileType projectileType){
         Projectile projectile = null;
         switch (projectileType){
@@ -38,12 +47,24 @@ public abstract class Enemy extends GraphicalObject {
         spawnController.addProjectile(projectile);
     }
 
+    /**
+     * sets the Enemy towards the direction of the Player by the speed of the Enemy and time from last frame
+     * @param dt time from last frame
+     */
     protected void move(double dt){
         double degrees = Math.atan2(player.getY()-y,player.getX()-x);
         this.x += Math.cos(degrees) * speed * dt;
         this.y += Math.sin(degrees) * speed * dt;
     }
 
+    /**
+     * returns whether an Enemy node of the Enemy is colliding with a Projectile.
+     * At high speeds to proof collision projectile position is back tracked.
+     * Because calculations are made only after a frame is rendered a projectile might skip over an enemy.
+     * @param projectile projectile to check collision with
+     * @param node node to check collision with
+     * @return whether projectile and node are colliding
+     */
     protected boolean collidesWithNode(Projectile projectile, EnemyNode node){
         if (projectile.getSpeed() > 2000) {
             for (int i = 0; i < Math.floor(projectile.getSpeed() * 0.01); i++) {
@@ -60,6 +81,10 @@ public abstract class Enemy extends GraphicalObject {
         return false;
     }
 
+    /**
+     * checks whether Enemy is on fully on screen or not
+     * @return boolean whether the before mentioned statement is true
+     */
     protected boolean checkBounds(){
         if(x < Config.leftBound) return false;
         if(x > Config.rightBound) return false;
@@ -80,7 +105,22 @@ public abstract class Enemy extends GraphicalObject {
         this.destroyed = destroyed;
     }
 
+    /**
+     * abstract method to implement,
+     * supposed to check whether collision is present with projectile
+     *
+     * @param projectile projectile to check if colliding
+     * @return return true if colliding else returns false
+     */
+
     public abstract boolean checkCollision(Projectile projectile);
 
+    /**
+     * abstract method to implement,
+     * supposed to check whether collision is present with player
+     *
+     * @param player projectile to check if colliding
+     * @return return true if colliding else returns false
+     */
     public abstract boolean checkCollision(Player player);
 }
