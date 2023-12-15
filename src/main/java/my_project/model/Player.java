@@ -8,13 +8,19 @@ import my_project.Util;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * The Player class applies all keyboard related inputs and provides current actual position of the player
+ */
 public class Player extends GraphicalObject {
     private BufferedImage[] images = Util.getAllImagesFromFolder("player");
     private boolean drawFirstImage = true;
 
+    /**
+     * Sets standard x and y positions relative to the panel width and height
+     */
     public Player(){
-        x = 488-8; //Mitte des Bildschirms
-        y = 488; //Eine sinnvolle Zahl unter dem Zentrum
+        x = Config.WINDOW_WIDTH / 2;
+        y = Config.WINDOW_HEIGHT / 2 + 100;
     }
 
     @Override
@@ -30,14 +36,14 @@ public class Player extends GraphicalObject {
     }
 
     /**
-     * Method that is called upon when the player gets hit
+     * Method that is called when the player gets hit
      */
     public void takeDamage(){
         DrawFrame.getActivePanel().setVisible(false);
     }
 
     /**
-     * Moves the ployer towards an x and y coordinate
+     * Moves the player towards an x and y coordinate
      *
      * @param xDisplacement x coordinate
      * @param yDisplacement y coordinate
@@ -50,7 +56,7 @@ public class Player extends GraphicalObject {
     }
 
     /**
-     * If player touches Outline, he gets stopped
+     * If the player touches the outline, he gets stopped
      */
     private void checkBounds(){
         if((x+8) < Config.leftBound) x = Config.leftBound - 8;

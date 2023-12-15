@@ -2,6 +2,9 @@ package my_project.control;
 
 import my_project.model.enemies.*;
 
+/**
+ * The EnemyWaveController controls when and what kind of enemies should be spawned
+ */
 public class EnemyWaveController {
 
     private SpawnController spawnController;
@@ -9,6 +12,11 @@ public class EnemyWaveController {
     private double simpleTimer = 0;
     private int enemyKind = 1;
 
+    /**
+     * Sets the spawn controller so enemies can actually spawn
+     *
+     * @param spawnController Current spawn controller
+     */
     public EnemyWaveController(SpawnController spawnController){
         this.spawnController = spawnController;
     }
@@ -22,14 +30,14 @@ public class EnemyWaveController {
         simpleTimer -= dt;
         if(timer < 0){
             spawnTestEnemies();
-            timer = 10;
+            timer = 7;
         }
         if(simpleTimer < 0){
             double degrees = (Math.random() - 0.5) * 2 * Math.PI;
             double xPos = 1200 * Math.cos(degrees);
             double yPos = 1000 * Math.sin(degrees);
-            spawnController.addEnemy(new SimpleEnemy(xPos,yPos,200,spawnController.getPlayer(),spawnController));
-            simpleTimer = 1;
+            spawnController.addEnemy(new SimpleEnemy(xPos,yPos,Math.random()*100+100,spawnController.getPlayer(),spawnController));
+            simpleTimer = 2;
         }
     }
 

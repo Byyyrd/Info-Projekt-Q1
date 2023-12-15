@@ -8,6 +8,9 @@ import my_project.control.ModifierController;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
+/**
+ * The Bow class handles all mouse related inputs and provides the information when arrows should be spawned
+ */
 public class Bow extends GraphicalObject {
     private boolean leftMouseDown;
     private double mouseX;
@@ -18,7 +21,7 @@ public class Bow extends GraphicalObject {
     private double desiredY;
     private double power = 0;
     private final double maxPower = 1;
-    private double chargeSpeed = 100;
+    private double chargeSpeed = 1;
 
     private ModifierController modifierController;
 
@@ -46,8 +49,9 @@ public class Bow extends GraphicalObject {
     }
 
     /**
-     * draws the circle indicating the charge status
-     * @param drawTool from kago method draw
+     * Draws the circle indicating the charge status
+     *
+     * @param drawTool Draw tool in use
      */
     private void drawChargeCircles(DrawTool drawTool){
         for (int i = 0; i < 5; i++) {
@@ -69,7 +73,8 @@ public class Bow extends GraphicalObject {
 
     /**
      * Increases current bow power while under max and left mouse button is down
-     * @param dt time between each frame
+     *
+     * @param dt Time between each frame
      */
     private void charge(double dt){
         if(leftMouseDown){

@@ -8,6 +8,9 @@ import my_project.Util;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * The Background class draws images in the background
+ */
 public class Background extends GraphicalObject {
     private final BufferedImage[] backgroundEffects;
     private int index = 0;
@@ -15,6 +18,9 @@ public class Background extends GraphicalObject {
     private final double maxTimer = 0.1;
     private double intensity = 10;
 
+    /**
+     * Sets the images for later usage
+     */
     public Background(){
         backgroundEffects = Util.getAllImagesFromFolder("backgroundEffect");
     }

@@ -57,7 +57,7 @@ public class ProgramController {
         SpawnController spawnController = new SpawnController(this);
         modifierController = new ModifierController();
         PlayerController playerController = new PlayerController(player, bow, spawnController, modifierController);
-        collisionController = new CollisionController(playerController,spawnController);
+        collisionController = new CollisionController(playerController, spawnController, background);
         enemyWaveController = new EnemyWaveController(spawnController);
         spawnController.setCollisionController(collisionController);
         modifierController.setPlayerController(playerController);

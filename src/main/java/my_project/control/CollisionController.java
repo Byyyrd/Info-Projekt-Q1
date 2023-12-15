@@ -1,6 +1,8 @@
 package my_project.control;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
+import my_project.Util;
+import my_project.model.Background;
 import my_project.model.effects.Effect;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;
@@ -22,11 +24,12 @@ public class CollisionController {
      *
      * @param playerController Player controller that is currently in use
      * @param spawnController Spawn controller for registering effects and removing objects
+     * @param background Current background to give it to the effect controller
      */
-    public CollisionController(PlayerController playerController, SpawnController spawnController){
+    public CollisionController(PlayerController playerController, SpawnController spawnController, Background background){
         this.playerController = playerController;
         this.spawnController = spawnController;
-        effectController = new EffectController(spawnController);
+        effectController = new EffectController(spawnController,background);
     }
 
     /**
@@ -40,12 +43,14 @@ public class CollisionController {
     }
 
     /**
-     * Registers a given enemy, so collision can be detected in the future
+     * Registers a given enemy, so collision can be detected in the future.
+     * It also makes the EffectController change the background
      *
      * @param enemy The to be registered enemy
      */
     public void registerEnemy(Enemy enemy){
         enemyList.append(enemy);
+        effectController.setBackgroundIntensity(Util.countList(enemyList));
     }
 
     /**

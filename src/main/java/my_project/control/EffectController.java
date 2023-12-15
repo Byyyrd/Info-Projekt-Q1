@@ -13,12 +13,14 @@ public class EffectController {
     private Background background;
 
     /**
-     * Registers the program controller to delete effects in the future
+     * Registers the program controller to delete effects in the future and registers the background to apply effects to it
      *
      * @param spawnController Currently used spawn controller
+     * @param background Currently used background
      */
-    public EffectController(SpawnController spawnController){
+    public EffectController(SpawnController spawnController, Background background){
         this.spawnController = spawnController;
+        this.background = background;
     }
 
     /**
@@ -51,5 +53,10 @@ public class EffectController {
                 effectsList.next();
             }
         }
+    }
+
+    public void setBackgroundIntensity(int amountOfEnemies){
+        if(background != null)
+            background.setIntensity(amountOfEnemies * 5);
     }
 }
