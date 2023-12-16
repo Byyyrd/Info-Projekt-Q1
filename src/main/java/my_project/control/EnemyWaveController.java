@@ -8,9 +8,9 @@ import my_project.model.enemies.*;
 public class EnemyWaveController {
 
     private SpawnController spawnController;
-    private double timer = 0;
-    private double simpleTimer = 0;
-    private int enemyKind = 1;
+    private double timer = 1;
+    private double simpleTimer = 1;
+    private int enemyKind = 4;
 
     /**
      * Sets the spawn controller so enemies can actually spawn
@@ -29,11 +29,7 @@ public class EnemyWaveController {
         timer -= dt;
         simpleTimer -= dt;
         if(timer < 0){
-            //spawnTestEnemies();
-            double degrees = (Math.random() - 0.5) * 2 * Math.PI;
-            double xPos = 1200 * Math.cos(degrees);
-            double yPos = 1000 * Math.sin(degrees);
-            spawnController.addEnemy(new Summoner(xPos,yPos,100,spawnController.getPlayer(),spawnController,10));
+            spawnTestEnemies();
             timer = 7;
         }
         if(simpleTimer < 0){
@@ -56,12 +52,14 @@ public class EnemyWaveController {
             newEnemy = new QueueEnemy(xPos,yPos,10,Math.random()*60+200,spawnController.getPlayer(),spawnController,(int)(Math.random()*40+30));
         } else if (enemyKind == 2){
             newEnemy = new StackEnemy(xPos,yPos,spawnController.getPlayer(),spawnController,(int)(Math.random()*4+2));
-        } else {
+        } else if (enemyKind == 3) {
             newEnemy = new ArrayEnemy(xPos,yPos,150,20,spawnController.getPlayer(),spawnController,(int)(Math.random()*5+2));
+        } else {
+            newEnemy = new Summoner(xPos, yPos, 100, spawnController.getPlayer(), spawnController, 10);
         }
         spawnController.addEnemy(newEnemy);
         enemyKind++;
-        if(enemyKind > 3){
+        if(enemyKind > 4){
             enemyKind = 0;
         }
     }

@@ -299,8 +299,10 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
             currentObject.update(dtSeconds);
             if (my_project.Config.useSound && soundController != null) soundController.update(dtSeconds);
         }
-        outline.draw(drawTool);
-        outline.update(dtSeconds);
+        if(outline != null){
+            outline.draw(drawTool);
+            outline.update(dtSeconds);
+        }
     }
 
     /**
