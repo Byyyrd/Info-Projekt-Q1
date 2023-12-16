@@ -57,6 +57,6 @@ public class SimpleEnemy extends Enemy{
 
     @Override
     public Effect onDestroyed() {
-        return new DustParticleEffect(x,y);
+        return new DustParticleEffect(x,y, new Color(187, 18, 18));
     }
 }
