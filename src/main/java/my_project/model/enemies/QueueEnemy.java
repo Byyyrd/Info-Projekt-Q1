@@ -114,7 +114,7 @@ public class QueueEnemy extends Enemy {
         }
 
         if(gotHit){
-            if(projectile.getClass().isNestmateOf(Arrow.class)){
+            if(projectile instanceof Arrow){
                 Arrow arrow = (Arrow) projectile;
                 getHit(arrow.isStrong());
             } else {
