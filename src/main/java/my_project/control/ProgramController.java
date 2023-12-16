@@ -6,10 +6,7 @@ import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.Util;
-import my_project.model.Background;
-import my_project.model.Bow;
-import my_project.model.Outline;
-import my_project.model.Player;
+import my_project.model.*;
 import my_project.model.enemies.RoeckrathBoss;
 import my_project.view.InputManager;
 
