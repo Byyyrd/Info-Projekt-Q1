@@ -6,10 +6,7 @@ import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.Util;
-import my_project.model.Background;
-import my_project.model.Bow;
-import my_project.model.Outline;
-import my_project.model.Player;
+import my_project.model.*;
 import my_project.view.InputManager;
 
 /**
@@ -28,6 +25,7 @@ public class ProgramController {
     private ModifierController modifierController;
 
     private List<Drawable> scene = new List<>();
+    private List<Drawable> sceneTwo = new List<>();
 
     /**
      * Konstruktor
@@ -45,8 +43,12 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        viewController.createScene();
+        viewController.createScene();
+
         //Testing
         viewController.getSoundController().loadSound("src/main/resources/sound/test.mp3","mainTrack",true);
+        viewController.getSoundController().loadSound("src/main/resources/sound/Cutscene1.mp3","Cutscene1",false);
         SoundController.playSound("mainTrack");
         //Visual Model
         Background background = new Background();
@@ -70,11 +72,18 @@ public class ProgramController {
         scene.append(inputManager);
         viewController.register(inputManager);
 
+        sceneTwo.append(new Cutscene());
+
         scene.toFirst();
         while (scene.hasAccess()){
-            viewController.draw(scene.getContent());
+            viewController.draw(scene.getContent(),0);
             scene.next();
         }
+
+        sceneTwo.toFirst();
+        viewController.draw(sceneTwo.getContent(),1);
+
+        //viewController.showScene(1);
     }
 
     /**
@@ -89,10 +98,10 @@ public class ProgramController {
     }
 
     public void addObject(GraphicalObject objectToDraw){
-        viewController.draw(objectToDraw);
+        viewController.draw(objectToDraw,0);
     }
 
     public void removeObject(GraphicalObject objectToRemove){
-        viewController.removeDrawable(objectToRemove);
+        viewController.removeDrawable(objectToRemove,0);
     }
 }
