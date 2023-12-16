@@ -209,23 +209,6 @@ public class Util {
     }
 
     /**
-     * Checks whether two given rectangles collide
-     *
-     * @param r1x X position of left edge from first rectangle
-     * @param r1y Y position of top edge from first rectangle
-     * @param r1w Width of first rectangle
-     * @param r1h Height of first rectangle
-     * @param r2x X position of left edge from second rectangle
-     * @param r2y Y position of top edge from second rectangle
-     * @param r2w Width of second rectangle
-     * @param r2h Height of second rectangle
-     * @return A boolean that describes whether the rectangles collide
-     */
-    public static boolean rectToRectCollision(double r1x, double r1y, double r1w, double r1h, double r2x, double r2y, double r2w, double r2h) {
-        return !(r1x > r2x + r2w) && !(r1x + r1w < r2x) && !(r1y > r2y + r2h) && !(r1y + r1h < r2y);
-    }
-
-    /**
      * Checks whether two given circles collide
      *
      * @param x1 X position of 1st circle
