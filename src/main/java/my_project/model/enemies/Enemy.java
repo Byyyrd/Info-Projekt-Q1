@@ -55,6 +55,7 @@ public abstract class Enemy extends GraphicalObject {
             case Arrow -> projectile = new Arrow(x,y,degrees,speed);
             case BounceBullet -> projectile = new BounceBullet(x,y,degrees,speed,player);
             case ChargeBullet -> projectile = new ChargeBullet(x,y,degrees,speed,player);
+            case MandelBrot -> projectile = new MandelBrot(x,y,degrees,speed,player);
         }
         spawnController.addProjectile(projectile);
     }

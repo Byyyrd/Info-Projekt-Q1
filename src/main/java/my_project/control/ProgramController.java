@@ -10,6 +10,7 @@ import my_project.model.Background;
 import my_project.model.Bow;
 import my_project.model.Outline;
 import my_project.model.Player;
+import my_project.model.enemies.RoeckrathBoss;
 import my_project.view.InputManager;
 
 /**
@@ -75,6 +76,9 @@ public class ProgramController {
             viewController.draw(scene.getContent());
             scene.next();
         }
+        RoeckrathBoss roeckrathBoss = new RoeckrathBoss(100,100,10,player,spawnController);
+        viewController.draw(roeckrathBoss);
+        collisionController.registerEnemy(roeckrathBoss);
     }
 
     /**
@@ -82,7 +86,7 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        enemyWaveController.update(dt);
+        //enemyWaveController.update(dt);
         collisionController.update();
         modifierController.update(dt);
         Util.applyCamShake(dt);

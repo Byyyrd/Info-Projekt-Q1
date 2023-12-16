@@ -52,8 +52,9 @@ public class Summoner extends Enemy{
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.setCurrentColor(new Color(0x793a80));
+        drawTool.setLineWidth(3);
         drawTool.drawCircle(x,y, radius);
-        drawTool.setCurrentColor(new Color(0x403353));
+        drawTool.setCurrentColor(new Color(71, 15, 108,100));
         drawTool.drawFilledCircle(x,y,radius);
     }
 
