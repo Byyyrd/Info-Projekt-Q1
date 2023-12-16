@@ -56,6 +56,7 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
     private long lastLoop, elapsedTime;
     private int currentScene;
     private boolean notChangingInteractables, notChangingDrawables;
+    private boolean drawOutline;
 
     /**
      * Erzeugt ein Objekt zur Kontrolle des Programmflusses.
@@ -299,8 +300,10 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
             currentObject.update(dtSeconds);
             if (my_project.Config.useSound && soundController != null) soundController.update(dtSeconds);
         }
-        outline.draw(drawTool);
-        outline.update(dtSeconds);
+        if(outline != null){
+            outline.draw(drawTool);
+            outline.update(dtSeconds);
+        }
     }
 
     /**
@@ -411,5 +414,4 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
             tmpInteractable.keyReleased(e.getKeyCode());
         }
     }
-
 }

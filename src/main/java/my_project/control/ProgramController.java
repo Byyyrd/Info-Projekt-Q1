@@ -29,6 +29,7 @@ public class ProgramController {
     private ModifierController modifierController;
 
     private List<Drawable> scene = new List<>();
+    private List<Drawable> sceneTwo = new List<>();
 
     /**
      * Konstruktor
@@ -46,8 +47,12 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
+        viewController.createScene();
+        viewController.createScene();
+
         //Testing
         viewController.getSoundController().loadSound("src/main/resources/sound/test.mp3","mainTrack",true);
+        viewController.getSoundController().loadSound("src/main/resources/sound/Cutscene1.mp3","Cutscene1",false);
         SoundController.playSound("mainTrack");
         //Visual Model
         Background background = new Background();
@@ -71,11 +76,18 @@ public class ProgramController {
         scene.append(inputManager);
         viewController.register(inputManager);
 
+        sceneTwo.append(new Cutscene());
+
         scene.toFirst();
         while (scene.hasAccess()){
-            viewController.draw(scene.getContent());
+            viewController.draw(scene.getContent(),0);
             scene.next();
         }
+
+        sceneTwo.toFirst();
+        viewController.draw(sceneTwo.getContent(),1);
+
+        //viewController.showScene(1);
         RoeckrathBoss roeckrathBoss = new RoeckrathBoss(100,100,10,player,spawnController);
         viewController.draw(roeckrathBoss);
         collisionController.registerEnemy(roeckrathBoss);
@@ -86,17 +98,17 @@ public class ProgramController {
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
-        //enemyWaveController.update(dt);
+        enemyWaveController.update(dt);
         collisionController.update();
         modifierController.update(dt);
         Util.applyCamShake(dt);
     }
 
     public void addObject(GraphicalObject objectToDraw){
-        viewController.draw(objectToDraw);
+        viewController.draw(objectToDraw,0);
     }
 
     public void removeObject(GraphicalObject objectToRemove){
-        viewController.removeDrawable(objectToRemove);
+        viewController.removeDrawable(objectToRemove,0);
     }
 }
