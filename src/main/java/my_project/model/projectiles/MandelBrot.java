@@ -34,7 +34,7 @@ public class MandelBrot extends Projectile{
         Graphics2D g2d = drawTool.getGraphics2D();
         AffineTransform old = g2d.getTransform();
 
-        g2d.rotate(degrees, x, y);
+        g2d.rotate(degrees, x + getMyImage().getWidth() * .5, y + getMyImage().getHeight() * .5);
         drawTool.drawImage(getMyImage(),x,y);
         g2d.setTransform(old);
     }
