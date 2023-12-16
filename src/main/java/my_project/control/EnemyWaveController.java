@@ -36,7 +36,7 @@ public class EnemyWaveController {
             double degrees = (Math.random() - 0.5) * 2 * Math.PI;
             double xPos = 1200 * Math.cos(degrees);
             double yPos = 1000 * Math.sin(degrees);
-            spawnController.addEnemy(new SimpleEnemy(xPos,yPos,Math.random()*100+100,spawnController.getPlayer(),spawnController));
+            spawnController.addEnemy(new SimpleEnemy(xPos,yPos,Math.random()*50+100,spawnController.getPlayer(),spawnController));
             simpleTimer = 2;
         }
     }
