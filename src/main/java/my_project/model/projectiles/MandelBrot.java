@@ -7,6 +7,7 @@ import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class MandelBrot extends Projectile{
 
@@ -23,12 +24,19 @@ public class MandelBrot extends Projectile{
     public MandelBrot(double x, double y, double degrees, double speed, Player player) {
         super(x, y, degrees, speed);
         this.player = player;
+
         setNewImage("src/main/resources/graphic/mandelBrot.png");
         imageOffset = 8;
     }
 
     public void draw(DrawTool drawTool) {
+
+        Graphics2D g2d = drawTool.getGraphics2D();
+        AffineTransform old = g2d.getTransform();
+
+        g2d.rotate(degrees, x, y);
         drawTool.drawImage(getMyImage(),x,y);
+        g2d.setTransform(old);
     }
 
     public void update(double dt) {
