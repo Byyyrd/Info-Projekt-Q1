@@ -14,7 +14,7 @@ public class DustParticleEffect extends Effect {
     private Color color = Color.white;
 
     /**
-     * Sets the position of the effect, standard version
+     * Standard version of the effect
      *
      * @param x X coordinate of the effect
      * @param y Y coordinate of the effect
@@ -28,7 +28,23 @@ public class DustParticleEffect extends Effect {
     }
 
     /**
-     * Sets the used variables of the effect, extended version
+     * Color version of the effect
+     *
+     * @param x X coordinate of the effect
+     * @param y Y coordinate of the effect
+     * @param color The color of the effect
+     */
+    public DustParticleEffect(double x, double y, Color color){
+        super(x,y);
+        circles = new Particle[10];
+        for (int i = 0; i < circles.length; i++) {
+            circles[i] = new Particle(x+(Math.random()-0.5)*10,y+(Math.random()-0.5)*10,Math.random()*5+5);
+        }
+        this.color = color;
+    }
+
+    /**
+     * Extended version of the effect
      *
      * @param x X coordinate of the effect
      * @param y Y coordinate of the effect
