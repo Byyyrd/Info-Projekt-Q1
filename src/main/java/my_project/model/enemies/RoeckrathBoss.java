@@ -43,7 +43,7 @@ public class RoeckrathBoss extends Enemy{
         //Roeckrath
         drawTool.setCurrentColor(new Color(226,168,152));
         drawTool.drawFilledCircle(x,y,radius);
-        drawTool.setCurrentColor(new Color(226,168,152, 200));
+        drawTool.setCurrentColor(new Color(226,168,152, 190));
         drawTool.setLineWidth(4);
         drawTool.drawCircle(x,y,radius);
         //HealthBar
@@ -86,14 +86,14 @@ public class RoeckrathBoss extends Enemy{
      */
 
     private void jump(){
-        x = Math.random()*(Config.rightBound - 130) + Config.upBound + 130;
-        y = Math.random()*(Config.downBound - 130) + Config.leftBound + 130;
+        x = Math.random()* 733 + 150;
+        y = Math.random()* 313 + 150;
         spawnController.addEffect(new DustParticleEffect(x,y,30,30,10,new Color(26, 185, 27)));
     }
 
     @Override
     public boolean checkCollision(Projectile projectile) {
-        boolean collides = Util.circleToCircleCollision(x,y,radius,projectile.getX() + 16,projectile.getY() + 16,13,0);
+        boolean collides = collidesWithNode(projectile, new EnemyNode(x,y,radius));
         if(collides){
             jump();
             jumpTimer = 2;

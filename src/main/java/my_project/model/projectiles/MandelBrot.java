@@ -47,6 +47,10 @@ public class MandelBrot extends Projectile{
         }
     }
 
+    public boolean checkCollision(Player player){
+        return Util.circleToCircleCollision(x + 16,y + 16,8,player.getX(),player.getY(),8,4);
+    }
+
     @Override
     public Effect onDestroyed() {
         return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,Color.cyan);
