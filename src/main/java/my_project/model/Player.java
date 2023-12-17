@@ -29,16 +29,6 @@ public class Player extends GraphicalObject {
     }
 
     @Override
-    public void update(double dt) {
-        if(invincible < 0)
-            healthPoints -= dt;
-        invincible -= dt;
-        if(healthPoints < 0){
-            healthPoints = 0;
-        }
-    }
-
-    @Override
     public void draw(DrawTool drawTool) {
         if(drawFirstImage)
             drawTool.drawImage(images[0],x-8,y-8);
@@ -63,17 +53,13 @@ public class Player extends GraphicalObject {
      *
      * @return Whether the player did take damage
      */
-    public boolean takeDamage() {
-        if(invincible > 0)
-            return false;
+    public void takeDamage() {
         healthPoints += healthBarSize / 1.5;
-        invincible = 3;
         Util.setCamShake(0.5,10);
         if(healthPoints >= healthBarSize) {
             SoundController.stopSound("mainTrack");
             DrawFrame.getActivePanel().setVisible(false);
         }
-        return true;
     }
 
     /**
@@ -97,5 +83,17 @@ public class Player extends GraphicalObject {
         if((x+8) > Config.rightBound) x = Config.rightBound - 8;
         if((y+8) < Config.upBound) y = Config.upBound - 8;
         if((y+8) > Config.downBound) y = Config.downBound - 8;
+    }
+
+    public void setInvincible(double invincible) {
+        this.invincible = invincible;
+    }
+
+    public double getHealthPoints() {
+        return healthPoints;
+    }
+
+    public void setHealthPoints(double healthPoints) {
+        this.healthPoints = healthPoints;
     }
 }

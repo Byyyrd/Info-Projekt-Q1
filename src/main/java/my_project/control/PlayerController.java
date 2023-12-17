@@ -4,6 +4,7 @@ import my_project.Util;
 import my_project.model.Player;
 import my_project.model.Bow;
 import my_project.model.modifiers.AccelerationModifier;
+import my_project.model.modifiers.InvincibilityModifier;
 import my_project.model.modifiers.SlowingModifier;
 import my_project.model.projectiles.Arrow;
 
@@ -25,6 +26,7 @@ public class PlayerController{
     //Modifiers
     private double slowPercentage = 0;
     private double accelerationPercentage = 0;
+    private double invincibilityPercentage = 0;
 
     /**
      * Get a reference for all needed objects for later use
@@ -46,9 +48,19 @@ public class PlayerController{
      */
     public void update(double dt){
         dashTimer -= dt;
+        invincibilityPercentage -= dt;
+
         if(dashTimer < 0)
             player.setDrawFirstImage(true);
         modifierController.add(new SlowingModifier(dt,bow.getPower() * 0.3));
+
+        //does player stuff for player und so
+        player.setInvincible(invincibilityPercentage);
+        if(invincibilityPercentage < 0)
+            player.setHealthPoints(player.getHealthPoints()-dt);
+        if(player.getHealthPoints() < 0){
+            player.setHealthPoints(0);
+        }
     }
 
     /**
@@ -119,6 +131,18 @@ public class PlayerController{
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    public boolean playerTakeDamage(){
+        if (invincibilityPercentage>=0)
+            return false;
+        player.takeDamage();
+        modifierController.add(new InvincibilityModifier(3,1));
+        return true;
+    }
+
     public Player getPlayer(){
         return player;
     }
@@ -127,6 +151,13 @@ public class PlayerController{
         return currentSpeed;
     }
 
+    public double getInvincibilityPercentage() {
+        return invincibilityPercentage;
+    }
+
+    public void setInvincibilityPercentage(double invincibilityPercentage) {
+        this.invincibilityPercentage = invincibilityPercentage;
+    }
 
     public void setSlowPercentage(double slowPercentage) {
         this.slowPercentage = slowPercentage;
