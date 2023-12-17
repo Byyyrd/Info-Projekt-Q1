@@ -33,7 +33,7 @@ public class EnemyWaveController {
         timer -= dt;
         simpleTimer -= dt;
         bossTimer -= dt;
-        if(bossTimer > 0){
+        if(bossTimer > 10){
             if(timer < 0){
                 spawnTestEnemies();
                 timer = 7;
@@ -45,7 +45,7 @@ public class EnemyWaveController {
                 spawnController.addEnemy(new SimpleEnemy(xPos,yPos,Math.random()*50+100,spawnController.getPlayer(),spawnController));
                 simpleTimer = 2;
             }
-        } else if (!hasSpawnedBoss) {
+        } else if (!hasSpawnedBoss && bossTimer < 0) {
             spawnController.addEnemy(new RoeckrathBoss(-100,-100,100,spawnController.getPlayer(),spawnController));
             hasSpawnedBoss = true;
         }

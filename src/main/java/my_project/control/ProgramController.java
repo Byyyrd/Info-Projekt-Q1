@@ -27,6 +27,7 @@ public class ProgramController {
 
     private List<Drawable> scene = new List<>();
     private List<Drawable> sceneTwo = new List<>();
+    private boolean wasDead = false;
 
     /**
      * Konstruktor
@@ -46,8 +47,10 @@ public class ProgramController {
     public void startProgram() {
         viewController.createScene();
         viewController.createScene();
-        //Testing
-        viewController.getSoundController().loadSound("src/main/resources/sound/test.mp3","mainTrack",true);
+        //Loading Sound
+        viewController.getSoundController().loadSound("src/main/resources/sound/mainTrack.mp3","mainTrack",false);
+        viewController.getSoundController().loadSound("src/main/resources/sound/death.mp3","death",false);
+        viewController.getSoundController().loadSound("src/main/resources/sound/bossTheme.mp3","bossTheme",true);
         viewController.getSoundController().loadSound("src/main/resources/sound/cutscene1.mp3","cutscene1",false);
         viewController.getSoundController().loadSound("src/main/resources/sound/cutscene2.mp3","cutscene2",false);
         //Visual Model
@@ -101,11 +104,14 @@ public class ProgramController {
         collisionController.update();
         modifierController.update(dt);
         Util.applyCamShake(dt);
-        if(collisionController.getPlayer().isDead()){
+        if(collisionController.getPlayer().isDead() && !wasDead){
+            wasDead = true;
             SoundController.stopSound("mainTrack");
+            SoundController.stopSound("bossTheme");
             viewController.createScene();
             viewController.setOutline(null);
             viewController.showScene(2);
+            SoundController.playSound("death");
         }
     }
 

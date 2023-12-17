@@ -35,6 +35,7 @@ public class RoeckrathBoss extends Enemy {
         desiredX = 480;
         desiredY = 400;
         SoundController.playSound("cutscene2");
+        SoundController.playSound("bossTheme");
     }
 
     public void draw(DrawTool drawTool){

@@ -21,7 +21,6 @@ public class Cutscene extends GraphicalObject {
         SoundController.playSound("cutscene1");
     }
 
-
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.setCurrentColor(0,0,0,255);
