@@ -110,7 +110,6 @@ public class CollisionController {
         list.toFirst();
         while(list.hasAccess()){
             if(list.getContent().checkCollision(playerController.getPlayer())) {
-                System.out.println("checked");
                 if(playerController.playerTakeDamage())
                     list.getContent().setDestroyed(true);
                 return;
@@ -120,7 +119,6 @@ public class CollisionController {
         enemyList.toFirst();
         while(enemyList.hasAccess()){
             if(enemyList.getContent().checkCollision(playerController.getPlayer())) {
-                System.out.println("checked");
                 if(playerController.playerTakeDamage())
                     list.getContent().setDestroyed(true);
                 return;
