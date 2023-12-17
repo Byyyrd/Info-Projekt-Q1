@@ -122,11 +122,7 @@ public class CollisionController {
         enemyList.toFirst();
         while(enemyList.hasAccess()){
             if(enemyList.getContent().checkCollision(playerController.getPlayer())) {
-                if(playerController.playerTakeDamage()){
-                    //if(enemyList.getContent() != null)
-                        //enemyList.getContent().setDestroyed(true);
-                    list.remove();
-                }
+                playerController.playerTakeDamage();
                 return;
             }
             enemyList.next();

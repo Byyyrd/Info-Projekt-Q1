@@ -48,6 +48,7 @@ public class ProgramController {
         viewController.createScene();
         //Testing
         viewController.getSoundController().loadSound("src/main/resources/sound/test.mp3","mainTrack",true);
+        viewController.getSoundController().loadSound("src/main/resources/sound/cutscene1.mp3","cutscene1",false);
         viewController.getSoundController().loadSound("src/main/resources/sound/cutscene2.mp3","cutscene2",false);
         //Visual Model
         Background background = new Background();
