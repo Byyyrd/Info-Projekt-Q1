@@ -15,6 +15,9 @@ import java.awt.image.BufferedImage;
 public class Player extends GraphicalObject {
     private BufferedImage[] images = Util.getAllImagesFromFolder("player");
     private boolean drawFirstImage = true;
+    private double healthPoints = 0;
+    private double healthBarSize = 35;
+    private double invincible = 0;
 
     /**
      * Sets standard x and y positions relative to the panel width and height
@@ -39,9 +42,17 @@ public class Player extends GraphicalObject {
     /**
      * Method that is called when the player gets hit
      */
-    public void takeDamage(){
-        SoundController.stopSound("mainTrack");
-        DrawFrame.getActivePanel().setVisible(false);
+    public boolean takeDamage() {
+        if(invincible > 0)
+            return false;
+        healthPoints += healthBarSize / 1.5;
+        invincible = 3;
+        Util.setCamShake(0.5,10);
+        if(healthPoints >= healthBarSize) {
+            SoundController.stopSound("mainTrack");
+            DrawFrame.getActivePanel().setVisible(false);
+        }
+        return true;
     }
 
     /**
