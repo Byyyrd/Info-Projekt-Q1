@@ -11,7 +11,7 @@ import my_project.model.projectiles.*;
 
 import java.awt.*;
 
-public class RoeckrathBoss extends Enemy{
+public class RoeckrathBoss extends Enemy {
 
     private int healthPoints = 0;
     private double projectileTimer = 5;
@@ -46,7 +46,7 @@ public class RoeckrathBoss extends Enemy{
         drawTool.setCurrentColor(new Color(152, 17, 17));
         drawTool.drawFilledRectangle(x - 17.5, y - 22, healthBarSize - healthPoints, 5);
         drawTool.setCurrentColor(new Color(0, 0, 0));
-        drawTool.drawRectangle(x - 18.5, y - 21, healthBarSize + 2, 7);
+        drawTool.drawRectangle(x - 18.5, y - 23, healthBarSize + 2, 7);
         //Teleport
         drawTool.setCurrentColor(new Color(255,0,0,(int)(255-(projectileTimer > 0 ? 25.5*projectileTimer : 0))));
         drawTool.drawFilledCircle(desiredX,desiredY,radius*3);

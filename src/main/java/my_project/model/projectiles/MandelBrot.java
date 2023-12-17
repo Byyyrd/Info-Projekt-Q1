@@ -27,7 +27,8 @@ public class MandelBrot extends Projectile{
         this.spawnController = spawnController;
 
         setNewImage("src/main/resources/graphic/mandelBrot.png");
-        imageOffset = 8;
+        imageOffset = 16;
+        radius = imageOffset;
     }
 
     public void draw(DrawTool drawTool) {
@@ -53,10 +54,6 @@ public class MandelBrot extends Projectile{
                     spawnController.addProjectile(new BounceBullet(x + Math.cos(degrees) * -30,y + Math.sin(degrees) * -30,-degrees, speed * 2,spawnController.getPlayer()));
             }
         }
-    }
-
-    public boolean checkCollision(Player player){
-        return Util.circleToCircleCollision(x + 16,y + 16,8,player.getX(),player.getY(),8,4);
     }
 
     @Override

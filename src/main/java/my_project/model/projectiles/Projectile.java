@@ -60,6 +60,16 @@ public abstract class Projectile extends GraphicalObject {
         return null;
     }
 
+    /**
+     * Supposed to check whether collision is present with the player
+     *
+     * @param player Player to check if colliding
+     * @return Return true if colliding else returns false
+     */
+    public boolean checkCollision(Player player){
+        return Util.circleToCircleCollision(x,y,radius,player.getX(),player.getY(),8,4);
+    }
+
     public boolean isDestroyed() {
         return destroyed;
     }
@@ -68,9 +78,6 @@ public abstract class Projectile extends GraphicalObject {
         this.destroyed = destroyed;
     }
 
-    public boolean checkCollision(Player player){
-        return Util.circleToCircleCollision(x,y,radius,player.getX(),player.getY(),8,4);
-    }
 
     public void setSpeed(double speed) {
         this.speed = speed;
