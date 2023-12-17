@@ -9,7 +9,6 @@ import my_project.Util;
  * The Outline class is drawn in the foreground to make the arena visual
  */
 public class Outline extends GraphicalObject {
-    private double timer = 2;
     private double alpha = 1;
 
     /**
@@ -21,12 +20,7 @@ public class Outline extends GraphicalObject {
 
     @Override
     public void update(double dt) {
-        if(timer > 0){
-            timer -= dt;
-        } else {
-            timer = 0;
-            alpha = Util.lerp(alpha,0,dt);
-        }
+        alpha = Util.lerp(alpha,0,dt);
     }
 
     @Override

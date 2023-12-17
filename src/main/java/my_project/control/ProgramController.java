@@ -46,15 +46,12 @@ public class ProgramController {
     public void startProgram() {
         viewController.createScene();
         viewController.createScene();
-
         //Testing
         viewController.getSoundController().loadSound("src/main/resources/sound/test.mp3","mainTrack",true);
-        viewController.getSoundController().loadSound("src/main/resources/sound/Cutscene1.mp3","Cutscene1",false);
-        SoundController.playSound("mainTrack");
+        viewController.getSoundController().loadSound("src/main/resources/sound/cutscene2.mp3","cutscene2",false);
         //Visual Model
         Background background = new Background();
         scene.append(background);
-        viewController.setOutline(new Outline());
         //Active Model
         Bow bow = new Bow();
         scene.append(bow);
@@ -73,7 +70,7 @@ public class ProgramController {
         scene.append(inputManager);
         viewController.register(inputManager);
 
-        sceneTwo.append(new Cutscene());
+        sceneTwo.append(new Cutscene(this));
 
         scene.toFirst();
         while (scene.hasAccess()){
@@ -84,10 +81,14 @@ public class ProgramController {
         sceneTwo.toFirst();
         viewController.draw(sceneTwo.getContent(),1);
 
-        //viewController.showScene(1);
-        RoeckrathBoss roeckrathBoss = new RoeckrathBoss(100,100,10,player,spawnController);
-        viewController.draw(roeckrathBoss);
-        collisionController.registerEnemy(roeckrathBoss);
+        viewController.showScene(1);
+    }
+
+    public void startGame(){
+        SoundController.playSound("mainTrack");
+        viewController.showScene(0);
+        viewController.setOutline(new Outline());
+        enemyWaveController.setActive(true);
     }
 
     /**
@@ -99,6 +100,12 @@ public class ProgramController {
         collisionController.update();
         modifierController.update(dt);
         Util.applyCamShake(dt);
+        if(collisionController.getPlayer().isDead()){
+            SoundController.stopSound("mainTrack");
+            viewController.createScene();
+            viewController.setOutline(null);
+            viewController.showScene(2);
+        }
     }
 
     public void addObject(GraphicalObject objectToDraw){

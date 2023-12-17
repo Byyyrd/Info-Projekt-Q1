@@ -110,8 +110,11 @@ public class CollisionController {
         list.toFirst();
         while(list.hasAccess()){
             if(list.getContent().checkCollision(playerController.getPlayer())) {
-                if(playerController.playerTakeDamage())
-                    list.getContent().setDestroyed(true);
+                if(playerController.playerTakeDamage()){
+                    if(list.getContent() != null)
+                        list.getContent().setDestroyed(true);
+                    list.remove();
+                }
                 return;
             }
             list.next();
@@ -119,8 +122,11 @@ public class CollisionController {
         enemyList.toFirst();
         while(enemyList.hasAccess()){
             if(enemyList.getContent().checkCollision(playerController.getPlayer())) {
-                if(playerController.playerTakeDamage())
-                    list.getContent().setDestroyed(true);
+                if(playerController.playerTakeDamage()){
+                    //if(enemyList.getContent() != null)
+                        //enemyList.getContent().setDestroyed(true);
+                    list.remove();
+                }
                 return;
             }
             enemyList.next();

@@ -1,5 +1,6 @@
 package my_project.model.enemies;
 
+import KAGO_framework.control.SoundController;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.Util;
@@ -31,8 +32,9 @@ public class RoeckrathBoss extends Enemy {
     public RoeckrathBoss(double x, double y, double speed, Player player, SpawnController spawnController) {
         super(x, y, speed, player, spawnController);
         radius = 7;
-        desiredX = Math.random() * 733 + 150;
-        desiredY = Math.random() * 313 + 150;
+        desiredX = 480;
+        desiredY = 400;
+        SoundController.playSound("cutscene2");
     }
 
     public void draw(DrawTool drawTool){

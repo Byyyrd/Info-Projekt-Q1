@@ -19,6 +19,7 @@ public class Player extends GraphicalObject {
     private double healthPoints = 0;
     private double healthBarSize = 35;
     private double invincible = 0;
+    private boolean isDead = false;
 
     /**
      * Sets standard x and y positions relative to the panel width and height
@@ -50,15 +51,12 @@ public class Player extends GraphicalObject {
 
     /**
      * Method that is called when the player gets hit
-     *
-     * @return Whether the player did take damage
      */
     public void takeDamage() {
         healthPoints += healthBarSize / 1.5;
-        Util.setCamShake(0.5,10);
+        Util.setCamShake(0.5,20);
         if(healthPoints >= healthBarSize) {
-            SoundController.stopSound("mainTrack");
-            DrawFrame.getActivePanel().setVisible(false);
+            isDead = true;
         }
     }
 
@@ -95,5 +93,9 @@ public class Player extends GraphicalObject {
 
     public void setHealthPoints(double healthPoints) {
         this.healthPoints = healthPoints;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }
