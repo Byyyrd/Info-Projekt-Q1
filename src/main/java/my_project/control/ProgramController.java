@@ -8,11 +8,7 @@ import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawFrame;
 import my_project.Util;
 import my_project.model.*;
-import my_project.model.enemies.RoeckrathBoss;
 import my_project.view.InputManager;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -84,8 +80,14 @@ public class ProgramController {
             scene.next();
         }
 
-        startGame();
-        //new BaseCutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/cutscene1.mp4",this);
+        viewController.showScene(1);
+
+        playCutscene("cutscene1",1);
+    }
+
+    public void playCutscene(String cutsceneName, int cutsceneIndex){
+        viewController.showScene(1);
+        new Cutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/" + cutsceneName +".mp4",this,cutsceneIndex);
     }
 
     public void startGame(){
