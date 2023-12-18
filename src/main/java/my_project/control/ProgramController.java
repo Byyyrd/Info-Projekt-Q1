@@ -82,7 +82,7 @@ public class ProgramController {
 
         viewController.showScene(1);
 
-        playCutscene("cutscene1",1);
+        playCutscene("cutscene1",0);
     }
 
     public void playCutscene(String cutsceneName, int cutsceneIndex){
