@@ -10,6 +10,9 @@ import my_project.model.*;
 import my_project.model.enemies.RoeckrathBoss;
 import my_project.view.InputManager;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
  * mit jeder Frame im laufenden Programm aufgerufen.
@@ -72,9 +75,7 @@ public class ProgramController {
         //View
         InputManager inputManager = new InputManager(playerController);
         scene.append(inputManager);
-        viewController.register(inputManager);
-
-        sceneTwo.append(new Cutscene(this));
+        viewController.register(inputManager,0);
 
         scene.toFirst();
         while (scene.hasAccess()){
@@ -82,13 +83,8 @@ public class ProgramController {
             scene.next();
         }
 
-        sceneTwo.toFirst();
-        viewController.draw(sceneTwo.getContent(),1);
-
-        viewController.showScene(1);
-
-        //new BaseCutscene(viewController.getDrawFrame(),"H:\\Desktop\\JavaProject\\Info-Projekt-Q1\\src\\main\\resources\\Cutscene1.mp4");
-
+        startGame();
+        //new BaseCutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/cutscene1.mp4",this);
     }
 
     public void startGame(){

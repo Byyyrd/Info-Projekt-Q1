@@ -17,9 +17,10 @@ import java.awt.*;
 import java.io.File;
 
 public class BaseCutscene {
-    public BaseCutscene(DrawFrame frame, String url) {
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private ProgramController programController;
+    private JFrame frame;
+
+    public BaseCutscene(DrawingPanel drawingPanel, String url, ProgramController programController) {
         JFXPanel panel = new JFXPanel() {
             @Override
             public Dimension getPreferredSize() {
@@ -28,26 +29,24 @@ public class BaseCutscene {
         };
         panel.setEnabled(true);
         panel.setBounds(0,0,900,500);
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                start(panel,url);
-            }
-        });
-        frame.getContentPane().add(panel);
-        frame.getContentPane().setBackground(Color.green);
+        Platform.runLater(() -> start(panel,url));
 
-        f.add(panel);
-        f.pack();
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
+        frame = (JFrame) SwingUtilities.windowForComponent(drawingPanel);
+        panel.setFocusable(false);
+        frame.add(panel);
+
+        this.programController = programController;
     }
 
     public void start(JFXPanel jfxPanel,String url) {
         Media media = new Media(new File(url).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setOnError(()-> System.out.println("media error"+mediaPlayer.getError().toString()));
+        mediaPlayer.setOnError(()-> System.out.println("Media Error: " + mediaPlayer.getError().toString()));
+
+        mediaPlayer.setOnEndOfMedia(() -> {
+            programController.startGame();
+        });
 
         MediaView mediaView = new MediaView(mediaPlayer);
         mediaView.setVisible(true);

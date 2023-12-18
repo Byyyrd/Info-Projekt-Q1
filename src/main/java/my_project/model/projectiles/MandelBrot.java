@@ -42,6 +42,7 @@ public class MandelBrot extends Projectile{
         g2d.rotate(degrees, x + getMyImage().getWidth() * .5, y + getMyImage().getHeight() * .5);
         drawTool.drawImage(getMyImage(),x - imageOffset,y - imageOffset);
         g2d.setTransform(old);
+
     }
 
     public void update(double dt) {

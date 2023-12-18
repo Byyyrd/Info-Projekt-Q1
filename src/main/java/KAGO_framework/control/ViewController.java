@@ -46,7 +46,7 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
     private DrawFrame drawFrame;    // das Fenster des Programms
     private ProgramController programController; // das Objekt, das das Programm steuern soll
     private Timer gameProcess;
-    private static ArrayList<Integer> currentlyPressedKeys = new ArrayList<>();;
+    private static ArrayList<Integer> currentlyPressedKeys = new ArrayList<>();
     private ArrayList<Scene> scenes;
     private SoundController soundController;
 
