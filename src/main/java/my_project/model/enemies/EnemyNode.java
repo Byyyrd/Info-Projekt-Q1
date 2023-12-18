@@ -23,7 +23,8 @@ public class EnemyNode extends GraphicalObject {
     }
 
     /**
-     * moves Node to coordinates gX and gY
+     * Moves Node to coordinates gX and gY
+     *
      * @param dt time last frame was rendered
      * @param speed speed of node movement
      * @param gX X coordinate node moves to

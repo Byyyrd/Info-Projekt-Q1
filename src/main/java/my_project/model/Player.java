@@ -1,8 +1,6 @@
 package my_project.model;
 
-import KAGO_framework.control.SoundController;
 import KAGO_framework.model.GraphicalObject;
-import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 import my_project.Util;
@@ -18,7 +16,7 @@ public class Player extends GraphicalObject {
     private boolean drawFirstImage = true;
     private double healthPoints = 0;
     private double healthBarSize = 35;
-    private double invincible = 0;
+    private double invincibilityTimer = 0;
     private boolean isDead = false;
 
     /**
@@ -38,10 +36,10 @@ public class Player extends GraphicalObject {
 
         drawTool.setCurrentColor(new Color(152, 17, 17));
         drawTool.drawFilledRectangle(x - healthBarSize/2, y - 22, healthBarSize - healthPoints, 5);
-        if(invincible < 0)
+        if(invincibilityTimer < 0)
             drawTool.setCurrentColor(new Color(0, 0, 0));
         else
-            drawTool.setCurrentColor(new Color((int)(invincible*50), (int)(invincible*50), (int)(invincible*50)));
+            drawTool.setCurrentColor(new Color((int)(invincibilityTimer *50), (int)(invincibilityTimer *50), (int)(invincibilityTimer *50)));
         drawTool.drawRectangle(x - (healthBarSize/2 + 1), y - 23, healthBarSize + 2, 7);
     }
 
@@ -83,8 +81,8 @@ public class Player extends GraphicalObject {
         if((y+8) > Config.downBound) y = Config.downBound - 8;
     }
 
-    public void setInvincible(double invincible) {
-        this.invincible = invincible;
+    public void setInvincibilityTimer(double invincibilityTimer) {
+        this.invincibilityTimer = invincibilityTimer;
     }
 
     public double getHealthPoints() {
