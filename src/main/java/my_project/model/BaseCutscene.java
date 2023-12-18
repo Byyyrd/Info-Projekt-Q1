@@ -9,8 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import my_project.control.ProgramController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,14 +53,8 @@ public class BaseCutscene {
         Group root = new Group();
         root.getChildren().add(mediaView);
         Scene scene = new Scene(root, 650,960);
-        Text text  =  new  Text();
 
-        text.setX(40);
-        text.setY(100);
-        text.setFont(new Font(25));
-        text.setText("Welcome JavaFX!");
-
-        root.getChildren().add(text);
+        jfxPanel.setFocusable(false);
         jfxPanel.setScene(scene);
     }
 }

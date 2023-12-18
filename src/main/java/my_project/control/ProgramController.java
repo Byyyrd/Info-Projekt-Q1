@@ -5,6 +5,7 @@ import KAGO_framework.control.SoundController;
 import KAGO_framework.control.ViewController;
 import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.model.abitur.datenstrukturen.List;
+import KAGO_framework.view.DrawFrame;
 import my_project.Util;
 import my_project.model.*;
 import my_project.model.enemies.RoeckrathBoss;

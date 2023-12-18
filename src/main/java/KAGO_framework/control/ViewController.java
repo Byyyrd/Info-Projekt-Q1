@@ -56,7 +56,6 @@ public class ViewController implements ActionListener, KeyListener, MouseListene
     private long lastLoop, elapsedTime;
     private int currentScene;
     private boolean notChangingInteractables, notChangingDrawables;
-    private boolean drawOutline;
 
     /**
      * Erzeugt ein Objekt zur Kontrolle des Programmflusses.
