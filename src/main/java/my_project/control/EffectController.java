@@ -37,7 +37,6 @@ public class EffectController {
      */
     public void add(Effect effect){
         effectsList.append(effect);
-        spawnController.addEffect(effect);
     }
 
     /**
