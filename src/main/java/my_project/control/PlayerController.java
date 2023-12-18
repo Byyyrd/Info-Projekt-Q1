@@ -55,7 +55,7 @@ public class PlayerController{
         modifierController.add(new SlowingModifier(dt,bow.getPower() * 0.3));
 
         //does player stuff for player und so
-        player.setInvincible(invincibilityPercentage);
+        player.setInvincibilityTimer(invincibilityPercentage);
         if(invincibilityPercentage < 0)
             player.setHealthPoints(player.getHealthPoints()-dt);
         if(player.getHealthPoints() < 0){
