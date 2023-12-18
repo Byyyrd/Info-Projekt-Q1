@@ -48,6 +48,7 @@ public class EnemyNode extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {}
+
     @Override
     public void update(double dt) {}
 

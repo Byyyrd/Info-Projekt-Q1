@@ -68,9 +68,7 @@ public class CollisionController {
      * @param effect The to be registered effect
      */
     public void addEffect(Effect effect){
-        if (effect != null) {
-            effectController.add(effect);
-        }
+        effectController.add(effect);
     }
 
     public Player getPlayer(){
@@ -90,7 +88,7 @@ public class CollisionController {
                     projectileList.getContent().setDestroyed(true);
                 }
                 if (enemyList.getContent().isDestroyed()) {
-                    addEffect(enemyList.getContent().onDestroyed());
+                    spawnController.addEffect(enemyList.getContent().onDestroyed());
                     spawnController.removeObject(enemyList.getContent());
                     enemyList.remove();
                 } else {
@@ -136,7 +134,7 @@ public class CollisionController {
         projectileList.toFirst();
         while(projectileList.hasAccess()) {
             if (projectileList.getContent().isDestroyed()) {
-                addEffect(projectileList.getContent().onDestroyed());
+                spawnController.addEffect(projectileList.getContent().onDestroyed());
                 spawnController.removeObject(projectileList.getContent());
                 projectileList.remove();
             } else {
