@@ -86,6 +86,9 @@ public class ProgramController {
         viewController.draw(sceneTwo.getContent(),1);
 
         viewController.showScene(1);
+
+        //new BaseCutscene(viewController.getDrawFrame(),"H:\\Desktop\\JavaProject\\Info-Projekt-Q1\\src\\main\\resources\\Cutscene1.mp4");
+
     }
 
     public void startGame(){
