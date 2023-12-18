@@ -48,7 +48,10 @@ public class SpawnController {
      * @param effect Effect to be registered
      */
     public void addEffect(Effect effect){
-        programController.addObject(effect);
+        if(effect != null) {
+            programController.addObject(effect);
+            collisionController.addEffect(effect);
+        }
     }
 
     /**
