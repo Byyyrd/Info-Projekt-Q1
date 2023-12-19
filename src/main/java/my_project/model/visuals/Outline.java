@@ -9,12 +9,13 @@ import my_project.Util;
  * The Outline class is drawn in the foreground to make the arena visual
  */
 public class Outline extends GraphicalObject {
-    private double alpha = 1;
+    protected double alpha;
 
     /**
      * Sets the image to be used for the outline
      */
     public Outline() {
+        alpha = 1;
         setNewImage("src/main/resources/graphic/outline.png");
     }
 

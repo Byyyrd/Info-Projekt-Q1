@@ -17,7 +17,6 @@ import java.io.File;
  * The Cutscene class plays a video on a newly created JavaFX panel that is deleted after the video ends
  */
 public class Cutscene {
-
     /**
      * Creates a new JavaFX panel and plays a chosen video on it
      *
@@ -57,7 +56,7 @@ public class Cutscene {
         mediaPlayer.setOnEndOfMedia(() -> {
             drawingPanel.remove(jfxPanel);
             drawingPanel.add(new JFXPanel());
-            cutsceneEnd(programController,cutsceneIndex);
+            end(programController,cutsceneIndex);
         });
 
         MediaView mediaView = new MediaView(mediaPlayer);
@@ -75,7 +74,7 @@ public class Cutscene {
      * @param programController Program controller in use
      * @param cutsceneIndex Cutscene index
      */
-    private void cutsceneEnd(ProgramController programController, int cutsceneIndex){
+    private void end(ProgramController programController, int cutsceneIndex){
         switch (cutsceneIndex){
             case 0 -> programController.startGame();
             case 1 -> System.exit(0);
