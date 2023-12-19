@@ -77,12 +77,14 @@ public class ProgramController {
             scene.next();
         }
 
-        playCutscene("cutscene1",0);
+        viewController.showScene(1);
+
+        playCutscene("ending",0);
     }
 
     public void playCutscene(String cutsceneName, int cutsceneIndex){
         viewController.showScene(cutsceneIndex+5);
-        new Cutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/" + cutsceneName +".mp4",this,cutsceneIndex);
+        new Cutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/" + cutsceneName + ".mp4",this,cutsceneIndex);
     }
 
     public void startGame(){
