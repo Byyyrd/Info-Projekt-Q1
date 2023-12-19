@@ -24,9 +24,7 @@ public class ProgramController {
     private ViewController viewController;
     private EnemyWaveController enemyWaveController;
     private ModifierController modifierController;
-
     private List<Drawable> scene = new List<>();
-    private List<Drawable> sceneTwo = new List<>();
     private boolean wasDead = false;
 
     /**
@@ -45,7 +43,6 @@ public class ProgramController {
      * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
      */
     public void startProgram() {
-        viewController.createScene();
         viewController.createScene();
         //Loading Sound
         viewController.getSoundController().loadSound("src/main/resources/sound/mainTrack.mp3","mainTrack",false);
@@ -80,13 +77,11 @@ public class ProgramController {
             scene.next();
         }
 
-        viewController.showScene(1);
-
         playCutscene("cutscene1",0);
     }
 
     public void playCutscene(String cutsceneName, int cutsceneIndex){
-        viewController.showScene(1);
+        viewController.showScene(cutsceneIndex+5);
         new Cutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/" + cutsceneName +".mp4",this,cutsceneIndex);
     }
 
@@ -110,10 +105,8 @@ public class ProgramController {
             wasDead = true;
             SoundController.stopSound("mainTrack");
             SoundController.stopSound("bossTheme");
-            viewController.createScene();
             viewController.setOutline(null);
-            viewController.showScene(2);
-            SoundController.playSound("death");
+            playCutscene("death",1);
         }
     }
 

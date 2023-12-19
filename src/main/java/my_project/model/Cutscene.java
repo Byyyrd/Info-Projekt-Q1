@@ -77,7 +77,8 @@ public class Cutscene {
      */
     private void cutsceneEnd(ProgramController programController, int cutsceneIndex){
         switch (cutsceneIndex){
-            case 0 -> {programController.startGame();}
+            case 0 -> programController.startGame();
+            case 1 -> System.exit(0);
         }
     }
 }
