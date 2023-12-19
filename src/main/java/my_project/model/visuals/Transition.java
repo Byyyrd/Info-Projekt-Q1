@@ -10,6 +10,7 @@ import java.awt.*;
  * The Transition class turns the entire screen white when created. Used to transition between the game and cutscenes
  */
 public class Transition extends Outline {
+    private double alpha = 0;
     @Override
     public void draw(DrawTool drawTool) {
         drawTool.setCurrentColor(new Color(255,255,255,(int)(alpha*255)));

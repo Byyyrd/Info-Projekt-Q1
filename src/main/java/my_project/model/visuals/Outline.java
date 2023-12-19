@@ -9,7 +9,7 @@ import my_project.Util;
  * The Outline class is drawn in the foreground to make the arena visual
  */
 public class Outline extends GraphicalObject {
-    protected double alpha;
+    private double alpha;
 
     /**
      * Sets the image to be used for the outline

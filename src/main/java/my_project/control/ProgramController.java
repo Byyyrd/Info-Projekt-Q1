@@ -136,11 +136,11 @@ public class ProgramController {
         //Cutscenes
         if(inEnd){
             endingTimer -= dt;
-            SoundController.setVolume("bossTheme",(endingTimer > 0 && endingTimer < 1) ? endingTimer : 1);
             if(endingTimer < 0){
                 startEnding();
                 inEnd = false;
             }
+            SoundController.setVolume("bossTheme",(endingTimer > 0 && endingTimer < 1) ? endingTimer : 1);
         }
         if(collisionController.getPlayer().isDead() && !wasDead && !inEnd && endingTimer >= 0){
             wasDead = true;
