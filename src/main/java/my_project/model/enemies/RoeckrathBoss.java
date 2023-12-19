@@ -96,6 +96,7 @@ public class RoeckrathBoss extends Enemy {
         }
         if(healthPoints == healthBarSize){
             Util.setCamShake(5,10);
+            spawnController.endGame(5);
             destroyed = true;
         }
         return collides;

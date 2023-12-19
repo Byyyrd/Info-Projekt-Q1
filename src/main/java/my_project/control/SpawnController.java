@@ -63,6 +63,10 @@ public class SpawnController {
         programController.removeObject(graphicalObject);
     }
 
+    public void endGame(double timer){
+        programController.endGame(timer);
+    }
+
     public Player getPlayer(){
         return collisionController.getPlayer();
     }

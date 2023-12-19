@@ -26,6 +26,8 @@ public class ProgramController {
     private ModifierController modifierController;
     private List<Drawable> scene = new List<>();
     private boolean wasDead = false;
+    private double endingTimer = 0;
+    private boolean inEnd = false;
 
     /**
      * Konstruktor
@@ -79,7 +81,7 @@ public class ProgramController {
 
         viewController.showScene(1);
 
-        playCutscene("ending",0);
+        playCutscene("intro",0);
     }
 
     public void playCutscene(String cutsceneName, int cutsceneIndex){
@@ -94,11 +96,30 @@ public class ProgramController {
         enemyWaveController.setActive(true);
     }
 
+    public void endGame(double timer){
+        inEnd = true;
+        endingTimer = timer;
+    }
+
+    private void startEnding(){
+        SoundController.stopSound("mainTrack");
+        SoundController.stopSound("bossTheme");
+        viewController.setOutline(null);
+        playCutscene("ending",1);
+    }
+
     /**
      * Aufruf mit jeder Frame
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        if(inEnd){
+            endingTimer -= dt;
+            if(endingTimer < 0){
+                startEnding();
+                inEnd = false;
+            }
+        }
         enemyWaveController.update(dt);
         collisionController.update();
         modifierController.update(dt);
