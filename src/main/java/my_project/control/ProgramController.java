@@ -46,6 +46,7 @@ public class ProgramController {
      */
     public void startProgram() {
         viewController.createScene();
+        viewController.createScene();
         //Loading Sound
         viewController.getSoundController().loadSound("src/main/resources/sound/mainTrack.mp3","mainTrack",false);
         viewController.getSoundController().loadSound("src/main/resources/sound/death.mp3","death",false);
@@ -99,13 +100,14 @@ public class ProgramController {
     public void endGame(double timer){
         inEnd = true;
         endingTimer = timer;
+        viewController.setOutline(new Transition());
     }
 
     private void startEnding(){
         SoundController.stopSound("mainTrack");
         SoundController.stopSound("bossTheme");
-        viewController.setOutline(null);
         playCutscene("ending",1);
+        viewController.setOutline(null);
     }
 
     /**
@@ -115,6 +117,7 @@ public class ProgramController {
     public void updateProgram(double dt){
         if(inEnd){
             endingTimer -= dt;
+            SoundController.setVolume("bossTheme",(endingTimer > 0 && endingTimer < 1) ? endingTimer : 1);
             if(endingTimer < 0){
                 startEnding();
                 inEnd = false;
@@ -124,7 +127,7 @@ public class ProgramController {
         collisionController.update();
         modifierController.update(dt);
         Util.applyCamShake(dt);
-        if(collisionController.getPlayer().isDead() && !wasDead){
+        if(collisionController.getPlayer().isDead() && !wasDead && !inEnd && endingTimer >= 0){
             wasDead = true;
             SoundController.stopSound("mainTrack");
             SoundController.stopSound("bossTheme");
