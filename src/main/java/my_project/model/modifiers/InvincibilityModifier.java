@@ -2,7 +2,10 @@ package my_project.model.modifiers;
 
 import my_project.control.PlayerController;
 
-public class InvincibilityModifier extends  PlayerModifier{
+/**
+ * The AccelerationModifier makes the player invincible while active. Used getting being hit
+ */
+public class InvincibilityModifier extends PlayerModifier{
 
     public InvincibilityModifier(double duration, double strength) {
         super(duration, strength);

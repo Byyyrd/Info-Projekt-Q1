@@ -6,7 +6,7 @@ import KAGO_framework.view.DrawTool;
 import my_project.control.ProgramController;
 import KAGO_framework.view.DrawFrame;
 import KAGO_framework.view.DrawingPanel;
-import my_project.model.Outline;
+import my_project.model.visuals.Outline;
 
 import javax.swing.*;
 import java.awt.*;

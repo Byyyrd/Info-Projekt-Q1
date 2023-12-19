@@ -29,13 +29,18 @@ public class EnemyWaveController {
             spawnEnemies(dt);
     }
 
+    /**
+     * Decays all timers that effect the spawning of enemies and spawns the enemies accordingly
+     *
+     * @param dt Time between current and last frame
+     */
     private void spawnEnemies(double dt){
         timer -= dt;
         simpleTimer -= dt;
         bossTimer -= dt;
         if(bossTimer > 10){
             if(timer < 0){
-                spawnTestEnemies();
+                spawnLDSEnemy();
                 timer = 7;
             }
             if(simpleTimer < 0){
@@ -51,7 +56,10 @@ public class EnemyWaveController {
         }
     }
 
-    private void spawnTestEnemies(){
+    /**
+     * Spawns a new enemy that uses a linear data structure
+     */
+    private void spawnLDSEnemy(){
         Enemy newEnemy;
         double degrees = (Math.random() - 0.5) * 2 * Math.PI;
         double xPos = 1200 * Math.cos(degrees);

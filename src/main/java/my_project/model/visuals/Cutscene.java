@@ -1,4 +1,4 @@
-package my_project.model;
+package my_project.model.visuals;
 
 import KAGO_framework.view.DrawingPanel;
 import javafx.application.Platform;

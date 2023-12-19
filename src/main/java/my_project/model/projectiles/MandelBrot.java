@@ -14,7 +14,6 @@ import java.awt.geom.AffineTransform;
 /**
  * Describes the behavior of a MandelBrot
  */
-
 public class MandelBrot extends Projectile{
     private SpawnController spawnController;
 

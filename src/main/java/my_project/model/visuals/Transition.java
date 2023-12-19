@@ -1,4 +1,4 @@
-package my_project.model;
+package my_project.model.visuals;
 
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
@@ -6,6 +6,9 @@ import my_project.Util;
 
 import java.awt.*;
 
+/**
+ * The Transition class turns the entire screen white when created. Used to transition between the game and cutscenes
+ */
 public class Transition extends Outline {
     private double alpha = 0;
 

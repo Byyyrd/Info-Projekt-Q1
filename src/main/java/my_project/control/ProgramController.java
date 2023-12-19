@@ -8,18 +8,16 @@ import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawFrame;
 import my_project.Util;
 import my_project.model.*;
+import my_project.model.visuals.Background;
+import my_project.model.visuals.Cutscene;
+import my_project.model.visuals.Outline;
+import my_project.model.visuals.Transition;
 import my_project.view.InputManager;
 
 /**
- * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
- * mit jeder Frame im laufenden Programm aufgerufen.
+ * The ProgramController class is the core of the program. Here all controller-update calls happen that influence the game
  */
 public class ProgramController {
-
-    //Attribute
-
-
-    // Referenzen
     private CollisionController collisionController;
     private ViewController viewController;
     private EnemyWaveController enemyWaveController;
@@ -30,19 +28,16 @@ public class ProgramController {
     private boolean inEnd = false;
 
     /**
-     * Konstruktor
-     * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
-     * Damit der ProgramController auf das Fenster zugreifen kann, benötigt er eine Referenz auf das Objekt
-     * der Klasse viewController. Diese wird als Parameter übergeben.
-     * @param viewController das viewController-Objekt des Programms
+     * Sets the current view controller
+     *
+     * @param viewController Currently used view controller
      */
     public ProgramController(ViewController viewController){
         this.viewController = viewController;
     }
 
     /**
-     * Diese Methode wird genau ein mal nach Programmstart aufgerufen.
-     * Sie erstellt die leeren Datenstrukturen, zu Beginn nur eine Queue
+     * Loads all sounds and instantiates all controllers, then plays the intro cutscene
      */
     public void startProgram() {
         viewController.createScene();
@@ -85,11 +80,20 @@ public class ProgramController {
         playCutscene("intro",0);
     }
 
+    /**
+     * Creates a new cutscene object and changes the scene
+     *
+     * @param cutsceneName Name of the cutscene, without the extension (.mp4)
+     * @param cutsceneIndex Index of the event that happens after the cutscene ends
+     */
     public void playCutscene(String cutsceneName, int cutsceneIndex){
         viewController.showScene(cutsceneIndex+5);
         new Cutscene(DrawFrame.getActivePanel(),"src/main/resources/cutscenes/" + cutsceneName + ".mp4",this,cutsceneIndex);
     }
 
+    /**
+     * Activates the main scene, therefore starting the game
+     */
     public void startGame(){
         SoundController.playSound("mainTrack");
         viewController.showScene(0);
@@ -97,12 +101,20 @@ public class ProgramController {
         enemyWaveController.setActive(true);
     }
 
+    /**
+     * Initializes the ending cutscene
+     *
+     * @param timer How long it should take for the cutscene to play
+     */
     public void endGame(double timer){
         inEnd = true;
         endingTimer = timer;
         viewController.setOutline(new Transition());
     }
 
+    /**
+     * Deactivates the main scene, and starts the ending cutscene
+     */
     private void startEnding(){
         SoundController.stopSound("mainTrack");
         SoundController.stopSound("bossTheme");
@@ -111,10 +123,17 @@ public class ProgramController {
     }
 
     /**
-     * Aufruf mit jeder Frame
+     * Updates all controllers and checks for the triggering of cutscenes
+     *
      * @param dt Zeit seit letzter Frame
      */
     public void updateProgram(double dt){
+        //Controllers
+        enemyWaveController.update(dt);
+        collisionController.update();
+        modifierController.update(dt);
+        Util.applyCamShake(dt);
+        //Cutscenes
         if(inEnd){
             endingTimer -= dt;
             SoundController.setVolume("bossTheme",(endingTimer > 0 && endingTimer < 1) ? endingTimer : 1);
@@ -123,10 +142,6 @@ public class ProgramController {
                 inEnd = false;
             }
         }
-        enemyWaveController.update(dt);
-        collisionController.update();
-        modifierController.update(dt);
-        Util.applyCamShake(dt);
         if(collisionController.getPlayer().isDead() && !wasDead && !inEnd && endingTimer >= 0){
             wasDead = true;
             SoundController.stopSound("mainTrack");
@@ -136,11 +151,11 @@ public class ProgramController {
         }
     }
 
-    public void addObject(GraphicalObject objectToDraw){
-        viewController.draw(objectToDraw,0);
+    public void addObject(Drawable objectToDraw){
+        viewController.draw(objectToDraw);
     }
 
-    public void removeObject(GraphicalObject objectToRemove){
-        viewController.removeDrawable(objectToRemove,0);
+    public void removeObject(Drawable objectToRemove){
+        viewController.removeDrawable(objectToRemove);
     }
 }

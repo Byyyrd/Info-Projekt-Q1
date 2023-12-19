@@ -12,13 +12,15 @@ import my_project.model.projectiles.*;
 
 import java.awt.*;
 
+/**
+ * Describes the behavior of the RoeckrathBoss, the first (and final) boss of the game
+ */
 public class RoeckrathBoss extends Enemy {
 
     private int healthPoints = 0;
     private double projectileTimer = 5;
     private int healthBarSize = 35;
     private double desiredX, desiredY;
-
 
     /**
      * Sets all needed values on instantiation and for future use

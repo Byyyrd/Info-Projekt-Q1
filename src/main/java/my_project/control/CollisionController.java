@@ -2,7 +2,7 @@ package my_project.control;
 
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import my_project.Util;
-import my_project.model.Background;
+import my_project.model.visuals.Background;
 import my_project.model.effects.Effect;
 import my_project.model.Player;
 import my_project.model.projectiles.Projectile;

@@ -54,7 +54,7 @@ public class PlayerController{
             player.setDrawFirstImage(true);
         modifierController.add(new SlowingModifier(dt,bow.getPower() * 0.3));
 
-        //does player stuff for player und so
+        //Applies invincibility modifier
         player.setInvincibilityTimer(invincibilityPercentage);
         if(invincibilityPercentage < 0)
             player.setHealthPoints(player.getHealthPoints()-dt);
@@ -132,8 +132,9 @@ public class PlayerController{
     }
 
     /**
+     * Checks whether the player is currently invincible or not and applies a modifier and changes hp accordingly
      *
-     * @return
+     * @return Whether the player is currently invincible
      */
     public boolean playerTakeDamage(){
         if (invincibilityPercentage>=0)
