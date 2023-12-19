@@ -46,8 +46,7 @@ public class ProgramController {
         viewController.getSoundController().loadSound("src/main/resources/sound/mainTrack.mp3","mainTrack",false);
         viewController.getSoundController().loadSound("src/main/resources/sound/death.mp3","death",false);
         viewController.getSoundController().loadSound("src/main/resources/sound/bossTheme.mp3","bossTheme",true);
-        viewController.getSoundController().loadSound("src/main/resources/sound/cutscene1.mp3","cutscene1",false);
-        viewController.getSoundController().loadSound("src/main/resources/sound/cutscene2.mp3","cutscene2",false);
+        viewController.getSoundController().loadSound("src/main/resources/sound/roeckrathIntro.mp3","roeckrathIntro",false);
         //Visual Model
         Background background = new Background();
         scene.append(background);
