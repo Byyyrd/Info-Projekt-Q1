@@ -61,7 +61,7 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     /**
-     * sets the Enemy towards the direction of the Player by the speed of the Enemy and time from last frame
+     * Moves enemy in direction of player multiplied by speed
      * @param dt time from last frame
      */
     protected void move(double dt){
