@@ -34,7 +34,7 @@ public class ListEnemy extends Enemy {
         super(x, y, speed, player, spawnController);
         images = Util.getAllImagesFromFolder("listEnemy");
         radius = 16;
-        distanceFromCenter = 32;
+        distanceFromCenter = 2*radius;
         if (amountOfNodes > 10) amountOfNodes = 10;
         for (int i = 0; i < amountOfNodes; i++) {
             list.append(new ListEnemyNode(x,y,radius,i));
@@ -71,7 +71,7 @@ public class ListEnemy extends Enemy {
 
     @Override
     public void update(double dt) {
-        moveToPlayer(dt);
+        move(dt);
         moveNodes(dt);
         currentChangeTimer += dt;
         if (currentChangeTimer >= currentChangeSpeed){
@@ -81,16 +81,6 @@ public class ListEnemy extends Enemy {
             }
             currentChangeTimer = 0;
         }
-    }
-
-    /**
-     * Method to move the entire Object toward player with speed attribute specified in constructor
-     * @param dt deltaTime should come from update
-     */
-    private void moveToPlayer(double dt){
-        double radiant = Math.atan2(player.getY() - this.y,player.getX() - this.x);
-        double degree = Math.toDegrees(radiant);
-        moveInDirection(degree,speed,dt);
     }
 
     /**

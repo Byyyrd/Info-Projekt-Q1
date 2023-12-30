@@ -11,7 +11,7 @@ import java.awt.*;
  * Diese Modellierung ist nicht sauber, da das DrawingPanel damit Funktionen eines Controllers übernimmt.
  * Vorgegebene Klasse des Frameworks. Modifikation auf eigene Gefahr.
  */
-public class DrawingPanel extends JPanel  {
+public class DrawingPanel extends JPanel{
 
     //Attribute
     private boolean requested = false;
