@@ -75,7 +75,7 @@ public class RoeckrathBoss extends Enemy {
         int projectileSpeed = 150;
         double spreadDegree = (Math.PI * 2) / 4 + Math.PI / 4;
         for (int i = 0; i < 4; i++) {
-            double relativeDegree = i * spreadDegree ;
+            double relativeDegree = i * spreadDegree;
             spawnBullet(x,y,relativeDegree,projectileSpeed,ProjectileType.MandelBrot);
         }
         projectileTimer = 10;
