@@ -15,7 +15,7 @@ import java.awt.*;
  * Describes the behavior of a QueueEnemy
  */
 public class QueueEnemy extends Enemy {
-    private Queue<EnemyNode> queue = new Queue<>();
+    private Queue<EnemyNode>  queue = new Queue<>();
     private final double rotationSpeed = 0.03;
 
     /**
