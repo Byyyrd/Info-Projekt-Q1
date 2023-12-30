@@ -53,7 +53,10 @@ public class RoeckrathBoss extends Enemy {
         drawTool.setCurrentColor(new Color(0, 0, 0));
         drawTool.drawRectangle(x - 18.5, y - 23, healthBarSize + 2, 7);
         //Teleport
-        drawTool.setCurrentColor(new Color(255,0,0,(int)(255-(projectileTimer > 0 ? 25.5*projectileTimer : 0))));
+        if (projectileTimer > 0)
+            drawTool.setCurrentColor(new Color(255,0,0,(int)(255-(25.5*projectileTimer))));
+        else
+            drawTool.setCurrentColor(new Color(255,0,0,0));
         drawTool.drawFilledCircle(desiredX,desiredY,radius*3);
     }
 
