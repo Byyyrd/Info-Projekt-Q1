@@ -174,26 +174,6 @@ public class Util {
         return images;
     }
 
-    public static BufferedImage[] getAllImagesForCutscene(String path) {
-        File directory = new File("src/main/resources/graphic/" + path);
-        int count = directory.list().length;
-        BufferedImage[] images = new BufferedImage[count];
-        for (int i = 0; i < images.length; i++) {
-            try {
-                String numberString = Integer.toString(i);
-                if(i < 10){
-                    numberString = "00" + numberString;
-                } else if (i < 100) {
-                    numberString = "0" + numberString;
-                }
-                images[i] = ImageIO.read(new File("src/main/resources/graphic/" + path + "/" + path + numberString + ".png"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return images;
-    }
-
     /**
      * Updates the values for the camera shake
      *
