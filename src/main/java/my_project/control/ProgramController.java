@@ -3,9 +3,9 @@ package my_project.control;
 import KAGO_framework.control.Drawable;
 import KAGO_framework.control.SoundController;
 import KAGO_framework.control.ViewController;
-import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.model.abitur.datenstrukturen.List;
 import KAGO_framework.view.DrawFrame;
+import my_project.Config;
 import my_project.Util;
 import my_project.model.*;
 import my_project.model.visuals.Background;
@@ -74,9 +74,12 @@ public class ProgramController {
             scene.next();
         }
 
-        viewController.showScene(1);
-
-        playCutscene("intro",0);
+        if(Config.skipCutscene){
+            startGame();
+        } else {
+            viewController.showScene(1);
+            playCutscene("intro",0);
+        }
     }
 
     /**
@@ -94,7 +97,8 @@ public class ProgramController {
      * Activates the main scene, therefore starting the game
      */
     public void startGame(){
-        SoundController.playSound("mainTrack");
+        if(!Config.skipEnemies)
+            SoundController.playSound("mainTrack");
         viewController.showScene(0);
         viewController.setOutline(new Outline());
         enemyWaveController.setActive(true);

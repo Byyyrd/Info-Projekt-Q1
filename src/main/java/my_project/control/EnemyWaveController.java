@@ -1,5 +1,6 @@
 package my_project.control;
 
+import my_project.Config;
 import my_project.model.enemies.*;
 
 /**
@@ -22,6 +23,9 @@ public class EnemyWaveController {
      */
     public EnemyWaveController(SpawnController spawnController){
         this.spawnController = spawnController;
+        if (Config.skipEnemies) {
+            bossTimer = 0;
+        }
     }
 
     public void update(double dt) {

@@ -20,4 +20,7 @@ public class Config {
     public final static int upBound = 43;
     public final static int downBound = 513;
 
+    // Options to speed up testing
+    public final static boolean skipEnemies = false;
+    public final static boolean skipCutscene = false;
 }

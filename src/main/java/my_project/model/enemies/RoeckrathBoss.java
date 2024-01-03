@@ -36,6 +36,7 @@ public class RoeckrathBoss extends Enemy {
         radius = 7;
         desiredX = 480;
         desiredY = 400;
+        SoundController.stopSound("mainTrack");
         SoundController.playSound("roeckrathIntro");
         SoundController.playSound("bossTheme");
     }
