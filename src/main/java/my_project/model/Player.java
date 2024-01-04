@@ -18,6 +18,7 @@ public class Player extends GraphicalObject {
     private double healthBarSize = 35;
     private double invincibilityTimer = 0;
     private boolean isDead = false;
+    private int xp;
 
     /**
      * Sets standard x and y positions relative to the panel width and height
@@ -95,5 +96,9 @@ public class Player extends GraphicalObject {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public void addXp(int amount){
+        this.xp += amount;
     }
 }

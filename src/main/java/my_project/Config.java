@@ -22,5 +22,5 @@ public class Config {
 
     // Options to speed up testing
     public final static boolean skipEnemies = false;
-    public final static boolean skipCutscene = false;
+    public final static boolean skipCutscene = true;
 }

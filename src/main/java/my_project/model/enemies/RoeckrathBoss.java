@@ -98,6 +98,7 @@ public class RoeckrathBoss extends Enemy {
         boolean collides = collidesWithNode(projectile, new EnemyNode(x,y,radius));
         if(collides){
             projectileTimer -= 1;
+            spawnXpOrbs(x,y,10);
             healthPoints++;
         }
         if(healthPoints == healthBarSize){

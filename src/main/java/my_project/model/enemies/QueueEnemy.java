@@ -151,6 +151,9 @@ public class QueueEnemy extends Enemy {
             spawnController.addEffect(new DustParticleEffect(node.getX(),node.getY(),15,30,10,Color.green));
         if(hard){
             for (int i = 0; i < 10; i++) {
+                if(queue.isEmpty())
+                    return;
+                spawnXpOrbs(queue.front().getX(),queue.front().getY(),2);
                 queue.dequeue();
             }
         } else {

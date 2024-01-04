@@ -2,6 +2,7 @@ package my_project.control;
 
 import KAGO_framework.model.GraphicalObject;
 import my_project.model.Player;
+import my_project.model.XpOrb;
 import my_project.model.effects.Effect;
 import my_project.model.enemies.Enemy;
 import my_project.model.projectiles.Projectile;
@@ -51,6 +52,12 @@ public class SpawnController {
         if(effect != null) {
             programController.addObject(effect);
             collisionController.addEffect(effect);
+        }
+    }
+
+    public void addXpOrb(XpOrb orb){
+        if(orb != null){
+            programController.addObject(orb);
         }
     }
 

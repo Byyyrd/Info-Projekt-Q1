@@ -5,6 +5,7 @@ import my_project.Config;
 import my_project.Util;
 import my_project.control.SpawnController;
 import my_project.model.*;
+import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
 import my_project.model.projectiles.ProjectileType;
 import my_project.model.projectiles.*;
@@ -106,6 +107,14 @@ public abstract class Enemy extends GraphicalObject {
         if(y < Config.upBound) return false;
         if(y > Config.downBound) return false;
         return true;
+    }
+
+    protected void spawnXpOrbs(double x, double y,int amount){
+        for (int i = 0; i < amount; i++) {
+            double angle = (int)(Math.random() * 361);
+            double initialSpeed = (int)(Math.random() * 101) + 100;
+            spawnController.addXpOrb(new XpOrb(x,y,angle,initialSpeed,player,spawnController));
+        }
     }
 
     /**
