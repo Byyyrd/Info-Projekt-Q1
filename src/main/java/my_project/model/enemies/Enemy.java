@@ -5,7 +5,6 @@ import my_project.Config;
 import my_project.Util;
 import my_project.control.SpawnController;
 import my_project.model.*;
-import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
 import my_project.model.projectiles.ProjectileType;
 import my_project.model.projectiles.*;
@@ -63,6 +62,7 @@ public abstract class Enemy extends GraphicalObject {
 
     /**
      * Moves enemy in direction of player multiplied by speed
+     *
      * @param dt time from last frame
      */
     protected void move(double dt){
@@ -97,7 +97,7 @@ public abstract class Enemy extends GraphicalObject {
     }
 
     /**
-     * checks whether Enemy is on fully on screen or not
+     * Checks whether Enemy is on fully on screen or not
      *
      * @return boolean whether the before mentioned statement is true
      */
@@ -109,11 +109,17 @@ public abstract class Enemy extends GraphicalObject {
         return true;
     }
 
-    protected void spawnXpOrbs(double x, double y,int amount){
+    /**
+     * Spawns orbs on a coordinate
+     *
+     * @param x X spawn coordinate
+     * @param y Y spawn coordinate
+     * @param amount Amount of orbs that spawn on the coordinate
+     */
+    protected void spawnOrbs(double x, double y, int amount){
         for (int i = 0; i < amount; i++) {
-            double angle = (int)(Math.random() * 361);
             double initialSpeed = (int)(Math.random() * 101) + 100;
-            spawnController.addXpOrb(new XpOrb(x,y,angle,initialSpeed,player,spawnController));
+            spawnController.addNewOrb(x,y,initialSpeed);
         }
     }
 

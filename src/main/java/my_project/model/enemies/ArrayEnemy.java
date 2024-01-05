@@ -116,7 +116,7 @@ public class ArrayEnemy extends Enemy {
         for (int i = 0; i < enemyNodesArray.length; i++) {
             for (int j = 0; j < enemyNodesArray[i].length; j++) {
                 if(enemyNodesArray[i][j] !=null && collidesWithNode(projectile,enemyNodesArray[i][j])){
-                    spawnXpOrbs(enemyNodesArray[i][j].getX(),enemyNodesArray[i][j].getY(),1);
+                    spawnOrbs(enemyNodesArray[i][j].getX(),enemyNodesArray[i][j].getY(),1);
                     spawnController.addEffect(new DustParticleEffect(enemyNodesArray[i][j].getX(),enemyNodesArray[i][j].getY()));
                     enemyNodesArray[i][j] = null;
                     return true;

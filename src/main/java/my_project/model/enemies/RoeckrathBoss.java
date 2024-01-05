@@ -2,7 +2,6 @@ package my_project.model.enemies;
 
 import KAGO_framework.control.SoundController;
 import KAGO_framework.view.DrawTool;
-import my_project.Config;
 import my_project.Util;
 import my_project.control.SpawnController;
 import my_project.model.Player;
@@ -98,7 +97,7 @@ public class RoeckrathBoss extends Enemy {
         boolean collides = collidesWithNode(projectile, new EnemyNode(x,y,radius));
         if(collides){
             projectileTimer -= 1;
-            spawnXpOrbs(x,y,10);
+            spawnOrbs(x,y,10);
             healthPoints++;
         }
         if(healthPoints == healthBarSize){

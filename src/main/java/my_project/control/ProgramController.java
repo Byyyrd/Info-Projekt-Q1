@@ -37,7 +37,7 @@ public class ProgramController {
     }
 
     /**
-     * Loads all sounds and instantiates all controllers, then plays the intro cutscene
+     * Loads all sounds and instantiates all needed objects, then plays the intro cutscene
      */
     public void startProgram() {
         viewController.createScene();
@@ -55,8 +55,10 @@ public class ProgramController {
         scene.append(bow);
         Player player = new Player();
         scene.append(player);
+        OrbManager orbManager = new OrbManager(player);
+        scene.append(orbManager);
         //Control
-        SpawnController spawnController = new SpawnController(this);
+        SpawnController spawnController = new SpawnController(this,orbManager);
         modifierController = new ModifierController();
         PlayerController playerController = new PlayerController(player, bow, spawnController, modifierController);
         collisionController = new CollisionController(playerController, spawnController, background);

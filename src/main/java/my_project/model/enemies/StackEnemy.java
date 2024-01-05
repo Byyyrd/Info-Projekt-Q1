@@ -105,7 +105,7 @@ public class StackEnemy extends Enemy {
                 projectile.setX(x);
                 projectile.setY(y);
                 spawnBullets();
-                spawnXpOrbs(x,y,4);
+                spawnOrbs(x,y,4);
                 stack.pop();
                 stackSize -= 1;
             }

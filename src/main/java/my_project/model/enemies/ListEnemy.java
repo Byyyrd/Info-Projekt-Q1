@@ -111,7 +111,7 @@ public class ListEnemy extends Enemy {
             if(collidesWithNode(projectile,list.getContent())){
                 projectile.setX(list.getContent().getX());
                 projectile.setY(list.getContent().getY());
-                spawnXpOrbs(list.getContent().getX(),list.getContent().getY(),4);
+                spawnOrbs(list.getContent().getX(),list.getContent().getY(),4);
                 spawnController.addEffect(new DustParticleEffect(list.getContent().getX(),list.getContent().getY(),50,60,30,new Color(0, 0, 0)));
                 list.remove();
                 if(!list.hasAccess()) list.toFirst();

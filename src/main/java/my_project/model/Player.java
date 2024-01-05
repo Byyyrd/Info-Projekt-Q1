@@ -15,7 +15,7 @@ public class Player extends GraphicalObject {
     private BufferedImage[] images = Util.getAllImagesFromFolder("player");
     private boolean drawFirstImage = true;
     private double healthPoints = 0;
-    private double healthBarSize = 35;
+    private double healthBarSize = 350;
     private double invincibilityTimer = 0;
     private boolean isDead = false;
     private int xp;
@@ -30,18 +30,21 @@ public class Player extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
+        double usedHealthBarSize = healthBarSize / 10;
+        double usedHealthPoints = healthPoints / 10;
+
         if(drawFirstImage)
             drawTool.drawImage(images[0],x-8,y-8);
         else
             drawTool.drawImage(images[1],x-8,y-8);
 
         drawTool.setCurrentColor(new Color(152, 17, 17));
-        drawTool.drawFilledRectangle(x - healthBarSize/2, y - 22, healthBarSize - healthPoints, 5);
+        drawTool.drawFilledRectangle(x - usedHealthBarSize/2, y - 22, usedHealthBarSize - usedHealthPoints, 5);
         if(invincibilityTimer < 0)
             drawTool.setCurrentColor(new Color(0, 0, 0));
         else
-            drawTool.setCurrentColor(new Color((int)(invincibilityTimer *50), (int)(invincibilityTimer *50), (int)(invincibilityTimer *50)));
-        drawTool.drawRectangle(x - (healthBarSize/2 + 1), y - 23, healthBarSize + 2, 7);
+            drawTool.setCurrentColor(new Color((int)(invincibilityTimer *50), (int)(invincibilityTimer * 50), (int)(invincibilityTimer *50)));
+        drawTool.drawRectangle(x - (usedHealthBarSize/2 + 1), y - 23, usedHealthBarSize + 2, 7);
     }
 
     public void setDrawFirstImage(boolean drawFirstImage) {
@@ -99,6 +102,9 @@ public class Player extends GraphicalObject {
     }
 
     public void addXp(int amount){
-        this.xp += amount;
+        healthPoints -= amount;
+        if(healthPoints < 0){
+            healthPoints = 0;
+        }
     }
 }

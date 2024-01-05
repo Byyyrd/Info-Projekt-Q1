@@ -56,8 +56,6 @@ public class PlayerController{
 
         //Applies invincibility modifier
         player.setInvincibilityTimer(invincibilityPercentage);
-        if(invincibilityPercentage < 0)
-            player.setHealthPoints(player.getHealthPoints()-dt);
         if(player.getHealthPoints() < 0){
             player.setHealthPoints(0);
         }

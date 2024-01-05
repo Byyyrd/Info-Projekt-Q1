@@ -1,11 +1,9 @@
 package my_project.model.enemies;
 
-import KAGO_framework.control.ViewController;
 import KAGO_framework.view.DrawTool;
 import my_project.Util;
 import my_project.control.SpawnController;
 import my_project.model.Player;
-import my_project.model.XpOrb;
 import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
 import my_project.model.projectiles.Projectile;
@@ -59,7 +57,7 @@ public class SimpleEnemy extends Enemy{
 
     @Override
     public Effect onDestroyed() {
-        spawnXpOrbs(x,y,4);
+        spawnOrbs(x,y,4);
         return new DustParticleEffect(x,y, new Color(187, 18, 18));
     }
 }

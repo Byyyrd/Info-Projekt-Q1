@@ -2,7 +2,7 @@ package my_project.control;
 
 import KAGO_framework.model.GraphicalObject;
 import my_project.model.Player;
-import my_project.model.XpOrb;
+import my_project.model.OrbManager;
 import my_project.model.effects.Effect;
 import my_project.model.enemies.Enemy;
 import my_project.model.projectiles.Projectile;
@@ -13,14 +13,16 @@ import my_project.model.projectiles.Projectile;
 public class SpawnController {
     private ProgramController programController;
     private CollisionController collisionController;
+    private OrbManager orbManager;
 
     /**
      * Registers a program controller for future usage
      *
      * @param programController Program controller currently in use
      */
-    public SpawnController(ProgramController programController){
+    public SpawnController(ProgramController programController, OrbManager orbManager){
         this.programController = programController;
+        this.orbManager = orbManager;
     }
 
     /**
@@ -55,10 +57,15 @@ public class SpawnController {
         }
     }
 
-    public void addXpOrb(XpOrb orb){
-        if(orb != null){
-            programController.addObject(orb);
-        }
+    /**
+     * Spawns orbs on a coordinate with a certain speed
+     *
+     * @param x X spawn coordinate
+     * @param y Y spawn coordinate
+     * @param speed Initial speed of the orb
+     */
+    public void addNewOrb(double x, double y, double speed){
+        orbManager.addNewOrb(x,y,speed);
     }
 
     /**

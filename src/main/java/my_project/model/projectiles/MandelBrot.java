@@ -1,13 +1,10 @@
 package my_project.model.projectiles;
 
 import KAGO_framework.view.DrawTool;
-import my_project.Util;
 import my_project.control.SpawnController;
-import my_project.model.Player;
-import my_project.model.XpOrb;
+import my_project.model.OrbManager;
 import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
-import my_project.model.enemies.SimpleEnemy;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -63,7 +60,7 @@ public class MandelBrot extends Projectile{
 
     @Override
     public Effect onDestroyed() {
-        spawnController.addXpOrb(new XpOrb(x,y,0,0,spawnController.getPlayer(),spawnController));
+        spawnController.addNewOrb(x,y,0);
         return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,Color.cyan);
     }
 

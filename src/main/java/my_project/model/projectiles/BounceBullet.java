@@ -48,11 +48,10 @@ public class BounceBullet extends Projectile {
 
     @Override
     public void draw(DrawTool drawTool) {
-        //drawTool.drawImage(getMyImage(),x-imageOffset,y-imageOffset);
         if(canBounce)
             drawTool.setCurrentColor(new Color(0xdf3e23));
         else
-            drawTool.setCurrentColor(new Color(0x73172d));
+            drawTool.setCurrentColor(new Color(0xFFFC40));
         drawTool.drawFilledCircle(x,y,8);
     }
 
@@ -60,6 +59,6 @@ public class BounceBullet extends Projectile {
     public Effect onDestroyed() {
         if(canBounce)
             return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,new Color(0xdf3e23));
-        return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,new Color(0x73172d));
+        return new DustParticleEffect(x+imageOffset,y+imageOffset,15,30,10,new Color(0xFFFC40));
     }
 }

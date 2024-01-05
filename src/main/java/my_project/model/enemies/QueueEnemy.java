@@ -153,7 +153,7 @@ public class QueueEnemy extends Enemy {
             for (int i = 0; i < 10; i++) {
                 if(queue.isEmpty())
                     return;
-                spawnXpOrbs(queue.front().getX(),queue.front().getY(),2);
+                spawnOrbs(queue.front().getX(),queue.front().getY(),2);
                 queue.dequeue();
             }
         } else {
