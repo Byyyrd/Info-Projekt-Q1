@@ -17,6 +17,10 @@ import java.awt.*;
 public class QueueEnemy extends Enemy {
     private Queue<EnemyNode> queue = new Queue<>();
     private final double rotationSpeed = 0.03;
+    private int countQueue = 0;
+    private int maxCount;
+    private double regenerationTimer;
+
 
     /**
      * Sets initial values for the enemy
@@ -32,6 +36,7 @@ public class QueueEnemy extends Enemy {
     public QueueEnemy(double x, double y, double radius, double speed, Player player, SpawnController spawnController, int startNodeAmount) {
         super(x, y, speed, player, spawnController);
         this.radius = radius;
+        maxCount = startNodeAmount;
         for (int i = 0; i < startNodeAmount; i++) {
             addEnemyNode();
         }
@@ -43,17 +48,21 @@ public class QueueEnemy extends Enemy {
     @Override
     public void update(double dt) {
         moveNodes(dt);
+        if(regenerate(dt) && countQueue!=maxCount) addEnemyNode();
     }
 
     /**
      * Adds a new node to the end of the queue
+     * and so has to add to countQueue
      */
     private void addEnemyNode(){
         if(queue.isEmpty()){
             queue.enqueue(new EnemyNode(x,y,radius));
+        } else {
+            EnemyNode tail = Util.getTailContent(queue);
+            queue.enqueue(new EnemyNode(tail.getX(), tail.getY(), radius));
         }
-        EnemyNode tail = Util.getTailContent(queue);
-        queue.enqueue(new EnemyNode(tail.getX(),tail.getY(),radius));
+        countQueue++;
     }
 
     /**
@@ -78,11 +87,10 @@ public class QueueEnemy extends Enemy {
         double desiredXPos = player.getX();
         double desiredYPos = player.getY();
 
-        for (int i = 0; i < Util.countQueue(queue); i++) {
+        for (int i = 0; i < countQueue; i++) {
             
             EnemyNode node = queue.front();
 
-            boolean shouldShoot = Math.sqrt(Math.pow( (desiredXPos-node.getX()) ,2) + Math.pow( (desiredYPos-node.getY()) ,2) ) < 250;
             boolean isIntersecting = Util.circleToCircleCollision(node.getX(),node.getY(),node.getRadius(),desiredXPos,desiredYPos,node.getRadius(),node.getRadius());
             double degrees = Math.atan2(desiredYPos-node.getY(),desiredXPos-node.getX());
 
@@ -98,6 +106,7 @@ public class QueueEnemy extends Enemy {
             queue.dequeue();
         }
     }
+
 
     @Override
     public boolean checkCollision(Projectile projectile) {
@@ -141,7 +150,8 @@ public class QueueEnemy extends Enemy {
     }
 
     /**
-     * Dequeues nodes, if a collision happens
+     * Dequeues nodes and so lowers queueCount, if a collision happens
+     * additionally Puts regeneration on a cooldown
      *
      * @param hard Whether a lot of nodes or just one node should be dequeued
      */
@@ -155,9 +165,32 @@ public class QueueEnemy extends Enemy {
                     return;
                 spawnOrbs(queue.front().getX(),queue.front().getY(),2);
                 queue.dequeue();
+                countQueue--;
             }
         } else {
             queue.dequeue();
+            countQueue--;
         }
+        regenerationTimer = 1;
     }
+
+    /**
+     *
+     * Is responsible for lowering the regenerationTimer
+     * as well as returns a boolean if regeneration should happen.
+     * Time between regeneration is set at default at 0.1,
+     * the time is increased if the QueueEnemy gets hit.
+     *
+     * @param dt time interval between two frames
+     * @return whether Regen happens or not
+     */
+    private boolean regenerate(double dt){
+        regenerationTimer-=1*dt;
+        if(regenerationTimer<0){
+            regenerationTimer = 0.1;
+            return true;
+        }
+        return false;
+    }
+
 }
