@@ -2,7 +2,6 @@ package my_project.model.projectiles;
 
 import KAGO_framework.view.DrawTool;
 import my_project.control.SpawnController;
-import my_project.model.OrbManager;
 import my_project.model.effects.DustParticleEffect;
 import my_project.model.effects.Effect;
 

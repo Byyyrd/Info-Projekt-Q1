@@ -55,10 +55,10 @@ public class ProgramController {
         scene.append(bow);
         Player player = new Player();
         scene.append(player);
-        OrbManager orbManager = new OrbManager(player);
-        scene.append(orbManager);
+        HealingOrbManager healingOrbManager = new HealingOrbManager(player);
+        scene.append(healingOrbManager);
         //Control
-        SpawnController spawnController = new SpawnController(this,orbManager);
+        SpawnController spawnController = new SpawnController(this, healingOrbManager);
         modifierController = new ModifierController();
         PlayerController playerController = new PlayerController(player, bow, spawnController, modifierController);
         collisionController = new CollisionController(playerController, spawnController, background);
