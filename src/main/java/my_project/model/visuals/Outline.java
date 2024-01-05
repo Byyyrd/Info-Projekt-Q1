@@ -21,7 +21,7 @@ public class Outline extends GraphicalObject {
 
     @Override
     public void update(double dt) {
-        alpha = Util.lerp(alpha,0,dt);
+        alpha = Util.lerp(alpha,0,1 - Math.pow(0.5,dt));
     }
 
     @Override
